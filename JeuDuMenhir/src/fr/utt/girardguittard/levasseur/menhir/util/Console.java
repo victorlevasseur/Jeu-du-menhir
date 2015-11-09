@@ -1,4 +1,4 @@
-package fr.utt.girardguittar.levasseur.menhir.util;
+package fr.utt.girardguittard.levasseur.menhir.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

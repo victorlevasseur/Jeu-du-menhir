@@ -1,4 +1,4 @@
-package fr.utt.girardguittar.levasseur.menhir;
+package fr.utt.girardguittard.levasseur.menhir;
 
 public class Jeu {
 
