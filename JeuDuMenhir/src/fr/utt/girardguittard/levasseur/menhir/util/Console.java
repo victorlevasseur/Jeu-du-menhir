@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Console permet de gérer la sortie et l'entrée de la console de manière plus simple.
+ * Cette classe Console permet de gérer la sortie et l'entrée de la console de manière plus simple.
  * En effet, lorsqu'une application Java est testée dans Eclipse, la lecture de données depuis la console
  * n'est pas possible avec System.console(). Cette classe encapsule donc un BufferedReader permettant la
- * récupération de données depuis la console.
+ * récupération de données depuis la console. Une méthode pour afficher du contenu est aussi fournie pour
+ * garder une cohérence dans l'utilisation de la console.
  * 
  * C'est une classe Singleton.
  */
