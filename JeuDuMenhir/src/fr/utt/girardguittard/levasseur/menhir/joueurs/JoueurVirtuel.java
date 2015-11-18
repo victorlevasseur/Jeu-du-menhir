@@ -12,14 +12,13 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
  *
  */
 public class JoueurVirtuel extends Joueur{
+	
 	/**
 	 * Permet de décider de l'action a réalisé en fonction de la carte ingrédient tiré
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param carteChoisie la carte tirée (out)
-	 * @param actionChoisie l'action choisie par le joueur (out)
 	 */
-	protected void deciderChoixDuTour(Manche manche, Saison tour, CarteIngredient carteChoisie, Action actionChoisie){
+	protected ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour){
 		
 	}
 	
