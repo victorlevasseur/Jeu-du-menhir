@@ -3,8 +3,10 @@ package fr.utt.girardguittard.levasseur.menhir.joueurs;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.*;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
+
 /**
- * Représente un joueur avec son score et les différentes actions qu'il réalise au cours d'une manche
+ * ReprÃ©sente un joueur avec son score et les diffÃ©rentes actions qu'il rÃ©alise au cours d'une manche
  *
  */
 public abstract class Joueur {
@@ -17,7 +19,7 @@ public abstract class Joueur {
 	/**
 	 * La main du joueur
 	 */
-	//private MainJoueur main;
+	private MainJoueur main;
 	
 	/**
 	 * Constructeur du joueur
@@ -28,21 +30,21 @@ public abstract class Joueur {
 	}
 
 	/**
-	 * Effectue les opérations qui ont lieu au cours d'un tour.
-	 * Il s'agit de décider qu'elle action réaliser et de l'effectuer.
+	 * Effectue les opÃ©rations qui ont lieu au cours d'un tour.
+	 * Il s'agit de dÃ©cider qu'elle action rÃ©aliser et de l'effectuer.
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
 	public void jouerTour(Manche manche, Saison tour) {
-		CarteIngredient carteChoisie;
-		Action actionChoisie;
-		int joueurCible;
+		CarteIngredient carteChoisie = null;
+		Action actionChoisie = null;
+		int joueurCible = -1;
 		this.deciderChoixDuTour(manche, tour, carteChoisie, actionChoisie, joueurCible);
-		carteChoisie.agir(manche, this.main, joueurCible, tour, action);
+		carteChoisie.agir(manche, this.main, joueurCible, tour, actionChoisie);
 	}
 	
 	/**
-	 * Joue une carte allié
+	 * Joue une carte alliÃ©.
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
@@ -51,7 +53,7 @@ public abstract class Joueur {
 	}
 	
 	/**
-	 * Incrémente le score du joueur
+	 * IncrÃ©mente le score du joueur
 	 * @param inc le nombre de points que le joueur vient de gagner
 	 */
 	public void incrementerScore(int inc) {
@@ -59,19 +61,19 @@ public abstract class Joueur {
 	}
 	
 	/**
-	 * Permet de décider de l'action a réalisé en fonction de la carte ingrédient tiré
+	 * Permet de dÃ©cider de l'action a rÃ©aliser en fonction de la carte ingrÃ©dient tirÃ©e
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param carteChoisie la carte tirée (out)
+	 * @param carteChoisie la carte tirÃ©e (out)
 	 * @param actionChoisie l'action choisie par le joueur (out)
 	 */
 	protected abstract void deciderChoixDuTour(Manche manche, Saison tour, CarteIngredient carteChoisie, Action actionChoisie, int joueurCible);
 	
 	/**
-	 * Permet de choisir une carte allié
+	 * Permet de choisir une carte alliï¿½
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param joueurActuel le numéro du joueur
+	 * @param joueurActuel le numï¿½ro du joueur
 	 */
 	//protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 	
@@ -79,11 +81,11 @@ public abstract class Joueur {
 		return this.scoreTotal;
 	}
 	
-	/*public int getMain() {
+	public MainJoueur getMain() {
 		return this.main;
-	}*/
+	}
 	
-	/*public int setMain(MainJoueur main) {
+	public void setMain(MainJoueur main) {
 		this.main = main;
-	}*/
+	}
 }
