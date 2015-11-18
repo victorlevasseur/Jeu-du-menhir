@@ -15,9 +15,9 @@ public abstract class Joueur {
 	private int scoreTotal;
 	
 	/**
-	 * Manche en cours
+	 * La main du joueur
 	 */
-	private Manche manche;
+	//private MainJoueur main;
 	
 	/**
 	 * Constructeur du joueur
@@ -68,5 +68,5 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	//protected abstract CarteAllies void deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
+	//protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 }
