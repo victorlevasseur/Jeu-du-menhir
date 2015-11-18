@@ -37,7 +37,7 @@ public class Manche {
 		
 		for(int i = 0; i < joueurs.size(); i++) {
 			MainJoueur nouvelleMain = new MainJoueur(joueurs.get(i), this);
-			//joueurs.get(i).setMain(nouvelleMain);
+			joueurs.get(i).setMain(nouvelleMain);
 			this.mainsDesJoueurs.add(nouvelleMain);
 		}
 	}
