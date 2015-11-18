@@ -68,5 +68,5 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	protected CarteAllies void deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
+	//protected abstract CarteAllies void deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 }
