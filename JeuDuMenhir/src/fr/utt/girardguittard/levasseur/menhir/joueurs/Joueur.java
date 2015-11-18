@@ -9,27 +9,64 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.*;
  */
 public abstract class Joueur {
 	
+	/**
+	 * Score du joueur
+	 */
 	private int scoreTotal;
 	
+	/**
+	 * Manche en cours
+	 */
 	private Manche manche;
 	
+	/**
+	 * Constructeur du joueur
+	 */
 	public Joueur() {
 		
 	}
 
+	/**
+	 * Effectue les opérations qui ont lieu au cours d'un tour.
+	 * Il s'agit de décider qu'elle action réaliser et de l'effectuer.
+	 * @param manche la manche en cours
+	 * @param tour le tour en cours
+	 */
 	public void jouerTour(Manche manche, Saison tour) {
 		
 	}
 	
+	/**
+	 * Joue une carte allié
+	 * @param manche la manche en cours
+	 * @param tour le tour en cours
+	 */
 	public void jouerCartesAllies(Manche manche, Saison tour) {
 		
 	}
 	
+	/**
+	 * Incrémente le score du joueur
+	 * @param inc le nombre de points que le joueur vient de gagner
+	 */
 	public void incrementerScore(int inc) {
 		
 	}
 	
+	/**
+	 * Permet de décider de l'action a réalisé en fonction de la carte ingrédient tiré
+	 * @param manche la manche en cours
+	 * @param tour le tour en cours
+	 * @param carteChoisie la carte tirée (out)
+	 * @param actionChoisie l'action choisie par le joueur (out)
+	 */
 	protected abstract void deciderChoixDuTour(Manche manche, Saison tour, CarteIngredient carteChoisie, Action actionChoisie);
 	
+	/**
+	 * Permet de choisir une carte allié
+	 * @param manche la manche en cours
+	 * @param tour le tour en cours
+	 * @param joueurActuel le numéro du joueur
+	 */
 	protected CarteAllies void deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 }
