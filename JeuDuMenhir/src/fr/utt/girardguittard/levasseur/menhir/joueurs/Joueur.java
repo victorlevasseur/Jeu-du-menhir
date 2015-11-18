@@ -15,9 +15,9 @@ public abstract class Joueur {
 	private int scoreTotal;
 	
 	/**
-	 * Manche en cours
+	 * La main du joueur
 	 */
-	private Manche manche;
+	//private MainJoueur main;
 	
 	/**
 	 * Constructeur du joueur
