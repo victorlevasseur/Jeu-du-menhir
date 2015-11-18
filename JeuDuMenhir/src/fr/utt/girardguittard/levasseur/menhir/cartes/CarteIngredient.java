@@ -2,6 +2,9 @@ package fr.utt.girardguittard.levasseur.menhir.cartes;
 
 import java.util.HashMap;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
+import fr.utt.girardguittard.levasseur.menhir.Manche;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
+
 
 /**
  * Représente une carte ingrédient avec son nom et ses forces selon les saisons et actions
@@ -38,4 +41,15 @@ public class CarteIngredient {
 		return this.forces.get(saison).get(action);
 	}
 	
+	/**
+	 * Effectue l'action de la carte choisie par le joueur
+	 * @param manche la manche en cours
+	 * @param mainJoueur la main du joueur
+	 * @param joueurCible le joueur cibl� par la carte en cas de farfadet
+	 * @param tour le tour en cours
+	 * @param action l'action choisie par le joueur
+	 */
+	public void agir(Manche manche, MainJoueur mainJoueur, int joueurCible, Saison tour, Action action) {
+		
+	}
 }
