@@ -38,11 +38,8 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 */
 	public void jouerTour(Manche manche, Saison tour) {
-		CarteIngredient carteChoisie = null;
-		Action actionChoisie = null;
-		int joueurCible = -1;
-		this.deciderChoixDuTour(manche, tour, carteChoisie, actionChoisie, joueurCible);
-		carteChoisie.agir(manche, this.main, joueurCible, tour, actionChoisie);
+		ChoixJoueur choix = deciderChoixDuTour(manche, tour, carteChoisie, actionChoisie, joueurCible);
+		choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 	}
 	
 	/**
@@ -66,10 +63,8 @@ public abstract class Joueur {
 	 * Permet de décider de l'action a réaliser en fonction de la carte ingrédient tirée
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param carteChoisie la carte tirée (out)
-	 * @param actionChoisie l'action choisie par le joueur (out)
 	 */
-	protected abstract void deciderChoixDuTour(Manche manche, Saison tour, CarteIngredient carteChoisie, Action actionChoisie, int joueurCible);
+	protected abstract void deciderChoixDuTour(Manche manche, Saison tour);
 	
 	/**
 	 * Permet de choisir une carte alli�
