@@ -21,9 +21,10 @@ public abstract class Joueur {
 	
 	/**
 	 * Constructeur du joueur
+	 * Un joueur commence avec un score de 0
 	 */
 	public Joueur() {
-		
+		this.scoreTotal = 0;
 	}
 
 	/**
@@ -33,7 +34,11 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 */
 	public void jouerTour(Manche manche, Saison tour) {
-		
+		CarteIngredient carteChoisie;
+		Action actionChoisie;
+		int joueurCible;
+		this.deciderChoixDuTour(manche, tour, carteChoisie, actionChoisie, joueurCible);
+		carteChoisie.agir(manche, this.main, joueurCible, tour, action);
 	}
 	
 	/**
@@ -50,7 +55,7 @@ public abstract class Joueur {
 	 * @param inc le nombre de points que le joueur vient de gagner
 	 */
 	public void incrementerScore(int inc) {
-		
+		this.scoreTotal += inc;
 	}
 	
 	/**
@@ -60,7 +65,7 @@ public abstract class Joueur {
 	 * @param carteChoisie la carte tirée (out)
 	 * @param actionChoisie l'action choisie par le joueur (out)
 	 */
-	protected abstract void deciderChoixDuTour(Manche manche, Saison tour, CarteIngredient carteChoisie, Action actionChoisie);
+	protected abstract void deciderChoixDuTour(Manche manche, Saison tour, CarteIngredient carteChoisie, Action actionChoisie, int joueurCible);
 	
 	/**
 	 * Permet de choisir une carte allié
@@ -69,4 +74,16 @@ public abstract class Joueur {
 	 * @param joueurActuel le numéro du joueur
 	 */
 	//protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
+	
+	public int getScore() {
+		return this.scoreTotal;
+	}
+	
+	/*public int getMain() {
+		return this.main;
+	}*/
+	
+	/*public int setMain(MainJoueur main) {
+		this.main = main;
+	}*/
 }
