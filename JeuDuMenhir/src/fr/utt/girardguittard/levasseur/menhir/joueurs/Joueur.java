@@ -2,7 +2,9 @@ package fr.utt.girardguittard.levasseur.menhir.joueurs;
 
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
-import fr.utt.girardguittard.levasseur.menhir.cartes.*;
+import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 /**
@@ -75,7 +77,7 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le num�ro du joueur
 	 */
-	//protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
+	protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 	
 	public int getScore() {
 		return this.scoreTotal;
