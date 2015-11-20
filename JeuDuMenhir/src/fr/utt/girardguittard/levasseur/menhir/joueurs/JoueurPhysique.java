@@ -7,25 +7,25 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 
 /**
- * Représente l'utilisateur de l'application
+ * Reprï¿½sente l'utilisateur de l'application
  *
  */
 public class JoueurPhysique extends Joueur {
 
 	/**
-	 * Permet de décider de l'action a réalisé en fonction de la carte ingrédient tiré
+	 * Permet de dï¿½cider de l'action a rï¿½alisï¿½ en fonction de la carte ingrï¿½dient tirï¿½
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
 	protected ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour){
-		
+		return new ChoixJoueur(null, 0, null);
 	}
 	
 	/**
-	 * Permet de choisir une carte allié
+	 * Permet de choisir une carte alliï¿½
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param joueurActuel le numéro du joueur
+	 * @param joueurActuel le numï¿½ro du joueur
 	 */
 	protected CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel){
 	

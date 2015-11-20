@@ -64,7 +64,7 @@ public abstract class Joueur {
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
-	protected abstract void deciderChoixDuTour(Manche manche, Saison tour);
+	protected abstract ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour);
 	
 	/**
 	 * Permet de choisir une carte alli�
