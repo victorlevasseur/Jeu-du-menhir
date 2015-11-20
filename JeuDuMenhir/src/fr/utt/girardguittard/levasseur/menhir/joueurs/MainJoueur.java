@@ -130,4 +130,60 @@ public class MainJoueur {
 	public int getNombreMenhir() {
 		return nombreMenhir;
 	}
+	
+	/**
+	 * Ajoute une carte ingrédient à la main du joueur
+	 * @param carteIngredient la carte ingrédient à ajouter
+	 */
+	public void ajouterCarteIngredient(CarteIngredient carteIngredient) {
+		if(this.cartesIngredient.size() <= 3) {
+			this.cartesIngredient.add(carteIngredient);
+		}
+	}
+	
+	/**
+	 * Retire une carte de la main du joueur (après l'avoir jouée)
+	 * @param carte l'index de la carte à retirer
+	 */
+	public void retirerCarteIngredient(int carte) {
+		if(carte < this.cartesIngredient.size()) {
+			this.cartesIngredient.remove(carte);
+		}
+	}
+	
+	/**
+	 * Retourne la carte ingrédient demandée.
+	 * @param carte l'index de la carte
+	 * @return la carte ingrédient
+	 */
+	public CarteIngredient getCarteIngredient(int carte) {
+		if(carte < this.cartesIngredient.size()) {
+			return this.cartesIngredient.get(carte);
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Récupère la carte alliés du joueur (s'il en a une)
+	 * @return la carte alliés du joueur, null sinon
+	 */
+	public CarteAllies getCarteAllies() {
+		return carteAllies;
+	}
+
+	/**
+	 * Définit la carte alliés du joueur.
+	 * @param carteAllies la carte alliés à donner au joueur
+	 */
+	public void setCarteAllies(CarteAllies carteAllies) {
+		this.carteAllies = carteAllies;
+	}
+	
+	/**
+	 * Retire la carte alliés du joueur (après utilisation par exemple).
+	 */
+	public void retirerCarteAllies() {
+		this.setCarteAllies(null);
+	}
 }
