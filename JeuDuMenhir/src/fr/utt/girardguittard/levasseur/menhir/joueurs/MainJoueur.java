@@ -69,15 +69,50 @@ public class MainJoueur {
 	 * (la valeur de retour permet d'obtenir le nombre réellement volé).
 	 */
 	public int volerGraines(int graines) {
-		int grainesVolees = 0;
-		if(graines >= this.nombreGraine) {
-			grainesVolees = this.nombreGraine;
-		} else {
-			grainesVolees = graines;
-		}
-		
+		int grainesVolees = Math.min(this.nombreGraine, graines);
 		this.nombreGraine -= grainesVolees;
 		
 		return grainesVolees;
+	}
+
+	/**
+	 * @return le nombre de graines de la main
+	 */
+	public int getNombreGraine() {
+		return nombreGraine;
+	}
+	
+	/**
+	 * Fait pousser des graines en menhirs.
+	 * @param graines le nombre de graines à faire pousser
+	 * @return le nombre de menhir réellement obtenus
+	 * @note Si le nombre de graines à faire pousser est plus grand que le stock de graine alors seulement les graines
+	 * disponible pousseront.
+	 */
+	public int fairePousserMenhir(int graines) {
+		int menhirsPousses = Math.min(this.nombreGraine, graines);
+		this.nombreGraine -= menhirsPousses;
+		this.nombreMenhir += menhirsPousses;
+		
+		return menhirsPousses;
+	}
+	
+	/**
+	 * Détruit des menhirs.
+	 * @param menhirs le nombre de menhir à détruire
+	 * @return le nombre de menhirs réellement détruits
+	 */
+	public int detruireMenhir(int menhirs) {
+		int menhirsDetruits = Math.min(this.nombreMenhir, menhirs);
+		this.nombreMenhir -= menhirsDetruits;
+		
+		return menhirsDetruits;
+	}
+
+	/**
+	 * @return le nombre de menhir du joueur dans la manche
+	 */
+	public int getNombreMenhir() {
+		return nombreMenhir;
 	}
 }
