@@ -1,6 +1,9 @@
 package fr.utt.girardguittard.levasseur.menhir.joueurs;
 
+import java.util.ArrayList;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 
 public class MainJoueur {
 
@@ -25,6 +28,16 @@ public class MainJoueur {
 	private int nombreMenhir;
 	
 	/**
+	 * Les cartes ingrédients dans la main du joueur (pour la manche actuelle).
+	 */
+	private ArrayList<CarteIngredient> cartesIngredient;
+	
+	/**
+	 * La carte alliés (ou null si aucune) du joueur (partie avancée uniquement)
+	 */
+	private CarteAllies carteAllies;
+	
+	/**
 	 * Constructeur.
 	 * @param joueur le joueur qui possède la main
 	 * @param manche la manche jouée par le joueur avec cette main
@@ -37,6 +50,8 @@ public class MainJoueur {
 		//Initialisation des attributs
 		this.nombreGraine = 0;
 		this.nombreMenhir = 0;
+		this.cartesIngredient = new ArrayList<CarteIngredient>();
+		this.carteAllies = null;
 	}
 
 	/**
