@@ -8,25 +8,25 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 
 
 /**
- * Classe représentant les joueurs controllé par l'IA.
+ * Classe reprï¿½sentant les joueurs controllï¿½ par l'IA.
  *
  */
 public class JoueurVirtuel extends Joueur{
 	
 	/**
-	 * Permet de décider de l'action a réalisé en fonction de la carte ingrédient tiré
+	 * Permet de dï¿½cider de l'action a rï¿½alisï¿½ en fonction de la carte ingrï¿½dient tirï¿½
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
 	protected ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour){
-		
+		return new ChoixJoueur(null, 0, null);
 	}
 	
 	/**
-	 * Permet de choisir une carte allié
+	 * Permet de choisir une carte alliï¿½
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param joueurActuel le numéro du joueur
+	 * @param joueurActuel le numï¿½ro du joueur
 	 */
 	protected CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel){
 	
