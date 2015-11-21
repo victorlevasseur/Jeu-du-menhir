@@ -53,9 +53,9 @@
     </target>
     <target name="MainJoueurTest">
         <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
+        <junit fork="yes" printsummary="withOutAndErr" haltonfailure="true">
             <formatter type="xml"/>
-            <test name="fr.utt.girardguittard.levasseur.menhir.tests.MainJoueurTest" todir="${junit.output.dir}" failonerror="true"/>
+            <test name="fr.utt.girardguittard.levasseur.menhir.tests.MainJoueurTest" todir="${junit.output.dir}"/>
             <classpath refid="JeuDuMenhir.classpath"/>
         </junit>
     </target>
