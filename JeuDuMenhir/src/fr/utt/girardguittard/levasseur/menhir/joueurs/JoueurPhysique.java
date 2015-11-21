@@ -17,8 +17,8 @@ public class JoueurPhysique extends Joueur {
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
-	protected ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour){
-		return new ChoixJoueur(null, 0, null);
+	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour){
+		return new ChoixCarteIngredient(null, 0, null);
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class JoueurPhysique extends Joueur {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	//protected CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel){
-	
-	//}
+	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
+		return null;
+	}
 }
