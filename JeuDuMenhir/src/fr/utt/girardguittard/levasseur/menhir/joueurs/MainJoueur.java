@@ -28,6 +28,11 @@ public class MainJoueur {
 	private int nombreMenhir;
 	
 	/**
+	 * Le nombre de graines que les chiens de garde défendent.
+	 */
+	private int defenseChienDeGarde;
+	
+	/**
 	 * Les cartes ingrédients dans la main du joueur (pour la manche actuelle).
 	 */
 	private ArrayList<CarteIngredient> cartesIngredient;
@@ -50,6 +55,7 @@ public class MainJoueur {
 		//Initialisation des attributs
 		this.nombreGraine = 0;
 		this.nombreMenhir = 0;
+		this.defenseChienDeGarde = 0;
 		this.cartesIngredient = new ArrayList<CarteIngredient>();
 		this.carteAllies = null;
 	}
@@ -85,6 +91,10 @@ public class MainJoueur {
 	 */
 	public int volerGraines(int graines) {
 		int grainesVolees = Math.min(this.nombreGraine, graines);
+		while(this.defenseChienDeGarde > 0 && grainesVolees > 0) {
+			this.defenseChienDeGarde--;
+			grainesVolees--;
+		}
 		this.nombreGraine -= grainesVolees;
 		
 		return grainesVolees;
@@ -107,6 +117,7 @@ public class MainJoueur {
 	public int fairePousserMenhir(int graines) {
 		int menhirsPousses = Math.min(this.nombreGraine, graines);
 		this.nombreGraine -= menhirsPousses;
+		this.defenseChienDeGarde = Math.max(0, this.defenseChienDeGarde - menhirsPousses); //On réduit la défense du nombre
 		this.nombreMenhir += menhirsPousses;
 		
 		return menhirsPousses;
@@ -131,6 +142,14 @@ public class MainJoueur {
 		return nombreMenhir;
 	}
 	
+	public int getDefenseChienDeGarde() {
+		return defenseChienDeGarde;
+	}
+
+	public void setDefenseChienDeGarde(int defenseChienDeGarde) {
+		this.defenseChienDeGarde = Math.min(defenseChienDeGarde, this.nombreGraine);
+	}
+
 	/**
 	 * Ajoute une carte ingrédient à la main du joueur
 	 * @param carteIngredient la carte ingrédient à ajouter

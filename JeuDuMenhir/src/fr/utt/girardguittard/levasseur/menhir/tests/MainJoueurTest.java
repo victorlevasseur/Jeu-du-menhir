@@ -59,5 +59,25 @@ public class MainJoueurTest {
 		assertEquals(mj.detruireMenhir(4), 2);
 		assertEquals(mj.getNombreMenhir(), 0);
 	}
+	
+	@Test
+	public void testChienDeGarde() {
+		MainJoueur mj = new MainJoueur(null, null);
+		mj.ajouterGraines(3);
+		
+		mj.setDefenseChienDeGarde(3);
+		mj.fairePousserMenhir(2);
+		assertEquals(mj.getDefenseChienDeGarde(), 1);
+		
+		mj.setDefenseChienDeGarde(3);
+		assertEquals(mj.getDefenseChienDeGarde(), 1);
+		
+		mj.ajouterGraines(3);
+		mj.setDefenseChienDeGarde(2);
+		assertEquals(mj.volerGraines(1), 0);
+		assertEquals(mj.getDefenseChienDeGarde(), 1);
+		assertEquals(mj.volerGraines(3), 2);
+		assertEquals(mj.getDefenseChienDeGarde(), 0);
+	}
 
 }
