@@ -72,7 +72,7 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	//protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
+	protected abstract ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 	
 	public int getScore() {
 		return this.scoreTotal;

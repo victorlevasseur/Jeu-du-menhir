@@ -27,7 +27,7 @@ public class JoueurPhysique extends Joueur {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	//protected CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel){
-	
-	//}
+	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
+		return null;
+	}
 }
