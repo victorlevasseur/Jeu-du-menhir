@@ -6,7 +6,7 @@ addons:
             - deadsnakes
             - ubuntu-toolchain-r-test
         packages:
-            - eclipse
+            - junit4
         
 script:
     - cd JeuDuMenhir
