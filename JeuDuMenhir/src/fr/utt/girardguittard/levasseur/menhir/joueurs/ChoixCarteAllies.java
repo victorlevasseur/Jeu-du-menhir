@@ -3,18 +3,18 @@ package fr.utt.girardguittard.levasseur.menhir.joueurs;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 
 /**
- * Classe contenant la carte alliés choisie par le joueur.
+ * Classe contenant la carte alliÃ©s choisie par le joueur.
  *
  */
 public class ChoixCarteAllies {
 
 	/**
-	 * La carte alliés choisie par le joueur.
+	 * La carte alliÃ©s choisie par le joueur.
 	 */
 	private final CarteAllies carteChoisie;
 	
 	/**
-	 * La cible de la carte allié
+	 * La cible de la carte alliÃ©s
 	 */
 	private final int cible;
 	
@@ -30,7 +30,7 @@ public class ChoixCarteAllies {
 
 	/**
 	 * Getter de la carte
-	 * @return la carte alliés choisie
+	 * @return la carte alliÃ©s choisie
 	 */
 	public CarteAllies getCarteChoisie() {
 		return carteChoisie;
@@ -38,7 +38,7 @@ public class ChoixCarteAllies {
 
 	/**
 	 * Getter de la cible
-	 * @return le numéro du joueur ciblé
+	 * @return le numÃ©ro du joueur ciblÃ©
 	 */
 	public int getCible() {
 		return cible;
