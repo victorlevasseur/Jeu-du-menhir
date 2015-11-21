@@ -7,8 +7,8 @@ addons:
             - ubuntu-toolchain-r-test
         packages:
             - junit4
-        
+
 script:
     - cd JeuDuMenhir
+    - ant build
     - ant MainJoueurTest
-    
