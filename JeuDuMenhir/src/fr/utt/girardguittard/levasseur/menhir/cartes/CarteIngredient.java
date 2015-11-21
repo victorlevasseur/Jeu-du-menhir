@@ -45,7 +45,7 @@ public class CarteIngredient {
 	 * Effectue l'action de la carte choisie par le joueur
 	 * @param manche la manche en cours
 	 * @param mainJoueur la main du joueur
-	 * @param joueurCible le joueur ciblé par la carte en cas de farfadet
+	 * @param joueurCible le joueur ciblÃ© par la carte en cas de farfadet
 	 * @param tour le tour en cours
 	 * @param action l'action choisie par le joueur
 	 */
