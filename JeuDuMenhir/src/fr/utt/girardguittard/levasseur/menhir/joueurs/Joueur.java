@@ -38,7 +38,7 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 */
 	public void jouerTour(Manche manche, Saison tour) {
-		ChoixJoueur choix = deciderChoixDuTour(manche, tour);
+		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
 		choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 	}
 	
@@ -64,7 +64,7 @@ public abstract class Joueur {
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
-	protected abstract ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour);
+	protected abstract ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour);
 	
 	/**
 	 * Permet de choisir une carte allié

@@ -8,7 +8,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
  * Cette carte sert de retour à la méthode deciderChoixDuTour
  *
  */
-public class ChoixJoueur {
+public class ChoixCarteIngredient {
 	
 	/**
 	 * La carte ingrédient choisie par le joueur
@@ -31,7 +31,7 @@ public class ChoixJoueur {
 	 * @param cible le joueur ciblé
 	 * @param actionChoisie l'action choisie par le joueur
 	 */
-	public ChoixJoueur(CarteIngredient carteChoisie, int cible, Action actionChoisie) {
+	public ChoixCarteIngredient(CarteIngredient carteChoisie, int cible, Action actionChoisie) {
 		this.carteChoisie = carteChoisie;
 		this.cible = cible;
 		this.actionChoisie = actionChoisie;
