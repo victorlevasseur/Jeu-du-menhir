@@ -4,7 +4,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 
 /**
- * Classe contenant la carte ingr�dient choisie par le joueur, l'action choisie et sa cible 
+ * Classe contenant la carte ingrédient choisie par le joueur, l'action choisie et sa cible 
  * Cette carte sert de retour à la méthode deciderChoixDuTour
  *
  */
