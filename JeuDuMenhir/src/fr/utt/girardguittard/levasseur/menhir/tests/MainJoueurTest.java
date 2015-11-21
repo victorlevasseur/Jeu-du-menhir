@@ -33,8 +33,6 @@ public class MainJoueurTest {
 		
 		assertEquals(mj.volerGraines(4), 2);
 		assertEquals(mj.getNombreGraine(), 0);
-		
-		fail("aaaa !");
 	}
 
 	@Test
