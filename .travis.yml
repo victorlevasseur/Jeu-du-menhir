@@ -8,9 +8,6 @@ addons:
         packages:
             - eclipse
         
-install:
-    - cd JeuDuMenhir
-    - ant deps
 script:
     - cd JeuDuMenhir
     - ant MainJoueurTest
