@@ -38,7 +38,7 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 */
 	public void jouerTour(Manche manche, Saison tour) {
-		ChoixJoueur choix = deciderChoixDuTour(manche, tour, carteChoisie, actionChoisie, joueurCible);
+		ChoixJoueur choix = deciderChoixDuTour(manche, tour);
 		choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 	}
 	
@@ -67,12 +67,12 @@ public abstract class Joueur {
 	protected abstract ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour);
 	
 	/**
-	 * Permet de choisir une carte alli�
+	 * Permet de choisir une carte allié
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param joueurActuel le num�ro du joueur
+	 * @param joueurActuel le numéro du joueur
 	 */
-	protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
+	//protected abstract CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 	
 	public int getScore() {
 		return this.scoreTotal;

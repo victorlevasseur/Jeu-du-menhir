@@ -7,25 +7,25 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixJoueur;
 
 /**
- * Permet aux joueurs virtuels de d�cider des actions � r�aliser
+ * Permet aux joueurs virtuels de décider des actions à réaliser
  */
 public interface Strategie {
 	
 	/**
-	 * Permet de d�cider de l'action a r�alis� en fonction de la carte ingr�dient tir�
+	 * Permet de décider de l'action à réaliser en fonction de la carte ingrédient tirée
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param carteChoisie la carte tir�e (out)
+	 * @param carteChoisie la carte tirée (out)
 	 * @param actionChoisie l'action choisie par le joueur (out)
 	 */
 	public ChoixJoueur deciderChoixDuTour(Manche manche, Saison tour);
 	
 	/**
-	 * Permet de choisir une carte alli�
+	 * Permet de choisir une carte allié
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
-	 * @param joueurActuel le num�ro du joueur
+	 * @param joueurActuel le numéro du joueur
 	 */
-	public CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel); 
+	//public CarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel); 
 
 }

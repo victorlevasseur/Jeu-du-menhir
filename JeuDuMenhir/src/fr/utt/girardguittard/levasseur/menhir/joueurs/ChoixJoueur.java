@@ -5,18 +5,18 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 
 /**
  * Classe contenant la carte choisie par le joueur, l'action choisie et sa cible 
- * Cette carte sert de retour ‡ la mÈthode deciderChoixDuTour
+ * Cette carte sert de retour √† la m√©thode deciderChoixDuTour
  *
  */
 public class ChoixJoueur {
 	
 	/**
-	 * La carte ingrÈdient choisie par le joueur
+	 * La carte ingr√©dient choisie par le joueur
 	 */
 	private final CarteIngredient carteChoisie;
 	
 	/**
-	 * Le numÈro correspondant au joueur ciblÈ
+	 * Le num√©ro correspondant au joueur cibl√©
 	 */
 	private final int cible;
 	
@@ -28,7 +28,7 @@ public class ChoixJoueur {
 	/**
 	 * Le constructeur de la classe, permettant d'initialiser les variables
 	 * @param carteChoisie la carte choisie par le joueur
-	 * @param cible le joueur ciblÈ
+	 * @param cible le joueur cibl√©
 	 * @param actionChoisie l'action choisie par le joueur
 	 */
 	public ChoixJoueur(CarteIngredient carteChoisie, int cible, Action actionChoisie) {
@@ -46,8 +46,8 @@ public class ChoixJoueur {
 	}
 	
 	/**
-	 * Getter du numÈro du joueur cible
-	 * @return le numÈro du joueur ciblÈ
+	 * Getter du num√©ro du joueur cibl√©
+	 * @return le num√©ro du joueur cibl√©
 	 */
 	public int getCible() {
 		return this.cible;
