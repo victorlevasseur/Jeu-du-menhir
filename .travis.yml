@@ -1,4 +1,13 @@
 language: java
+
+addons:
+    apt:
+        sources:
+            - deadsnakes
+            - ubuntu-toolchain-r-test
+        packages:
+            - eclipse
+        
 install:
     - cd JeuDuMenhir
     - ant deps
