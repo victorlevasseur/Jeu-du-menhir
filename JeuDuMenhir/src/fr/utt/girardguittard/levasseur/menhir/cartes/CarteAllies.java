@@ -1,5 +1,7 @@
 package fr.utt.girardguittard.levasseur.menhir.cartes;
 
+import java.util.HashMap;
+
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
@@ -9,6 +11,18 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
  * Chaque carte dispose d'une action
  */
 public abstract class CarteAllies {
+	
+	private HashMap<Saison, Integer> forces;
+	
+	public CarteAllies(HashMap<Saison, Integer> forces) {
+		this.forces = forces;
+	}
+	
+	public abstract String getNom();
+	
+	public int getForce(Saison tour) {
+		return this.forces.get(tour);
+	}
 	
 	/**
 	 * Réalise l'action de la carte
