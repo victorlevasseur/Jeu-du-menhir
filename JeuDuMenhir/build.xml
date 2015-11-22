@@ -58,6 +58,11 @@
             <test name="fr.utt.girardguittard.levasseur.menhir.tests.MainJoueurTest" todir="${junit.output.dir}"/>
             <classpath refid="JeuDuMenhir.classpath"/>
         </junit>
+    	<junit fork="yes" printsummary="withOutAndErr" haltonfailure="true">
+            <formatter type="xml"/>
+            <test name="fr.utt.girardguittard.levasseur.menhir.tests.CarteIngredientTest" todir="${junit.output.dir}"/>
+            <classpath refid="JeuDuMenhir.classpath"/>
+        </junit>
     </target>
     <target name="Jeu">
         <java classname="fr.utt.girardguittard.levasseur.menhir.Jeu" failonerror="true" fork="yes">
