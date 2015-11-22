@@ -1,10 +1,20 @@
 package fr.utt.girardguittard.levasseur.menhir.cartes;
 
+import java.util.HashMap;
+
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 public class ChiensDeGarde extends CarteAllies{
+	
+	public ChiensDeGarde(HashMap<Saison, Integer> forces) {
+		super(forces);
+	}
+	
+	public String getNom() {
+		return "Chiens de garde";
+	}
 
 	/**
 	 * Ajoute de la défense au joueur
@@ -15,7 +25,6 @@ public class ChiensDeGarde extends CarteAllies{
 	 * @param tour le tour en cours
 	 */
 	public void agir(Manche manche, MainJoueur main, int joueurCible, Saison tour){
-		
+		main.setDefenseChienDeGarde(this.getForce(tour));
 	}
-
 }

@@ -1,10 +1,20 @@
 package fr.utt.girardguittard.levasseur.menhir.cartes;
 
+import java.util.HashMap;
+
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 public class TaupesGeantes extends CarteAllies{
+	
+	public TaupesGeantes(HashMap<Saison, Integer> forces) {
+		super(forces);
+	}
+	
+	public String getNom() {
+		return "Taupes géantes";
+	}
 	
 	/**
 	 * Détruit les menhirs d'un adversaire (diminue le score)
@@ -15,6 +25,7 @@ public class TaupesGeantes extends CarteAllies{
 	 */
 	public void agir(Manche manche, MainJoueur main, int joueurCible, Saison tour) {
 		MainJoueur mainCible = manche.getJoueur(joueurCible).getMain();
+		mainCible.detruireMenhir(this.getForce(tour));
 	}
 
 }
