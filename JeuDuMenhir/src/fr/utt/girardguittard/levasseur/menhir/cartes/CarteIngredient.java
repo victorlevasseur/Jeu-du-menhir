@@ -50,6 +50,13 @@ public class CarteIngredient {
 	 * @param action l'action choisie par le joueur
 	 */
 	public void agir(Manche manche, MainJoueur mainJoueur, int joueurCible, Saison tour, Action action) {
-		
+		if(action == Action.GEANT) { //Si le joueur veut voir le géant
+			mainJoueur.ajouterGraines(this.getForce(tour, action));
+		} else if(action == Action.ENGRAIS) { //Si le joueur veut faire pousser des menhirs
+			mainJoueur.fairePousserMenhir(this.getForce(tour, action));
+		} else if(action == Action.FARFADET) { //Si le joueur veut voler des graines à un adversaire
+			//On ajoute à la main du joueur le nombre de graines que l'on a pu réellement voler à l'adversaire
+			mainJoueur.ajouterGraines(manche.getJoueur(joueurCible).getMain().volerGraines(this.getForce(tour, action)));
+		}
 	}
 }
