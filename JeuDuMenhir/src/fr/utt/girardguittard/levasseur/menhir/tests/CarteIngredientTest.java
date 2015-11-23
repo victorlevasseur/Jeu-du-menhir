@@ -12,6 +12,8 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CartesFabrique;
+import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurVirtuel;
@@ -29,7 +31,11 @@ public class CarteIngredientTest {
 		joueurs.add(new JoueurPhysique());
 		joueurs.add(new JoueurVirtuel());
 		
-		Manche manche = new Manche(joueurs);
+		DeckCartes<CarteIngredient> deckIngredient = new DeckCartes<CarteIngredient>();
+		deckIngredient.ajouterCartes(CartesFabrique.genererCartesIngredients());
+		deckIngredient.remettreCartesEtMelanger();
+		
+		Manche manche = new Manche(false, joueurs, deckIngredient, null);
 		manche.getJoueur(1).getMain().ajouterGraines(2);
 		
 		HashMap<Saison, HashMap<Action, Integer>> forces = new HashMap<Saison, HashMap<Action, Integer>>();

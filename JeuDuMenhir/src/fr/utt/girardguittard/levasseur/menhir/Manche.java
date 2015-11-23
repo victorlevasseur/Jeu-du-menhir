@@ -3,8 +3,12 @@ package fr.utt.girardguittard.levasseur.menhir;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
+import fr.utt.girardguittard.levasseur.menhir.util.Console;
 
 /**
  * La classe Manche représente une manche et permet de faire son déroulement.
@@ -27,18 +31,50 @@ public class Manche {
 	private ArrayList<MainJoueur> mainsDesJoueurs;
 	
 	/**
-	 * Constructeur de Manche.
-	 * Construit une manche vide.
+	 * Contient vrai si la partie est avancée
 	 */
-	public Manche(ArrayList<Joueur> joueurs) {
+	boolean partieAvancee;
+	
+	/**
+	 * Constructeur de Manche.
+	 * @param partieAvancee booléen valant vrai si la partie est avancée
+	 * @param joueurs une liste de joueurs qui participent à la partie
+	 * @param deckIngredient le deck des cartes ingrédients
+	 * @param deckAllies le deck des cartes alliés
+	 */
+	public Manche(boolean partieAvancee, ArrayList<Joueur> joueurs, 
+			DeckCartes<CarteIngredient> deckIngredient,
+			DeckCartes<CarteAllies> deckAllies) {
 		this.tourActuel = Saison.PRINTEMPS;
 		this.joueurTour = 0;
 		this.mainsDesJoueurs = new ArrayList<MainJoueur>();
+		this.partieAvancee = partieAvancee;
 		
+		//On affecte les mains aux joueurs et à la manche afin de créer la liaison
 		for(int i = 0; i < joueurs.size(); i++) {
 			MainJoueur nouvelleMain = new MainJoueur(joueurs.get(i), this);
 			joueurs.get(i).setMain(nouvelleMain);
 			this.mainsDesJoueurs.add(nouvelleMain);
+		}
+		
+		//Distribution des cartes ingrédients
+		for(int i = 0; i < 4; i++) {
+			for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
+				it.next().ajouterCarteIngredient(deckIngredient.getCarte());
+			}
+		}
+		
+		//Distribution des cartes alliés (si en partie avancée et si le joueur en veut une)
+		if(this.partieAvancee) {
+			for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
+				boolean veutCarteAllies = true;
+				//TODO: Demander à l'utilisateur
+				if(veutCarteAllies) {
+					it.next().setCarteAllies(deckAllies.getCarte());
+				} else {
+					it.next().ajouterGraines(2);
+				}
+			}
 		}
 	}
 	
