@@ -60,7 +60,7 @@ public class Partie {
 					(int)(Math.random() * 4.f));
 			
 			//On joue la manche
-			Console.getInstance().println("Manche #" + i + " : ");
+			Console.getInstance().println("Manche #" + (i+1) + " : ");
 			manche.jouer();
 		}
 	}
