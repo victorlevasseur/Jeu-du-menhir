@@ -1,6 +1,7 @@
 package fr.utt.girardguittard.levasseur.menhir;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
@@ -9,6 +10,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurVirtuel;
+import fr.utt.girardguittard.levasseur.menhir.util.Console;
 
 public class Partie {
 	
@@ -22,6 +24,7 @@ public class Partie {
 	
 	public Partie(int nombreJoueurs, boolean partieAvancee) {
 		this.partieAvancee = partieAvancee;
+		this.joueurs = new ArrayList<Joueur>();
 		
 		//Création des joueurs
 		this.joueurs.add(new JoueurPhysique());
@@ -45,6 +48,20 @@ public class Partie {
 	}
 	
 	void jouer() {
-		
+		//On effectue le nombre de manches souhaités (1 si partie simple, 4 sinon)
+		//La condition ternaire est plutôt utile ici...
+		for(int i = 0; i < (this.partieAvancee ? 4 : 1); i++) {
+			
+			//Création de la manche
+			Manche manche = new Manche(this.partieAvancee, 
+					this.joueurs, 
+					this.deckCartesIngredient, 
+					this.deckCartesAllies,
+					(int)(Math.random() * 4.f));
+			
+			//On joue la manche
+			Console.getInstance().println("Manche #" + i + " : ");
+			manche.jouer();
+		}
 	}
 }

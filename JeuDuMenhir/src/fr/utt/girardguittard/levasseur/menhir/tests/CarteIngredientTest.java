@@ -35,7 +35,7 @@ public class CarteIngredientTest {
 		deckIngredient.ajouterCartes(CartesFabrique.genererCartesIngredients());
 		deckIngredient.remettreCartesEtMelanger();
 		
-		Manche manche = new Manche(false, joueurs, deckIngredient, null);
+		Manche manche = new Manche(false, joueurs, deckIngredient, null, 0);
 		manche.getJoueur(1).getMain().ajouterGraines(2);
 		
 		HashMap<Saison, HashMap<Action, Integer>> forces = new HashMap<Saison, HashMap<Action, Integer>>();
