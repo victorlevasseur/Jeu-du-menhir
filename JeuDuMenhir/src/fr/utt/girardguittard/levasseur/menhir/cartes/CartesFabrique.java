@@ -150,4 +150,20 @@ public class CartesFabrique {
 		
 		return cartes;
 	}
+	
+	public static List<CarteAllies> genererCartesAllies() {
+		ArrayList<CarteAllies> cartes = new ArrayList<CarteAllies>();
+		
+		//Taupes géantes
+		cartes.add(TaupesGeantes.CreerAvecTableau(new int[]{1, 1, 1, 1}));
+		cartes.add(TaupesGeantes.CreerAvecTableau(new int[]{0, 2, 2, 0}));
+		cartes.add(TaupesGeantes.CreerAvecTableau(new int[]{0, 1, 2, 1}));
+		
+		//Chiens de garde
+		cartes.add(ChiensDeGarde.CreerAvecTableau(new int[]{2, 0, 2, 0}));
+		cartes.add(ChiensDeGarde.CreerAvecTableau(new int[]{1, 2, 0, 1}));
+		cartes.add(ChiensDeGarde.CreerAvecTableau(new int[]{0, 1, 3, 0}));
+		
+		return cartes;
+	}
 }

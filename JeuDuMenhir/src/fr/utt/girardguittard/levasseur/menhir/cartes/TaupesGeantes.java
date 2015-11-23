@@ -12,6 +12,27 @@ public class TaupesGeantes extends CarteAllies{
 		super(forces);
 	}
 	
+	/**
+	 * Créée une carte alliés TaupesGeantes à partir des forces sous forme d'un tableau à 4 valeurs
+	 * représentant les forces pour chaque saisons (de PRINTEMPS à HIVER).
+	 * @param forces un tableau de forces
+	 * @return une carte TaupesGeantes
+	 */
+	public static TaupesGeantes CreerAvecTableau(int[] forces) {
+		if(forces.length != 4) {
+			//TODO: Exceptions !
+		}
+		
+		HashMap<Saison, Integer> forcesMap = new HashMap<Saison, Integer>();
+		
+		forcesMap.put(Saison.PRINTEMPS, forces[0]);
+		forcesMap.put(Saison.ETE, forces[1]);
+		forcesMap.put(Saison.AUTOMNE, forces[2]);
+		forcesMap.put(Saison.HIVER, forces[3]);
+		
+		return new TaupesGeantes(forcesMap);
+	}
+	
 	public String getNom() {
 		return "Taupes géantes";
 	}
