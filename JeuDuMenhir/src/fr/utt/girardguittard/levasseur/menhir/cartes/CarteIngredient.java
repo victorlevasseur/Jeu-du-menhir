@@ -32,6 +32,53 @@ public class CarteIngredient {
 	}
 	
 	/**
+	 * Instancie une carte ingrédient grâce à son nom et ses forces données par un tableau au lieu
+	 * d'une HashMap<Saison, HashMap<Action, int>>. Le tableau doit contenir 12 entiers sous forme de
+	 * 3 suites de 4 valeurs pour chaque action de la carte (GEANT, puis ENGRAIS et enfin FARFADET).
+	 * @param nom le nom de la carte
+	 * @param forces le tableau des forces de la carte
+	 * @return une instance de CarteIngredient créée avec ces informations
+	 */
+	public static CarteIngredient CreerAvecTableau(String nom, int[] forces) {
+		if(forces.length != 12) {
+			//TODO: Exception !
+		}
+		
+		//La future map des forces de la carte
+		HashMap<Saison, HashMap<Action, Integer>> forcesMap = new HashMap<Saison, HashMap<Action, Integer>>();
+		
+		//Forces pour Saison.PRINTEMPS
+		HashMap<Action, Integer> forcesPr = new HashMap<Action, Integer>();
+		forcesPr.put(Action.GEANT, forces[0]);
+		forcesPr.put(Action.ENGRAIS, forces[4]);
+		forcesPr.put(Action.FARFADET, forces[8]);
+		forcesMap.put(Saison.PRINTEMPS, forcesPr);
+		
+		//Forces pour Saison.ETE
+		HashMap<Action, Integer> forcesEte = new HashMap<Action, Integer>();
+		forcesEte.put(Action.GEANT, forces[1]);
+		forcesEte.put(Action.ENGRAIS, forces[5]);
+		forcesEte.put(Action.FARFADET, forces[9]);
+		forcesMap.put(Saison.ETE, forcesEte);
+				
+		//Forces pour Saison.AUTOMNE
+		HashMap<Action, Integer> forcesAut = new HashMap<Action, Integer>();
+		forcesAut.put(Action.GEANT, forces[2]);
+		forcesAut.put(Action.ENGRAIS, forces[6]);
+		forcesAut.put(Action.FARFADET, forces[10]);
+		forcesMap.put(Saison.AUTOMNE, forcesAut);
+		
+		//Forces pour Saison.HIVER
+		HashMap<Action, Integer> forcesHiv = new HashMap<Action, Integer>();
+		forcesHiv.put(Action.GEANT, forces[3]);
+		forcesHiv.put(Action.ENGRAIS, forces[7]);
+		forcesHiv.put(Action.FARFADET, forces[11]);
+		forcesMap.put(Saison.HIVER, forcesHiv);
+		
+		return new CarteIngredient(nom, forcesMap);
+	}
+	
+	/**
 	 * Obtient la force de la carte pour une action à une saison donnée.
 	 * @param saison la saison
 	 * @param action l'action
