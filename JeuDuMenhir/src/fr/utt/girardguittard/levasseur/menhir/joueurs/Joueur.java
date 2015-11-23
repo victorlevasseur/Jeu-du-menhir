@@ -47,7 +47,7 @@ public abstract class Joueur {
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
-	public void jouerCartesAllies(Manche manche, Saison tour) {
+	public void jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
 		
 	}
 	
