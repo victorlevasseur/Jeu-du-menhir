@@ -18,6 +18,7 @@ public class Partie {
 		this.joueurs.add(new JoueurPhysique());
 		while(nombreJoueurs - 1 > 0) {
 			this.joueurs.add(new JoueurVirtuel());
+			//TODO : Affecter des stratégies
 			nombreJoueurs--;
 		}
 	}
