@@ -8,6 +8,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
+import fr.utt.girardguittard.levasseur.menhir.util.Console;
 
 /**
  * La classe Manche représente une manche et permet de faire son déroulement.
@@ -63,14 +64,16 @@ public class Manche {
 			}
 		}
 		
-		//Distribution des cartes ingrédients (si en partie avancée et si le joueur en veut une)
-		for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
-			boolean veutCarteAllies = true;
-			//TODO: Demander à l'utilisateur
-			if(veutCarteAllies) {
-				it.next().setCarteAllies(deckAllies.getCarte());
-			} else {
-				it.next().ajouterGraines(2);
+		//Distribution des cartes alliés (si en partie avancée et si le joueur en veut une)
+		if(this.partieAvancee) {
+			for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
+				boolean veutCarteAllies = true;
+				//TODO: Demander à l'utilisateur
+				if(veutCarteAllies) {
+					it.next().setCarteAllies(deckAllies.getCarte());
+				} else {
+					it.next().ajouterGraines(2);
+				}
 			}
 		}
 	}

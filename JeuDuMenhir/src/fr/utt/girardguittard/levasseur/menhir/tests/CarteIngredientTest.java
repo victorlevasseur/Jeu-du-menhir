@@ -33,6 +33,7 @@ public class CarteIngredientTest {
 		
 		DeckCartes<CarteIngredient> deckIngredient = new DeckCartes<CarteIngredient>();
 		deckIngredient.ajouterCartes(CartesFabrique.genererCartesIngredients());
+		deckIngredient.remettreCartesEtMelanger();
 		
 		Manche manche = new Manche(false, joueurs, deckIngredient, null);
 		manche.getJoueur(1).getMain().ajouterGraines(2);
