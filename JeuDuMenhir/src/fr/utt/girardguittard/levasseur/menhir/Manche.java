@@ -67,7 +67,9 @@ public class Manche {
 		
 		//On mélange les deux tas de cartes
 		deckIngredient.remettreCartesEtMelanger();
-		deckAllies.remettreCartesEtMelanger();
+		if(deckAllies != null) {
+			deckAllies.remettreCartesEtMelanger();
+		}
 		
 		//Distribution des cartes ingrédients
 		for(int i = 0; i < 4; i++) {
