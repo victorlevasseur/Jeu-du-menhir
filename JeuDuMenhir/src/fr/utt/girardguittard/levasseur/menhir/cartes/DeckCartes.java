@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -31,6 +32,19 @@ public class DeckCartes<E> {
 		this.cartes = new ArrayList<E>();
 	}
 	
+	/**
+	 * Ajoute des cartes au tas.
+	 * @param cartes une collection de cartes à ajouter
+	 * @note Attention, il faut bien remelanger les cartes après car cela n'est pas fait automatiquement (les cartes
+	 * ne serait alors pas prises en compte pour la distribution).
+	 */
+	public void ajouterCartes(Collection<E> cartes) {
+		this.cartes.addAll(cartes);
+	}
+	
+	/**
+	 * Reinitialise le tas de cartes et mélange les cartes.
+	 */
 	public void remettreCartesEtMelanger() {		
 		this.tasDeCarte.clear();
 		
@@ -49,10 +63,18 @@ public class DeckCartes<E> {
 		}
 	}
 	
+	/**
+	 * Récupère une carte du tas qui est ensuite retirée du tas.
+	 * @return la carte récupérée du tas
+	 */
 	public E getCarte() {
 		return this.tasDeCarte.remove();
 	}
 	
+	/**
+	 * Remet une carte dans le tas (en dessous du tas).
+	 * @param carte la carte à remettre dans le tas
+	 */
 	public void remettreCarteDansTas(E carte) {
 		if(!this.tasDeCarte.contains(carte)) {
 			this.tasDeCarte.add(carte);
