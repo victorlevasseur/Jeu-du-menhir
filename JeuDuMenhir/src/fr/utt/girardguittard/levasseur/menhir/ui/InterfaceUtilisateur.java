@@ -1,5 +1,9 @@
 package fr.utt.girardguittard.levasseur.menhir.ui;
 
+import fr.utt.girardguittard.levasseur.menhir.Manche;
+import fr.utt.girardguittard.levasseur.menhir.Partie;
+import fr.utt.girardguittard.levasseur.menhir.Saison;
+
 /**
  * Interface spécifiant les méthodes qui doivent permettre à une interface de fonctionner
  * avec le moteur du jeu du menhir.
@@ -31,4 +35,28 @@ public interface InterfaceUtilisateur {
 	 */
 	public void notifierValidationParametres(boolean nombreJoueursOk);
 	
+	/**
+	 * Méthode appelée au lancement de la partie.
+	 * @param partie la partie lancée
+	 */
+	public void notifierDebutPartie(Partie partie);
+	
+	/**
+	 * Méthode appelée au lancement d'une manche.
+	 * @param numeroManche le numéro de la manche (de 0 à 3)
+	 * @param manche la manche qui est lancée
+	 */
+	public void notifierDebutManche(int numeroManche, Manche manche);
+	
+	/**
+	 * Méthode appelée au lancement d'une saison.
+	 * @param saison la saison qui débute
+	 */
+	public void notifierDebutSaison(Saison saison);
+	
+	/**
+	 * Méthode appelée au lancement du tour d'un joueur.
+	 * @param numeroJoueur le numéro du joueur qui débute son tour
+	 */
+	public void notifierDebutTour(int numeroJoueur);
 }

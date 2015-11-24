@@ -7,6 +7,7 @@ public class AffichageCartesTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println(CartesFabrique.genererCartesIngredients().get((int)(Math.random()*24)));
+		System.out.println(CartesFabrique.genererCartesAllies().get((int)(Math.random()*6)));
 	}
 
 }

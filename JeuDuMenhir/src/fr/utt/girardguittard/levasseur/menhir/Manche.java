@@ -8,6 +8,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
+import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
 
 /**
@@ -18,7 +19,7 @@ public class Manche {
 	/**
 	 * Saison actuelle.
 	 */
-	private Saison tourActuel;
+	private Saison saisonActuelle;
 	
 	/**
 	 * Joueur qui est en train de jouer la saison (0 pour le 1er joueur).
@@ -28,7 +29,7 @@ public class Manche {
 	/**
 	 * Joueur qui débute chaque saison
 	 */
-	private int premierJoueur;
+	final private int premierJoueur;
 	
 	/**
 	 * Liste des mains des joueurs
@@ -51,7 +52,7 @@ public class Manche {
 			DeckCartes<CarteIngredient> deckIngredient,
 			DeckCartes<CarteAllies> deckAllies,
 			int premierJoueur) {
-		this.tourActuel = Saison.PRINTEMPS;
+		this.saisonActuelle = Saison.PRINTEMPS;
 		this.joueurTour = 0;
 		this.premierJoueur = premierJoueur;
 		this.mainsDesJoueurs = new ArrayList<MainJoueur>();
@@ -95,13 +96,11 @@ public class Manche {
 	/**
 	 * Joue la manche.
 	 */
-	public void jouer() {
-		Console.getInstance().println("Le joueur " + (this.premierJoueur + 1) + " commence les tours dans cette manche.");
-		
+	public void jouer() {	
 		//On fait le déroulement des 4 saisons
 		for(Saison saison : Saison.values()) {
-			Console.getInstance().println("C'est la saison " + saison.toString());
-			this.tourActuel = saison;
+			this.saisonActuelle = saison;
+			InterfaceManager.get().notifierDebutSaison(this.saisonActuelle);
 			
 			//On fait jouer chaque joueur, en commençant par le joueur qui doit jouer en premier (this.premierJoueur).
 			//(on n'utilise pas Iterator car on a besoin de l'index de l'itération)
@@ -118,7 +117,7 @@ public class Manche {
 					}
 				}
 				
-				Console.getInstance().println("Au tour du joueur #" + (numJoueur+1) + " : ");
+				InterfaceManager.get().notifierDebutTour(numJoueur);
 				//On fait jouer le joueur
 				this.getJoueur(numJoueur).jouerTour(this, saison);
 			}
@@ -139,5 +138,9 @@ public class Manche {
 	 */
 	public Joueur getJoueur(int numero) {
 		return this.mainsDesJoueurs.get(numero).getJoueur();
+	}
+
+	public int getPremierJoueur() {
+		return premierJoueur;
 	}
 }
