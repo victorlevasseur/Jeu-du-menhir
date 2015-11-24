@@ -3,6 +3,8 @@ package fr.utt.girardguittard.levasseur.menhir.ui;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 /**
  * Interface spécifiant les méthodes qui doivent permettre à une interface de fonctionner
@@ -59,4 +61,13 @@ public interface InterfaceUtilisateur {
 	 * @param numeroJoueur le numéro du joueur qui débute son tour
 	 */
 	public void notifierDebutTour(int numeroJoueur);
+	
+	/**
+	 * Méthode appelée lorsque le joueur physique est amené à choisir une carte ingrédient.
+	 * @param mainJoueur la main du joueur
+	 * @return le numéro de carte ingrédient choisie
+	 */
+	public ChoixCarteIngredient demanderCarteIngredientAJouer(MainJoueur mainJoueur);
+	
+	
 }

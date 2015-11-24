@@ -171,6 +171,14 @@ public class MainJoueur {
 	}
 	
 	/**
+	 * Retourne le nombre de cartes appartenant à la main du joueur.
+	 * @return le nombre de cartes
+	 */
+	public int getNombreCarteIngredient() {
+		return this.cartesIngredient.size();
+	}
+	
+	/**
 	 * Retourne la carte ingrédient demandée.
 	 * @param carte l'index de la carte
 	 * @return la carte ingrédient
