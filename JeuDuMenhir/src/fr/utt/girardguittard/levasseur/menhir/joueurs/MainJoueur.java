@@ -161,13 +161,22 @@ public class MainJoueur {
 	}
 	
 	/**
-	 * Retire une carte de la main du joueur (après l'avoir jouée)
+	 * Retire une carte de la main du joueur (après l'avoir jouée en général)
 	 * @param carte l'index de la carte à retirer
 	 */
 	public void retirerCarteIngredient(int carte) {
 		if(carte < this.cartesIngredient.size()) {
 			this.cartesIngredient.remove(carte);
 		}
+	}
+	
+	/**
+	 * Retire une carte de la main du joueur (après l'avoir jouée en général)
+	 * @param carte la carte à retirer
+	 * Si la carte n'est pas dans la main, rien n'est fait.
+	 */
+	public void retirerCarteIngredient(CarteIngredient carte) {
+		this.cartesIngredient.remove(carte);
 	}
 	
 	/**
