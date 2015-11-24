@@ -10,7 +10,7 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
  * Représente une carte ingrédient avec son nom et ses forces selon les saisons et actions
  */
 public class CarteIngredient {
-	
+
 	/**
 	 * Nom de la carte
 	 */
@@ -105,5 +105,32 @@ public class CarteIngredient {
 			//On ajoute à la main du joueur le nombre de graines que l'on a pu réellement voler à l'adversaire
 			mainJoueur.ajouterGraines(manche.getJoueur(joueurCible).getMain().volerGraines(this.getForce(tour, action)));
 		}
+	}
+	
+	public String toString() {
+		StringBuffer buf = new StringBuffer();
+
+		buf.append("== " + this.nom + " ==\n");
+		buf.append("          P  E  A  H\n");
+		buf.append("   Geant  ");
+		for(Saison saison : Saison.values()) {
+			buf.append(this.getForce(saison, Action.GEANT));
+			buf.append("  ");
+		}
+		buf.append("\n");
+		buf.append(" Engrais  ");
+		for(Saison saison : Saison.values()) {
+			buf.append(this.getForce(saison, Action.ENGRAIS));
+			buf.append("  ");
+		}
+		buf.append("\n");
+		buf.append("Farfadet  ");
+		for(Saison saison : Saison.values()) {
+			buf.append(this.getForce(saison, Action.FARFADET));
+			buf.append("  ");
+		}
+		buf.append("\n");
+		
+		return buf.toString();
 	}
 }
