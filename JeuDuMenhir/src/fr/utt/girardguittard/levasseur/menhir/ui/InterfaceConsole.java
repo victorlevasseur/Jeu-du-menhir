@@ -21,7 +21,7 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 			resultat = Console.getInstance().readln().toUpperCase();
 		} while(resultat.length() != 1 && resultat.charAt(0) != 'S' && resultat.charAt(0) != 'A');
 		
-		return (resultat == "A");
+		return (resultat.equals("A"));
 	}
 
 	public int demanderNombreJoueurs() {
