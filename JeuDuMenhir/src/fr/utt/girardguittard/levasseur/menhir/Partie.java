@@ -30,7 +30,8 @@ public class Partie {
 		//Création des joueurs
 		this.joueurs.add(new JoueurPhysique());
 		while(nombreJoueurs - 1 > 0) {
-			this.joueurs.add(new JoueurVirtuel());
+			//this.joueurs.add(new JoueurVirtuel());
+			this.joueurs.add(new JoueurPhysique()); //TEMPORAIRE : à remplacer par un JoueurVirtuel
 			//TODO : Affecter des stratégies
 			nombreJoueurs--;
 		}
@@ -61,7 +62,7 @@ public class Partie {
 					this.joueurs, 
 					this.deckCartesIngredient, 
 					this.deckCartesAllies,
-					(int)(Math.random() * 4.f));
+					(int)(Math.random() * (float)this.joueurs.size()));
 			
 			//On joue la manche
 			InterfaceManager.get().notifierDebutManche(i, manche);
