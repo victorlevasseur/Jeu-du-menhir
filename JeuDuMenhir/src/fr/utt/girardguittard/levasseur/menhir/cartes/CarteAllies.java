@@ -33,4 +33,18 @@ public abstract class CarteAllies {
 	 */
 	public abstract void agir(Manche manche, MainJoueur main, int joueurCible, Saison tour);
 	
+	public String toString() {
+		StringBuffer buf = new StringBuffer();
+
+		buf.append("== " + this.getNom() + " ==\n");
+		buf.append("          P  E  A  H\n");
+		buf.append("   Force  ");
+		for(Saison saison : Saison.values()) {
+			buf.append(this.getForce(saison));
+			buf.append("  ");
+		}
+		
+		return buf.toString();
+	}
+	
 }

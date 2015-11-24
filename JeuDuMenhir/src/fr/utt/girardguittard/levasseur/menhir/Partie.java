@@ -10,12 +10,13 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurVirtuel;
+import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
 
 public class Partie {
 	
-	private boolean partieAvancee;
-	
+	final private boolean partieAvancee;
+
 	private ArrayList<Joueur> joueurs;
 	
 	private DeckCartes<CarteIngredient> deckCartesIngredient;
@@ -29,7 +30,8 @@ public class Partie {
 		//Création des joueurs
 		this.joueurs.add(new JoueurPhysique());
 		while(nombreJoueurs - 1 > 0) {
-			this.joueurs.add(new JoueurVirtuel());
+			//this.joueurs.add(new JoueurVirtuel());
+			this.joueurs.add(new JoueurPhysique()); //TEMPORAIRE : à remplacer par un JoueurVirtuel
 			//TODO : Affecter des stratégies
 			nombreJoueurs--;
 		}
@@ -48,6 +50,9 @@ public class Partie {
 	}
 	
 	void jouer() {
+		//On notifie l'interface utilisateur que la partie est lancée
+		InterfaceManager.get().notifierDebutPartie(this);
+		
 		//On effectue le nombre de manches souhaités (1 si partie simple, 4 sinon)
 		//La condition ternaire est plutôt utile ici...
 		for(int i = 0; i < (this.partieAvancee ? 4 : 1); i++) {
@@ -57,11 +62,19 @@ public class Partie {
 					this.joueurs, 
 					this.deckCartesIngredient, 
 					this.deckCartesAllies,
-					(int)(Math.random() * 4.f));
+					(int)(Math.random() * (float)this.joueurs.size()));
 			
 			//On joue la manche
-			Console.getInstance().println("Manche #" + (i+1) + " : ");
+			InterfaceManager.get().notifierDebutManche(i, manche);
 			manche.jouer();
 		}
+	}
+	
+	public boolean isPartieAvancee() {
+		return this.partieAvancee;
+	}
+	
+	public int getNombreJoueurs() {
+		return this.joueurs.size();
 	}
 }
