@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
-import junit.framework.Assert;
 
 public class MainJoueurTest {
 	
