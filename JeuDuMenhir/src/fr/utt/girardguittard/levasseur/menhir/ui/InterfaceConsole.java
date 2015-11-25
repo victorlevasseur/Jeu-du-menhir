@@ -135,7 +135,28 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 			actionCarte = Action.FARFADET;
 		}
 		
-		return new ChoixCarteIngredient(mainJoueur.getCarteIngredient(numeroCarte-1), -1 /*TODO*/, actionCarte);
+		//Choix de la cible si l'action FARFADET est demandée
+		int joueurCible = -1;
+		if(actionCarte == Action.FARFADET) {
+			System.out.println("      Veuillez saisir le joueur cible [1-" + partieEnCours.getNombreJoueurs() + "] : ");
+			do {
+				String joueurCibleStr = Console.getInstance().readln();
+				try {
+					joueurCible = Integer.parseInt(joueurCibleStr);
+					
+					if(joueurCible < 1 || joueurCible > partieEnCours.getNombreJoueurs()) {
+						System.out.println("Ce n'est pas numéro de joueur valide !");
+						joueurCible = -1;
+					}
+				}
+				catch(NumberFormatException e) {
+					System.out.println("Ceci n'est pas un nombre !");
+					joueurCible = -1;
+				}
+			} while(joueurCible == -1);
+		}
+		
+		return new ChoixCarteIngredient(mainJoueur.getCarteIngredient(numeroCarte-1), joueurCible-1, actionCarte);
 	}
 
 }
