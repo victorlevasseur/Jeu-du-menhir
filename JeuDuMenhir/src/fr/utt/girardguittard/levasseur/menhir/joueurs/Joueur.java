@@ -49,7 +49,9 @@ public abstract class Joueur {
 	 * @param tour le tour en cours
 	 */
 	public void jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
-		
+		ChoixCarteAllies choix = deciderCarteAllies(manche, tour, joueurActuel);
+		choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour);
+		this.getMain().retirerCarteAllies();
 	}
 	
 	/**
