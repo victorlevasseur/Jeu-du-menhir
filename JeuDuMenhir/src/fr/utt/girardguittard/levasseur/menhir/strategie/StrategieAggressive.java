@@ -4,9 +4,11 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.Partie;
 
 public class StrategieAggressive implements Strategie {
 	
@@ -29,7 +31,7 @@ public class StrategieAggressive implements Strategie {
 		return carte;
 	}
 	
-	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main) {
+	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main, Partie partie) {
 		
 		//Au printemps l'objectif sera systématiquement de récolter le plus de graines possibles
 		if(tour == Saison.PRINTEMPS) {
@@ -60,7 +62,15 @@ public class StrategieAggressive implements Strategie {
 			else {
 				
 				//On vole le joueur ayant le plus de graines
-				//Ce qui nécessite des données contenues dans l'objet partie
+				int max = manche.getJoueur(0).getMain().getNombreGraine();
+				int cible = 0;
+				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
+						max = manche.getJoueur(i).getMain().getNombreGraine();
+						cible = i;
+					}
+				}
+				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);
 			}
 		}
 		
@@ -81,7 +91,16 @@ public class StrategieAggressive implements Strategie {
 			else {
 				
 				//On vole le joueur ayant le plus de graines
-				//Ce qui nécessite des données contenues dans l'objet partie
+				//On vole le joueur ayant le plus de graines
+				int max = manche.getJoueur(0).getMain().getNombreGraine();
+				int cible = 0;
+				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
+						max = manche.getJoueur(i).getMain().getNombreGraine();
+						cible = i;
+					}
+				}
+				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);
 			}
 		}
 		
@@ -93,13 +112,22 @@ public class StrategieAggressive implements Strategie {
 		}
 	}
 	
-	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main) {
+	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main, Partie partie) {
 
 		//On joue la carte Taupes Geantes en hiver si le joueur avec le plus de menhir
 		if(tour == Saison.HIVER) {
 			if(main.getCarteAllies().getNom() == "Taupes géantes") {
 				//On l'envoie sur le joueur ayant le plus de menhir
-				//Ce qui nécessite des informations de l'objet partie
+				//On vole le joueur ayant le plus de graines
+				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int cible = 0;
+				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
+						max = manche.getJoueur(i).getMain().getNombreMenhir();
+						cible = i;
+					}
+				}
+				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);
 			}
 		}
 		
