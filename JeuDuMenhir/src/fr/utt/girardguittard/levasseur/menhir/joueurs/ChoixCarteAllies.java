@@ -9,9 +9,9 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 public class ChoixCarteAllies {
 
 	/**
-	 * La carte alliés choisie par le joueur.
+	 * Le booléen indiquant si le joueur souhaite jouer ou non sa carte alliés.
 	 */
-	private final CarteAllies carteChoisie;
+	private final boolean joue;
 	
 	/**
 	 * La cible de la carte alliés
@@ -23,8 +23,8 @@ public class ChoixCarteAllies {
 	 * @param carteChoisie la carte choisie
 	 * @param cible la cible de l'action
 	 */
-	public ChoixCarteAllies(CarteAllies carteChoisie, int cible) {
-		this.carteChoisie = carteChoisie;
+	public ChoixCarteAllies(boolean joue, int cible) {
+		this.joue = joue;
 		this.cible = cible;
 	}
 
@@ -32,8 +32,8 @@ public class ChoixCarteAllies {
 	 * Getter de la carte
 	 * @return la carte alliés choisie
 	 */
-	public CarteAllies getCarteChoisie() {
-		return carteChoisie;
+	public boolean isJoue() {
+		return joue;
 	}
 
 	/**
