@@ -4,6 +4,7 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
@@ -157,6 +158,45 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		}
 		
 		return new ChoixCarteIngredient(mainJoueur.getCarteIngredient(numeroCarte-1), joueurCible-1, actionCarte);
+	}
+	
+	public ChoixCarteAllies demanderCarteAllies(MainJoueur mainJoueur) {
+		
+		//Récupération de la volonté de l'utilisateur à utiliser sa carte
+		System.out.println("Voulez vous jouez votre carte " + mainJoueur.getCarteAllies().getNom() + "[O/N]");
+		String actionStr = Console.getInstance().readln().toUpperCase();;
+		while(!actionStr.equals("O") && !actionStr.equals("N") && !actionStr.equals("OUI") && !actionStr.equals("NON")) {
+			System.out.println("Ceci n'est pas une action valide !");
+			actionStr = Console.getInstance().readln().toUpperCase();
+		}
+		
+		if(actionStr.equals("O") || actionStr.equals("OUI")) {
+			
+			//Choix de la cible si le joueur dispose d'une carte Taupes géantes
+			int joueurCible = -1;
+			if (mainJoueur.getCarteAllies().getNom().equals("Taupes géantes")) {
+				System.out.println("      Veuillez saisir le joueur cible [1-" + partieEnCours.getNombreJoueurs() + "] : ");
+				do {
+					String joueurCibleStr = Console.getInstance().readln();
+					try {
+						joueurCible = Integer.parseInt(joueurCibleStr);
+						
+						if(joueurCible < 1 || joueurCible > partieEnCours.getNombreJoueurs()) {
+							System.out.println("Ce n'est pas numéro de joueur valide !");
+							joueurCible = -1;
+						}
+					}
+					catch(NumberFormatException e) {
+						System.out.println("Ceci n'est pas un nombre !");
+						joueurCible = -1;
+					}
+				} while(joueurCible == -1);
+			}
+			return new ChoixCarteAllies(true, joueurCible);
+		}
+		else {
+			return new ChoixCarteAllies(false, -1);
+		}
 	}
 
 }

@@ -44,12 +44,20 @@ public abstract class Joueur {
 	}
 	
 	/**
-	 * Joue une carte allié.
+	 * Permet au joueur de jouer une carte allie s'il en a une.
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
 	public void jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
-		
+		if(this.getMain().getCarteAllies() != null)
+		{
+			ChoixCarteAllies choix = deciderCarteAllies(manche, tour, joueurActuel);
+			if(choix.isJoue())
+			{
+				this.getMain().getCarteAllies().agir(manche, this.getMain(), choix.getCible(), tour);
+				this.getMain().retirerCarteAllies();
+			}
+		}
 	}
 	
 	/**

@@ -29,6 +29,6 @@ public class JoueurPhysique extends Joueur {
 	 * @param joueurActuel le numéro du joueur
 	 */
 	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
-		return null;
+		return InterfaceManager.get().demanderCarteAllies(this.getMain());
 	}
 }
