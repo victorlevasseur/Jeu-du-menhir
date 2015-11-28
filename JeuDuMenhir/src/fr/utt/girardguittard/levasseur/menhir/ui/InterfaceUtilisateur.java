@@ -5,6 +5,7 @@ import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 
 /**
  * Interface spécifiant les méthodes qui doivent permettre à une interface de fonctionner
@@ -68,6 +69,13 @@ public interface InterfaceUtilisateur {
 	 * @return le numéro de carte ingrédient choisie
 	 */
 	public ChoixCarteIngredient demanderCarteIngredientAJouer(MainJoueur mainJoueur);
+	
+	/**
+	 * Méthode appelée pour proposé au joueur de jouer sa carte alliés.
+	 * @param mainJoueur la main du joueur
+	 * @return le choix effectué par le joueur
+	 */
+	public ChoixCarteAllies demanderCarteAllies(MainJoueur mainJoueur);
 	
 	
 }
