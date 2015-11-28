@@ -127,7 +127,7 @@ public class StrategieAggressive implements Strategie {
 						cible = i;
 					}
 				}
-				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);
+				return new ChoixCarteAllies(true, cible);
 			}
 		}
 		
