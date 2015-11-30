@@ -136,13 +136,54 @@ public class StrategieAggressive implements Strategie {
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
 				return new ChoixCarteAllies(true, 0);
 			}
+			else{
+				
+				//On utilise la carte Taupes Geante si un adversaire à plus de menhir que sa force
+				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int cible = 0;
+				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
+						max = manche.getJoueur(i).getMain().getNombreMenhir();
+						cible = i;
+					}
+				}
+				if(max > main.getCarteAllies().getForce(tour)) {
+					return new ChoixCarteAllies(true, cible);
+				}
+				else {
+					return new ChoixCarteAllies(false, 0);
+				}
+			}
 		}
 		
-		//Si l'on est au printemps ou en été on peut jouer la carte chiens de garde si elle est rentable
+		//Si l'on est au printemps ou en été on peut jouer une carte si elle est rentable
 		if(tour == Saison.ETE || tour == Saison.PRINTEMPS) {
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
+				
+				//On utilise la carte Chiens de garde si l'on a plus de graines que ça force
 				if(main.getNombreGraine() > main.getCarteAllies().getForce(tour)) {
 					return new ChoixCarteAllies(true, 0);
+				}
+				else {
+					return new ChoixCarteAllies(false, 0);
+				}
+			}
+			else{
+				
+				//On utilise la carte Taupes Geante si un adversaire à plus de menhir que sa force
+				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int cible = 0;
+				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
+						max = manche.getJoueur(i).getMain().getNombreMenhir();
+						cible = i;
+					}
+				}
+				if(max > main.getCarteAllies().getForce(tour)) {
+					return new ChoixCarteAllies(true, cible);
+				}
+				else {
+					return new ChoixCarteAllies(false, 0);
 				}
 			}
 		}
