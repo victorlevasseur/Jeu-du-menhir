@@ -43,7 +43,7 @@ public class StrategieAggressive implements Strategie {
 		/*En été on on privilégie le fait de voler ces adversaires sauf si :		
 		 *- notre nombre de graines dépasse le nombre de graines maximal que l'on puisse transformé en menhir
 		 *(dans ce cas on utilise la meilleure carte engrais)
-		 *- la meilleure carte engrais surpasse de deux points la meilleure carte farfadet
+		 *- la meilleure carte géant surpasse de deux points la meilleure carte farfadet
 		 */
 		if(tour == Saison.ETE) {
 			
@@ -53,11 +53,11 @@ public class StrategieAggressive implements Strategie {
 			CarteIngredient maxGeant = getMax(main, tour, Action.GEANT);
 			
 			//Selection de la carte que l'on va joué
-			if(main.getNombreGraine() > maxGeant.getForce(tour, Action.GEANT)) {
-				return new ChoixCarteIngredient(maxGeant, 0, Action.GEANT);
-			}
-			else if(maxEngrais.getForce(tour, Action.ENGRAIS) >= maxFarfadet.getForce(tour, Action.FARFADET)) {
+			if(main.getNombreGraine() > maxEngrais.getForce(tour, Action.ENGRAIS)) {
 				return new ChoixCarteIngredient(maxEngrais, 0, Action.ENGRAIS);
+			}
+			else if(maxGeant.getForce(tour, Action.GEANT) >= maxFarfadet.getForce(tour, Action.FARFADET) + 2) {
+				return new ChoixCarteIngredient(maxGeant, 0, Action.GEANT);
 			}
 			else {
 				
@@ -82,11 +82,11 @@ public class StrategieAggressive implements Strategie {
 			CarteIngredient maxGeant = getMax(main, tour, Action.GEANT);
 			
 			//Selection de la carte que l'on va joué
-			if(main.getNombreGraine() > maxGeant.getForce(tour, Action.GEANT)) {
-				return new ChoixCarteIngredient(maxGeant, 0, Action.GEANT);
-			}
-			else if(maxEngrais.getForce(tour, Action.ENGRAIS) >= maxFarfadet.getForce(tour, Action.FARFADET)) {
+			if(main.getNombreGraine() > maxEngrais.getForce(tour, Action.ENGRAIS)) {
 				return new ChoixCarteIngredient(maxEngrais, 0, Action.ENGRAIS);
+			}
+			else if(maxGeant.getForce(tour, Action.GEANT) >= maxFarfadet.getForce(tour, Action.FARFADET) + 2) {
+				return new ChoixCarteIngredient(maxGeant, 0, Action.GEANT);
 			}
 			else {
 				
@@ -128,6 +128,9 @@ public class StrategieAggressive implements Strategie {
 					}
 				}
 				return new ChoixCarteAllies(true, cible);
+			}
+			else {
+				return new ChoixCarteAllies(false, 0);
 			}
 		}
 		
