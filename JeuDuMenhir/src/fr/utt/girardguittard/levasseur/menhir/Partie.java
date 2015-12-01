@@ -56,7 +56,7 @@ public class Partie {
 		//On choisit aléatoirement le premier joueur qui va débuter la première manche
 		int premierJoueur = (int)(Math.random() * (float)this.joueurs.size());
 		
-		//On effectue le nombre de manches souhaités (1 si partie simple, 4 sinon)
+		//On effectue le nombre de manches souhaités (1 si partie simple, le nombre de manches sinon)
 		//La condition ternaire est plutôt utile ici...
 		for(int i = 0; i < (this.partieAvancee ? this.getNombreJoueurs() : 1); i++) {
 			
