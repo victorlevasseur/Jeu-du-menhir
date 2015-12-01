@@ -192,7 +192,7 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 					}
 				} while(joueurCible == -1);
 			}
-			return new ChoixCarteAllies(true, joueurCible);
+			return new ChoixCarteAllies(true, joueurCible-1);
 		}
 		else {
 			return new ChoixCarteAllies(false, -1);
