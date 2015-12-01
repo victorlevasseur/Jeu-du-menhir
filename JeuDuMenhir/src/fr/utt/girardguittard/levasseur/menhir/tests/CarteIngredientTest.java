@@ -48,14 +48,14 @@ public class CarteIngredientTest {
 		CarteIngredient carteTest = new CarteIngredient("Carte test", forces);
 		
 		carteTest.agir(manche, manche.getJoueur(0).getMain(), -1, Saison.ETE, Action.GEANT);
-		assertEquals(manche.getJoueur(0).getMain().getNombreGraine(), 3);
+		assertEquals(manche.getJoueur(0).getMain().getNombreGraine(), 5);
 		
 		carteTest.agir(manche, manche.getJoueur(0).getMain(), 1, Saison.ETE, Action.FARFADET);
-		assertEquals(manche.getJoueur(0).getMain().getNombreGraine(), 4);
-		assertEquals(manche.getJoueur(1).getMain().getNombreGraine(), 1);
+		assertEquals(manche.getJoueur(0).getMain().getNombreGraine(), 6);
+		assertEquals(manche.getJoueur(1).getMain().getNombreGraine(), 3);
 		
 		carteTest.agir(manche, manche.getJoueur(0).getMain(), -1, Saison.ETE, Action.ENGRAIS);
-		assertEquals(manche.getJoueur(0).getMain().getNombreGraine(), 2);
+		assertEquals(manche.getJoueur(0).getMain().getNombreGraine(), 4);
 		assertEquals(manche.getJoueur(0).getMain().getNombreMenhir(), 2);
 	}
 
