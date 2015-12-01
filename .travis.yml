@@ -1,0 +1,6 @@
+language: java
+
+script:
+    - cd JeuDuMenhir
+    - ant build
+    - ant test
