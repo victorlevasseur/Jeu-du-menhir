@@ -53,16 +53,19 @@ public class Partie {
 		//On notifie l'interface utilisateur que la partie est lancée
 		InterfaceManager.get().notifierDebutPartie(this);
 		
+		//On choisit aléatoirement le premier joueur qui va débuter la première manche
+		int premierJoueur = (int)(Math.random() * (float)this.joueurs.size());
+		
 		//On effectue le nombre de manches souhaités (1 si partie simple, 4 sinon)
 		//La condition ternaire est plutôt utile ici...
-		for(int i = 0; i < (this.partieAvancee ? 4 : 1); i++) {
+		for(int i = 0; i < (this.partieAvancee ? this.getNombreJoueurs() : 1); i++) {
 			
 			//Création de la manche
 			Manche manche = new Manche(this.partieAvancee, 
 					this.joueurs, 
 					this.deckCartesIngredient, 
 					this.deckCartesAllies,
-					(int)(Math.random() * (float)this.joueurs.size()));
+					(premierJoueur + i) % this.joueurs.size());
 			
 			//On joue la manche
 			InterfaceManager.get().notifierDebutManche(i, manche);
