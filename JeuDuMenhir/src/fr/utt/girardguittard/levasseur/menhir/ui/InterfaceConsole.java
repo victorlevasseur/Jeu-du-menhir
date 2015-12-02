@@ -18,10 +18,14 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 	
 	private Partie partieEnCours;
 	private Manche mancheEnCours;
+	private Saison saisonEnCours;
+	private int joueurEnCours;
 	
 	public InterfaceConsole() {
 		this.partieEnCours = null;
 		this.mancheEnCours = null;
+		this.saisonEnCours = Saison.AUTOMNE;
+		this.joueurEnCours = 0;
 	}
 
 	public void notifierDebutJeu() {
@@ -73,6 +77,7 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 
 	public void notifierDebutSaison(Saison saison) {
 		System.out.println("  C'est la saison " + saison.name() + " : ");
+		this.saisonEnCours = saison;
 	}
 
 	public void notifierDebutTour(int numeroJoueur) {
@@ -92,6 +97,8 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		System.out.println("      " + designationJoueur + " " + 
 				this.mancheEnCours.getJoueur(numeroJoueur).getMain().getNombreGraine() + " graine(s) et " + 
 				this.mancheEnCours.getJoueur(numeroJoueur).getMain().getNombreMenhir() + " menhir(s).");
+		
+		this.joueurEnCours = numeroJoueur;
 	}
 
 	public ChoixCarteIngredient demanderCarteIngredientAJouer(MainJoueur mainJoueur) {
@@ -196,6 +203,33 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		}
 		else {
 			return new ChoixCarteAllies(false, -1);
+		}
+	}
+	
+	public void notifierAgissementCarte(ChoixCarteIngredient choixCarteIngr, int forceReelle) {
+		
+		String designationJoueur1;
+		if(this.joueurEnCours == 0) {
+			designationJoueur1 = "Vous jouez ";
+		} else {
+			designationJoueur1 = "Le joueur " + (this.joueurEnCours+1) + " joue ";
+		}
+		
+		System.out.println("        --> " + designationJoueur1 + "la carte \"" + choixCarteIngr.getCarteChoisie().getNom() + "\"");
+	
+		
+		String designationJoueur2;
+		if(this.joueurEnCours == 0) {
+			designationJoueur2 = "Vous avez ";
+		} else {
+			designationJoueur2 = "Le joueur " + (this.joueurEnCours+1) + " a ";
+		}
+		if(choixCarteIngr.getActionChoisie() == Action.GEANT) {
+			System.out.println("            " + designationJoueur2 + "récupéré " + forceReelle + " graine(s).");
+		} else if(choixCarteIngr.getActionChoisie() == Action.ENGRAIS) {
+			System.out.println("            " + designationJoueur2 + "fait pousser " + forceReelle + " graine(s) en menhir(s).");
+		} else {
+			System.out.println("            " + designationJoueur2 + "volé " + forceReelle + " graine(s) au joueur " + (this.joueurEnCours+1) + ".");
 		}
 	}
 

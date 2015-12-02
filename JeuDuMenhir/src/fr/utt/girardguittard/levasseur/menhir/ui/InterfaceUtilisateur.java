@@ -71,11 +71,18 @@ public interface InterfaceUtilisateur {
 	public ChoixCarteIngredient demanderCarteIngredientAJouer(MainJoueur mainJoueur);
 	
 	/**
-	 * Méthode appelée pour proposé au joueur de jouer sa carte alliés.
+	 * Méthode appelée pour proposer au joueur de jouer sa carte alliés.
 	 * @param mainJoueur la main du joueur
 	 * @return le choix effectué par le joueur
 	 */
 	public ChoixCarteAllies demanderCarteAllies(MainJoueur mainJoueur);
 	
+	/**
+	 * Méthode appelée lorsqu'une carte ingrédient a été jouée.
+	 * @param choixCarteIngr le choix de la carte ingrédient
+	 * @param forceReelle la force réelle de la carte lors de l'action (le nombre réel de menhirs
+	 * poussés dans le cas de l'engrais ou le nombre réel de graines volées dans le cas du farfadet)
+	 */
+	public void notifierAgissementCarte(ChoixCarteIngredient choixCarteIngr, int forceReelle);
 	
 }
