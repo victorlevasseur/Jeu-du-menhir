@@ -99,6 +99,7 @@ public class Manche {
 			} else {
 				it.next().ajouterGraines(2);
 			}
+			i++;
 		}
 	}
 	
