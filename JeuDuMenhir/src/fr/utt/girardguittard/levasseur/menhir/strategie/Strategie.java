@@ -28,6 +28,6 @@ public interface Strategie {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel); 
+	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main); 
 
 }

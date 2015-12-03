@@ -47,6 +47,6 @@ public class JoueurVirtuel extends Joueur{
 	 * @param joueurActuel le numéro du joueur
 	 */
 	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
-		return strat.deciderCarteAllies(manche, tour, joueurActuel);
+		return strat.deciderCarteAllies(manche, tour, joueurActuel, main);
 	}
 }
