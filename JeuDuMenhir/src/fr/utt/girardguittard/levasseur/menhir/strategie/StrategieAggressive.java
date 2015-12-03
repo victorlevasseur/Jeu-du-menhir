@@ -191,4 +191,10 @@ public class StrategieAggressive implements Strategie {
 		}
 	}
 	
+	/**
+	 * La stratégie aggressive prend toujours une carte allies
+	 */
+	public boolean deciderCarteOuGraines(MainJoueur main) {
+		return true;
+	}
 }

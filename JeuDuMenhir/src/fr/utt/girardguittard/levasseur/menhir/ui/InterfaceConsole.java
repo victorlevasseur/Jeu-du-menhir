@@ -198,5 +198,21 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 			return new ChoixCarteAllies(false, -1);
 		}
 	}
+	
+	public boolean demanderCarteOuGraines() {
+		System.out.println("Souhaitez vous prendre une carte allies ('C') ou 2 graines ('G')?");
+		String actionStr = Console.getInstance().readln().toUpperCase();
+		while(!actionStr.equals("C") && !actionStr.equals("G")) {
+			System.out.println("Ce n'est pas une action valide.");
+			System.out.println("Souhaitez vous prendre une carte allies ('C') ou 2 graines ('G')?");
+			actionStr = Console.getInstance().readln().toUpperCase();
+		}
+		if(actionStr.equals("C")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 }

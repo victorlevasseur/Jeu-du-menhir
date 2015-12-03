@@ -83,6 +83,13 @@ public abstract class Joueur {
 	 */
 	protected abstract ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
 	
+	/**
+	 * Permet de savoir si le joueur souhaite une carte alliée ou deux graines
+	 * @param manche la manche en cours
+	 * @return true si le joueur veut une carte alliés
+	 */
+	public abstract boolean veutCarteAllies();
+	
 	public int getScore() {
 		return this.scoreTotal;
 	}

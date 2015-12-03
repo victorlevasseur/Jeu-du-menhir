@@ -87,10 +87,10 @@ public class Manche {
 		
 		//Distribution des cartes alliés (si en partie avancée et si le joueur en veut une)
 		//ou distribution de 2 graines (si il n'en veut pas ou si dans une partie rapide)
+		int i = 0;
 		for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
 			if(this.partieAvancee) {
-				boolean veutCarteAllies = true;
-				//TODO: Demander à l'utilisateur
+				boolean veutCarteAllies = this.getJoueur(i).veutCarteAllies();
 				if(veutCarteAllies) {
 					it.next().setCarteAllies(deckAllies.getCarte());
 				} else {
@@ -99,6 +99,7 @@ public class Manche {
 			} else {
 				it.next().ajouterGraines(2);
 			}
+			i++;
 		}
 	}
 	

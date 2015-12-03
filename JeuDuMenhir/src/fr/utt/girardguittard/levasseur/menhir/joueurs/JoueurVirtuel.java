@@ -49,4 +49,8 @@ public class JoueurVirtuel extends Joueur{
 	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
 		return strat.deciderCarteAllies(manche, tour, joueurActuel, main);
 	}
+	
+	public boolean veutCarteAllies() {
+		return strat.deciderCarteOuGraines(main);
+	}
 }
