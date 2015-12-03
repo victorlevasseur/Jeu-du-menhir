@@ -21,7 +21,7 @@ public abstract class Joueur {
 	/**
 	 * La main du joueur
 	 */
-	private MainJoueur main;
+	protected MainJoueur main;
 	
 	/**
 	 * Constructeur du joueur
