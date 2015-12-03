@@ -77,5 +77,10 @@ public interface InterfaceUtilisateur {
 	 */
 	public ChoixCarteAllies demanderCarteAllies(MainJoueur mainJoueur);
 	
+	/**
+	 * Méthode appelée pour savoir si le joueur physique souhaite une carte allies ou 2 graines.
+	 * @return true si le joueur souhaite une carte alliés
+	 */
+	public boolean demanderCarteOuGraines();
 	
 }

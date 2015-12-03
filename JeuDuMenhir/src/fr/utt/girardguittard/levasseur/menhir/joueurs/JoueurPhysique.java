@@ -31,4 +31,8 @@ public class JoueurPhysique extends Joueur {
 	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
 		return InterfaceManager.get().demanderCarteAllies(this.getMain());
 	}
+	
+	public boolean veutCarteAllies(Manche manche) {
+		return InterfaceManager.get().demanderCarteOuGraines();
+	}
 }
