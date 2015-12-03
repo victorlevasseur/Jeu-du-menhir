@@ -1,10 +1,12 @@
 package fr.utt.girardguittard.levasseur.menhir.joueurs;
 
 import fr.utt.girardguittard.levasseur.menhir.Manche;
+import fr.utt.girardguittard.levasseur.menhir.strategie.*;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
+import java.util.Random;
 
 
 /**
@@ -13,13 +15,29 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
  */
 public class JoueurVirtuel extends Joueur{
 	
+	private Strategie strat;
+	
+	/**
+	 * Le constructeur de joueur virtuel lui assigne aléatoirement une stratégie.
+	 */
+	public JoueurVirtuel() {
+		super();
+		Random random = new Random();
+		if (random.nextInt(2) == 0) {
+			this.strat = new StrategieAggressive();
+		}
+		else {
+			this.strat = new StrategieDefensive();
+		}
+	}
+	
 	/**
 	 * Permet de décider de l'action à réaliser en fonction de la carte ingrédient tirée
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 */
 	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour){
-		return new ChoixCarteIngredient(null, 0, null);
+		return strat.deciderChoixDuTour(manche, tour, main);
 	}
 	
 	/**
@@ -29,6 +47,6 @@ public class JoueurVirtuel extends Joueur{
 	 * @param joueurActuel le numéro du joueur
 	 */
 	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
-		return null;
+		return strat.deciderCarteAllies(manche, tour, joueurActuel);
 	}
 }
