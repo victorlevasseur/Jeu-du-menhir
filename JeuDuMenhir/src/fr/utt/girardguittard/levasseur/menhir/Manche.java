@@ -90,7 +90,7 @@ public class Manche {
 		int i = 0;
 		for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
 			if(this.partieAvancee) {
-				boolean veutCarteAllies = this.getJoueur(i).veutCarteAllies(this);
+				boolean veutCarteAllies = this.getJoueur(i).veutCarteAllies();
 				if(veutCarteAllies) {
 					it.next().setCarteAllies(deckAllies.getCarte());
 				} else {

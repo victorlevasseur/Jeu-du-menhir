@@ -32,7 +32,7 @@ public class JoueurPhysique extends Joueur {
 		return InterfaceManager.get().demanderCarteAllies(this.getMain());
 	}
 	
-	public boolean veutCarteAllies(Manche manche) {
+	public boolean veutCarteAllies() {
 		return InterfaceManager.get().demanderCarteOuGraines();
 	}
 }

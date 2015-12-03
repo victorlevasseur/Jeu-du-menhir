@@ -88,7 +88,7 @@ public abstract class Joueur {
 	 * @param manche la manche en cours
 	 * @return true si le joueur veut une carte alliés
 	 */
-	public abstract boolean veutCarteAllies(Manche manche);
+	public abstract boolean veutCarteAllies();
 	
 	public int getScore() {
 		return this.scoreTotal;
