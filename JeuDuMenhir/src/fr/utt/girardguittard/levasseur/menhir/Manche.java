@@ -42,6 +42,11 @@ public class Manche {
 	boolean partieAvancee;
 	
 	/**
+	 * Contient le nombre de joueurs
+	 */
+	private int nombreJoueurs;
+	
+	/**
 	 * Constructeur de Manche.
 	 * @param partieAvancee booléen valant vrai si la partie est avancée
 	 * @param joueurs une liste de joueurs qui participent à la partie
@@ -57,6 +62,7 @@ public class Manche {
 		this.premierJoueur = premierJoueur;
 		this.mainsDesJoueurs = new ArrayList<MainJoueur>();
 		this.partieAvancee = partieAvancee;
+		this.nombreJoueurs = joueurs.size();
 		
 		
 		//On affecte les mains aux joueurs et à la manche afin de créer la liaison
@@ -143,7 +149,20 @@ public class Manche {
 		return this.mainsDesJoueurs.get(numero).getJoueur();
 	}
 
+	/**
+	 * Retourne le premier joueur
+	 * @return le premier joueur
+	 */
 	public int getPremierJoueur() {
 		return premierJoueur;
 	}
+	
+	/**
+	 * Retourne le nombre de joueur
+	 * @return le nombre de joueur
+	 */
+	public int getNombreJoueurs() {
+		return this.nombreJoueurs;
+	}
+	
 }
