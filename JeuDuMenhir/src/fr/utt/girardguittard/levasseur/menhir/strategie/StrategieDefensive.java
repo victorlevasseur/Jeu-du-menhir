@@ -30,7 +30,7 @@ public class StrategieDefensive implements Strategie{
 		return carte;
 	}
 	
-	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main, Partie partie) {
+	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main) {
 	
 	
 		//Au printemps l'objectif sera systématiquement de récolter le plus de graines possibles
@@ -60,7 +60,7 @@ public class StrategieDefensive implements Strategie{
 				//On vole le joueur ayant le plus de graines
 				int max = manche.getJoueur(0).getMain().getNombreGraine();
 				int cible = 0;
-				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
 						max = manche.getJoueur(i).getMain().getNombreGraine();
 						cible = i;
@@ -87,7 +87,7 @@ public class StrategieDefensive implements Strategie{
 				//On vole le joueur ayant le plus de graines
 				int max = manche.getJoueur(0).getMain().getNombreGraine();
 				int cible = 0;
-				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
 						max = manche.getJoueur(i).getMain().getNombreGraine();
 						cible = i;
@@ -107,7 +107,7 @@ public class StrategieDefensive implements Strategie{
 		}
 	}
 	
-	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main, Partie partie) {
+	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main) {
 	
 		//On joue la carte Taupes Geantes en hiver si le joueur avec le plus de menhir
 		if(tour == Saison.HIVER) {
@@ -116,7 +116,7 @@ public class StrategieDefensive implements Strategie{
 				//On vole le joueur ayant le plus de graines
 				int max = manche.getJoueur(0).getMain().getNombreMenhir();
 				int cible = 0;
-				for(int i = 0; i<partie.getNombreJoueurs(); i++) {
+				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
 						max = manche.getJoueur(i).getMain().getNombreMenhir();
 						cible = i;
