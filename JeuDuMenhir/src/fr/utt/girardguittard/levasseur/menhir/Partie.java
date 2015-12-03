@@ -31,8 +31,7 @@ public class Partie {
 		this.joueurs.add(new JoueurPhysique());
 		while(nombreJoueurs - 1 > 0) {
 			//this.joueurs.add(new JoueurVirtuel());
-			this.joueurs.add(new JoueurPhysique()); //TEMPORAIRE : à remplacer par un JoueurVirtuel
-			//TODO : Affecter des stratégies
+			this.joueurs.add(new JoueurVirtuel()); //TEMPORAIRE : à remplacer par un JoueurVirtuel
 			nombreJoueurs--;
 		}
 		
