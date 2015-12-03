@@ -154,4 +154,16 @@ public class StrategieDefensive implements Strategie{
 			}
 		}
 	}
+	
+	/**
+	 * La stratégie défensive prend les graines si elle moins de 5 menhir.
+	 */
+	public boolean deciderCarteOuGraines(MainJoueur main) {
+		if(main.getNombreMenhir()<=5) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 }

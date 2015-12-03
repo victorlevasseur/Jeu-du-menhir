@@ -30,4 +30,10 @@ public interface Strategie {
 	 */
 	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main); 
 
+	/**
+	 * Permet de choisir si l'on prend deux graines ou une carte.
+	 * @param manche la manche en cours
+	 * @return true si une carte allies est choisie
+	 */
+	public boolean deciderCarteOuGraines(MainJoueur main);
 }
