@@ -45,7 +45,7 @@ public class StrategieDefensive implements Strategie{
 		 *(dans ce cas on utilise la meilleure carte engrais)
 		 *- la meilleure carte farfadeet surpasse de deux points la meilleure carte geant
 		 */
-		if(tour == Saison.ETE) {
+		else if(tour == Saison.ETE) {
 			
 			//Détermination du maximum de chaque catégorie :
 			CarteIngredient maxFarfadet = getMax(main, tour, Action.FARFADET);
@@ -73,7 +73,7 @@ public class StrategieDefensive implements Strategie{
 		}
 		
 		//L'automne fonctionne de la même façon que l'hiver
-		if(tour == Saison.AUTOMNE) {
+		else if(tour == Saison.AUTOMNE) {
 			//Détermination du maximum de chaque catégorie :
 			CarteIngredient maxFarfadet = getMax(main, tour, Action.FARFADET);
 			CarteIngredient maxEngrais = getMax(main, tour, Action.ENGRAIS);
@@ -100,7 +100,7 @@ public class StrategieDefensive implements Strategie{
 		}
 		
 		//En hiver il faut absolument transférer ces dernières graines en menhirs
-		if(tour == Saison.HIVER) {
+		else {
 			
 			//Selection de la carte ayant la plus grande force sur l'action engrais en hiver
 			return new ChoixCarteIngredient(getMax(main, tour, Action.ENGRAIS), 0, Action.ENGRAIS);
@@ -140,7 +140,7 @@ public class StrategieDefensive implements Strategie{
 		}
 		
 		//Si l'on est au printemps ou en été on peut jouer la carte chiens de garde si elle est rentable
-		if(tour == Saison.ETE || tour == Saison.PRINTEMPS) {
+		else {
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
 				if(main.getNombreGraine() > main.getCarteAllies().getForce(tour)) {
 					return new ChoixCarteAllies(true, 0);

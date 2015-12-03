@@ -44,7 +44,7 @@ public class StrategieAggressive implements Strategie {
 		 *(dans ce cas on utilise la meilleure carte engrais)
 		 *- la meilleure carte géant surpasse de deux points la meilleure carte farfadet
 		 */
-		if(tour == Saison.ETE) {
+		else if(tour == Saison.ETE) {
 			
 			//Détermination du maximum de chaque catégorie :
 			CarteIngredient maxFarfadet = getMax(main, tour, Action.FARFADET);
@@ -74,7 +74,7 @@ public class StrategieAggressive implements Strategie {
 		}
 		
 		//L'automne fonctionne de la même façon que l'hiver
-		if(tour == Saison.AUTOMNE) {
+		else if(tour == Saison.AUTOMNE) {
 			//Détermination du maximum de chaque catégorie :
 			CarteIngredient maxFarfadet = getMax(main, tour, Action.FARFADET);
 			CarteIngredient maxEngrais = getMax(main, tour, Action.ENGRAIS);
@@ -104,7 +104,7 @@ public class StrategieAggressive implements Strategie {
 		}
 		
 		//En hiver il faut absolument transférer ces dernières graines en menhirs
-		if(tour == Saison.HIVER) {
+		else{
 			
 			//Selection de la carte ayant la plus grande force sur l'action engrais en hiver
 			return new ChoixCarteIngredient(getMax(main, tour, Action.ENGRAIS), 0, Action.ENGRAIS);
@@ -134,7 +134,7 @@ public class StrategieAggressive implements Strategie {
 		}
 		
 		//La carte Chiens de Gardes doit être joué au plus tard à l'automne
-		if(tour == Saison.AUTOMNE) {
+		else if(tour == Saison.AUTOMNE) {
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
 				return new ChoixCarteAllies(true, 0);
 			}
@@ -159,7 +159,7 @@ public class StrategieAggressive implements Strategie {
 		}
 		
 		//Si l'on est au printemps ou en été on peut jouer une carte si elle est rentable
-		if(tour == Saison.ETE || tour == Saison.PRINTEMPS) {
+		else{
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
 				
 				//On utilise la carte Chiens de garde si l'on a plus de graines que ça force
@@ -174,6 +174,7 @@ public class StrategieAggressive implements Strategie {
 				
 				//On utilise la carte Taupes Geante si un adversaire à plus de menhir que sa force
 				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
 						max = manche.getJoueur(i).getMain().getNombreMenhir();
