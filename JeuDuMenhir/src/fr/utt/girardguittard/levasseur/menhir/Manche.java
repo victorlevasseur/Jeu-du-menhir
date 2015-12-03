@@ -154,7 +154,7 @@ public class Manche {
 		return premierJoueur;
 	}
 	
-	/*
+	/**
 	 * Retourne le nombre de joueur
 	 * @return le nombre de joueur
 	 */
