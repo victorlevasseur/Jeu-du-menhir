@@ -4,6 +4,9 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
+import fr.utt.girardguittard.levasseur.menhir.cartes.ChiensDeGarde;
+import fr.utt.girardguittard.levasseur.menhir.cartes.TaupesGeantes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
@@ -229,7 +232,30 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		} else if(choixCarteIngr.getActionChoisie() == Action.ENGRAIS) {
 			System.out.println("            " + designationJoueur2 + "fait pousser " + forceReelle + " graine(s) en menhir(s).");
 		} else {
-			System.out.println("            " + designationJoueur2 + "volé " + forceReelle + " graine(s) au joueur " + (this.joueurEnCours+1) + ".");
+			System.out.println("            " + designationJoueur2 + "volé " + forceReelle + " graine(s) au joueur " + (choixCarteIngr.getCible()+1) + ".");
+		}
+	}
+
+	public void notifierAgissementCarte(ChoixCarteAllies choixCarteAllies, CarteAllies carteJouee, int forceReelle) {
+		String designationJoueur1;
+		if(this.joueurEnCours == 0) {
+			designationJoueur1 = "Vous jouez ";
+		} else {
+			designationJoueur1 = "Le joueur " + (this.joueurEnCours+1) + " joue ";
+		}
+		
+		System.out.println("        --> " + designationJoueur1 + "la carte \"" + carteJouee.getNom() + "\"");
+		
+		String designationJoueur2;
+		if(this.joueurEnCours == 0) {
+			designationJoueur2 = "Vous avez ";
+		} else {
+			designationJoueur2 = "Le joueur " + (this.joueurEnCours+1) + " a ";
+		}
+		if(carteJouee instanceof ChiensDeGarde) {
+			System.out.println("            " + designationJoueur2 + "protégé " + forceReelle + " graine(s).");
+		} else if(carteJouee instanceof TaupesGeantes) {
+			System.out.println("            " + designationJoueur2 + "détruit " + forceReelle + " menhir(s) du joueur " + (choixCarteAllies.getCible()+1) + ".");
 		}
 	}
 

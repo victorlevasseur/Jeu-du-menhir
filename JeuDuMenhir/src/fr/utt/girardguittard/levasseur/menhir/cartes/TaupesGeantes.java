@@ -44,9 +44,9 @@ public class TaupesGeantes extends CarteAllies{
 	 * @param joueurCible le joueur ciblé par l'action
 	 * @param tour le tour en cours
 	 */
-	public void agir(Manche manche, MainJoueur main, int joueurCible, Saison tour) {
+	public int agir(Manche manche, MainJoueur main, int joueurCible, Saison tour) {
 		MainJoueur mainCible = manche.getJoueur(joueurCible).getMain();
-		mainCible.detruireMenhir(this.getForce(tour));
+		return mainCible.detruireMenhir(this.getForce(tour));
 	}
 
 }
