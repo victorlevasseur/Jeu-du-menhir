@@ -31,7 +31,7 @@ public abstract class CarteAllies {
 	 * @param joueurCible le joueur ciblé par l'action (si besoin)
 	 * @param tour le tour en cours
 	 */
-	public abstract void agir(Manche manche, MainJoueur main, int joueurCible, Saison tour);
+	public abstract int agir(Manche manche, MainJoueur main, int joueurCible, Saison tour);
 	
 	public String toString() {
 		StringBuffer buf = new StringBuffer();

@@ -3,6 +3,7 @@ package fr.utt.girardguittard.levasseur.menhir.ui;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
@@ -71,7 +72,7 @@ public interface InterfaceUtilisateur {
 	public ChoixCarteIngredient demanderCarteIngredientAJouer(MainJoueur mainJoueur);
 	
 	/**
-	 * Méthode appelée pour proposé au joueur de jouer sa carte alliés.
+	 * Méthode appelée pour proposer au joueur de jouer sa carte alliés.
 	 * @param mainJoueur la main du joueur
 	 * @return le choix effectué par le joueur
 	 */
@@ -82,5 +83,20 @@ public interface InterfaceUtilisateur {
 	 * @return true si le joueur souhaite une carte alliés
 	 */
 	public boolean demanderCarteOuGraines();
+
+	/**
+	 * Méthode appelée lorsqu'une carte ingrédient a été jouée.
+	 * @param choixCarteIngr le choix de la carte ingrédient
+	 * @param forceReelle la force réelle de la carte lors de l'action (le nombre réel de menhirs
+	 * poussés dans le cas de l'engrais ou le nombre réel de graines volées dans le cas du farfadet)
+	 */
+	public void notifierAgissementCarte(ChoixCarteIngredient choixCarteIngr, int forceReelle);
 	
+	/**
+	 * Méthode appelée lorsqu'une carte alliés a été jouée.
+	 * @param choixCarteAllies le choix de jouer ou non la carte et la cible de la carte (pour les taupes géantes)
+	 * @param carteJouee la carte alliés jouée
+	 * @param forceReelle la force réelle de la carte (le vrai nombre de menhir détruits pour les taupes géantes par exemple)
+	 */
+	public void notifierAgissementCarte(ChoixCarteAllies choixCarteAllies, CarteAllies carteJouee, int forceReelle);
 }

@@ -6,6 +6,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
+import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 
 /**
  * Représente un joueur avec son score et les différentes actions qu'il réalise au cours d'une manche
@@ -39,8 +40,10 @@ public abstract class Joueur {
 	 */
 	public void jouerTour(Manche manche, Saison tour) {
 		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
-		choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
+		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 		this.getMain().retirerCarteIngredient(choix.getCarteChoisie());
+		
+		InterfaceManager.get().notifierAgissementCarte(choix, forceReelle);
 	}
 	
 	/**
@@ -54,8 +57,10 @@ public abstract class Joueur {
 			ChoixCarteAllies choix = deciderCarteAllies(manche, tour, joueurActuel);
 			if(choix.isJoue())
 			{
-				this.getMain().getCarteAllies().agir(manche, this.getMain(), choix.getCible(), tour);
-				this.getMain().retirerCarteAllies();
+				int forceReelle = this.getMain().getCarteAllies().agir(manche, this.getMain(), choix.getCible(), tour);
+				InterfaceManager.get().notifierAgissementCarte(choix, this.getMain().getCarteAllies(), forceReelle);
+				
+				this.getMain().retirerCarteAllies();	
 			}
 		}
 	}

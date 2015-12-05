@@ -45,7 +45,9 @@ public class ChiensDeGarde extends CarteAllies{
 	 * @param joueurCible le joueur ciblé par l'action (inutile)
 	 * @param tour le tour en cours
 	 */
-	public void agir(Manche manche, MainJoueur main, int joueurCible, Saison tour){
+	public int agir(Manche manche, MainJoueur main, int joueurCible, Saison tour){
 		main.setDefenseChienDeGarde(this.getForce(tour));
+		
+		return main.getDefenseChienDeGarde();
 	}
 }

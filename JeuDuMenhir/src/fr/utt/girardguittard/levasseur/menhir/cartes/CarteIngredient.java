@@ -14,12 +14,12 @@ public class CarteIngredient {
 	/**
 	 * Nom de la carte
 	 */
-	private String nom;
+	private final String nom;
 	
 	/**
 	 * Forces de la carte en fonction de la saison et de l'action
 	 */
-	private HashMap<Saison, HashMap<Action, Integer>> forces;
+	private final HashMap<Saison, HashMap<Action, Integer>> forces;
 	
 	/**
 	 * Construit une carte ingrédient.
@@ -89,22 +89,37 @@ public class CarteIngredient {
 	}
 	
 	/**
+	 * Retourne le nom de la carte.
+	 * @return le nom de la carte
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
 	 * Effectue l'action de la carte choisie par le joueur
 	 * @param manche la manche en cours
 	 * @param mainJoueur la main du joueur
 	 * @param joueurCible le joueur ciblé par la carte en cas de farfadet
 	 * @param tour le tour en cours
 	 * @param action l'action choisie par le joueur
+	 * @return 
+	 * @return la force réelle de la carte lors de l'action (par exemple : le nombre de graines réellement volées si farfadet)
 	 */
-	public void agir(Manche manche, MainJoueur mainJoueur, int joueurCible, Saison tour, Action action) {
+	public int agir(Manche manche, MainJoueur mainJoueur, int joueurCible, Saison tour, Action action) {
 		if(action == Action.GEANT) { //Si le joueur veut voir le géant
 			mainJoueur.ajouterGraines(this.getForce(tour, action));
+			return this.getForce(tour, action);
 		} else if(action == Action.ENGRAIS) { //Si le joueur veut faire pousser des menhirs
-			mainJoueur.fairePousserMenhir(this.getForce(tour, action));
+			return mainJoueur.fairePousserMenhir(this.getForce(tour, action));
 		} else if(action == Action.FARFADET) { //Si le joueur veut voler des graines à un adversaire
 			//On ajoute à la main du joueur le nombre de graines que l'on a pu réellement voler à l'adversaire
-			mainJoueur.ajouterGraines(manche.getJoueur(joueurCible).getMain().volerGraines(this.getForce(tour, action)));
+			int grainesVolees = manche.getJoueur(joueurCible).getMain().volerGraines(this.getForce(tour, action));
+			mainJoueur.ajouterGraines(grainesVolees);
+			return grainesVolees;
 		}
+		
+		return 0;
 	}
 	
 	public String toString() {
