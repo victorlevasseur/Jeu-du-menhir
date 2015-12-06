@@ -37,7 +37,7 @@ public class JoueurVirtuel extends Joueur{
 	 * @param tour le tour en cours
 	 */
 	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour){
-		return strat.deciderChoixDuTour(manche, tour, main, this);
+		return strat.deciderChoixDuTour(manche, tour, main);
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class JoueurVirtuel extends Joueur{
 	 * @param joueurActuel le numéro du joueur
 	 */
 	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
-		return strat.deciderCarteAllies(manche, tour, joueurActuel, main, this);
+		return strat.deciderCarteAllies(manche, tour, joueurActuel, main);
 	}
 	
 	public boolean veutCarteAllies() {

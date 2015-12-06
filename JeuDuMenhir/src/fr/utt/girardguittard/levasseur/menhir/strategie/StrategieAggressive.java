@@ -30,7 +30,7 @@ public class StrategieAggressive implements Strategie {
 		return carte;
 	}
 	
-	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main, Joueur joueur) {
+	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main) {
 		
 		//Au printemps l'objectif sera systématiquement de récolter le plus de graines possibles
 		if(tour == Saison.PRINTEMPS) {
@@ -65,10 +65,8 @@ public class StrategieAggressive implements Strategie {
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
-						if (i!=joueur.getNumero()) {
-							max = manche.getJoueur(i).getMain().getNombreGraine();
-							cible = i;
-						}
+						max = manche.getJoueur(i).getMain().getNombreGraine();
+						cible = i;
 					}
 				}
 				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);
@@ -97,10 +95,8 @@ public class StrategieAggressive implements Strategie {
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
-						if(i!=joueur.getNumero()) {
-							max = manche.getJoueur(i).getMain().getNombreGraine();
-							cible = i;
-						}
+						max = manche.getJoueur(i).getMain().getNombreGraine();
+						cible = i;
 					}
 				}
 				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);
@@ -115,7 +111,7 @@ public class StrategieAggressive implements Strategie {
 		}
 	}
 	
-	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main, Joueur joueur) {
+	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main) {
 
 		//On joue la carte Taupes Geantes en hiver si le joueur avec le plus de menhir
 		if(tour == Saison.HIVER) {
@@ -126,10 +122,8 @@ public class StrategieAggressive implements Strategie {
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
-						if(i!=joueur.getNumero()) {
-							max = manche.getJoueur(i).getMain().getNombreMenhir();
-							cible = i;
-						}
+						max = manche.getJoueur(i).getMain().getNombreMenhir();
+						cible = i;
 					}
 				}
 				return new ChoixCarteAllies(true, cible);
@@ -151,10 +145,8 @@ public class StrategieAggressive implements Strategie {
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
-						if(i!=joueur.getNumero()) {
-							max = manche.getJoueur(i).getMain().getNombreMenhir();
-							cible = i;
-						}
+						max = manche.getJoueur(i).getMain().getNombreMenhir();
+						cible = i;
 					}
 				}
 				if(max > main.getCarteAllies().getForce(tour)) {
@@ -185,10 +177,8 @@ public class StrategieAggressive implements Strategie {
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
-						if(i!=joueur.getNumero()) {
-							max = manche.getJoueur(i).getMain().getNombreMenhir();
-							cible = i;
-						}
+						max = manche.getJoueur(i).getMain().getNombreMenhir();
+						cible = i;
 					}
 				}
 				if(max > main.getCarteAllies().getForce(tour)) {
