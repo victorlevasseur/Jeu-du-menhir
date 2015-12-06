@@ -114,9 +114,10 @@ public interface InterfaceUtilisateur {
 	
 	/**
 	 * Méthode appelée lorsqu'une carte alliés a été jouée.
+	 * @param joueur le numéro du joueur qui joue la carte alliés. Attention, il peut être différent du joueur dont c'est le tour actuellement
 	 * @param choixCarteAllies le choix de jouer ou non la carte et la cible de la carte (pour les taupes géantes)
 	 * @param carteJouee la carte alliés jouée
 	 * @param forceReelle la force réelle de la carte (le vrai nombre de menhir détruits pour les taupes géantes par exemple)
 	 */
-	public void notifierAgissementCarte(ChoixCarteAllies choixCarteAllies, CarteAllies carteJouee, int forceReelle);
+	public void notifierAgissementCarte(int joueur, ChoixCarteAllies choixCarteAllies, CarteAllies carteJouee, int forceReelle);
 }

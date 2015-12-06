@@ -288,7 +288,7 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		}
 	}
 
-	public void notifierAgissementCarte(ChoixCarteAllies choixCarteAllies, CarteAllies carteJouee, int forceReelle) {
+	public void notifierAgissementCarte(int joueur, ChoixCarteAllies choixCarteAllies, CarteAllies carteJouee, int forceReelle) {
 		String designationJoueur1;
 		if(this.joueurEnCours == 0) {
 			designationJoueur1 = "Vous jouez ";
