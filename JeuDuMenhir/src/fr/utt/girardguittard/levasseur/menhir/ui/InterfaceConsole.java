@@ -173,10 +173,10 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 	public ChoixCarteAllies demanderCarteAllies(MainJoueur mainJoueur) {
 		
 		//Récupération de la volonté de l'utilisateur à utiliser sa carte
-		System.out.println("Voulez vous jouez votre carte " + mainJoueur.getCarteAllies().getNom() + "[O/N]");
+		System.out.println("      Voulez vous jouez votre carte " + mainJoueur.getCarteAllies().getNom() + "[O/N]");
 		String actionStr = Console.getInstance().readln().toUpperCase();;
 		while(!actionStr.equals("O") && !actionStr.equals("N") && !actionStr.equals("OUI") && !actionStr.equals("NON")) {
-			System.out.println("Ceci n'est pas une action valide !");
+			System.out.println("Ceci n'est pas un choix valide !");
 			actionStr = Console.getInstance().readln().toUpperCase();
 		}
 		
@@ -210,11 +210,11 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 	}
 	
 	public boolean demanderCarteOuGraines() {
-		System.out.println("Souhaitez vous prendre une carte allies ('C') ou 2 graines ('G')?");
+		System.out.println("  Souhaitez vous prendre une carte allies ('C') ou 2 graines ('G')?");
 		String actionStr = Console.getInstance().readln().toUpperCase();
 		while(!actionStr.equals("C") && !actionStr.equals("G")) {
 			System.out.println("Ce n'est pas une action valide.");
-			System.out.println("Souhaitez vous prendre une carte allies ('C') ou 2 graines ('G')?");
+			System.out.println("    Souhaitez vous prendre une carte allies ('C') ou 2 graines ('G')?");
 			actionStr = Console.getInstance().readln().toUpperCase();
 		}
 		if(actionStr.equals("C")) {

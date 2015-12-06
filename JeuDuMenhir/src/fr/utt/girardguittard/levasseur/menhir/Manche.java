@@ -47,6 +47,16 @@ public class Manche {
 	private int nombreJoueurs;
 	
 	/**
+	 * Le deck contenant les cartes ingrédients
+	 */
+	private DeckCartes<CarteIngredient> deckIngredient;
+	
+	/**
+	 * Le deck contenant les cartes alliés
+	 */
+	private DeckCartes<CarteAllies> deckAllies;
+	
+	/**
 	 * Constructeur de Manche.
 	 * @param partieAvancee booléen valant vrai si la partie est avancée
 	 * @param joueurs une liste de joueurs qui participent à la partie
@@ -63,7 +73,8 @@ public class Manche {
 		this.mainsDesJoueurs = new ArrayList<MainJoueur>();
 		this.partieAvancee = partieAvancee;
 		this.nombreJoueurs = joueurs.size();
-		
+		this.deckIngredient = deckIngredient;
+		this.deckAllies = deckAllies;
 		
 		//On affecte les mains aux joueurs et à la manche afin de créer la liaison
 		for(int i = 0; i < joueurs.size(); i++) {
@@ -77,6 +88,12 @@ public class Manche {
 		if(deckAllies != null) {
 			deckAllies.remettreCartesEtMelanger();
 		}
+	}
+	
+	/**
+	 * Joue la manche.
+	 */
+	public void jouer() {	
 		
 		//Distribution des cartes ingrédients
 		for(int i = 0; i < 4; i++) {
@@ -87,26 +104,23 @@ public class Manche {
 		
 		//Distribution des cartes alliés (si en partie avancée et si le joueur en veut une)
 		//ou distribution de 2 graines (si il n'en veut pas ou si dans une partie rapide)
-		int i = 0;
-		for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
-			if(this.partieAvancee) {
-				boolean veutCarteAllies = this.getJoueur(i).veutCarteAllies();
-				if(veutCarteAllies) {
-					it.next().setCarteAllies(deckAllies.getCarte());
+		{
+			int i = 0;
+			for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
+				if(this.partieAvancee) {
+					boolean veutCarteAllies = this.getJoueur(i).veutCarteAllies();
+					if(veutCarteAllies) {
+						it.next().setCarteAllies(deckAllies.getCarte());
+					} else {
+						it.next().ajouterGraines(2);
+					}
 				} else {
 					it.next().ajouterGraines(2);
 				}
-			} else {
-				it.next().ajouterGraines(2);
+				i++;
 			}
-			i++;
 		}
-	}
-	
-	/**
-	 * Joue la manche.
-	 */
-	public void jouer() {	
+		
 		//On fait le déroulement des 4 saisons
 		for(Saison saison : Saison.values()) {
 			this.saisonActuelle = saison;
@@ -117,6 +131,7 @@ public class Manche {
 			for(int i = 0; i < this.mainsDesJoueurs.size(); i++) {
 				//Le numéro du joueur qui doit jouer : 
 				int numJoueur = (i + this.premierJoueur) % this.mainsDesJoueurs.size(); 
+				InterfaceManager.get().notifierDebutTour(numJoueur);
 				
 				//On propose à tous les joueurs de jouer une carte alliés s'ils le veulent
 				//(car il est possible de jouer des cartes alliés à tout moment)
@@ -127,7 +142,6 @@ public class Manche {
 					}
 				}
 				
-				InterfaceManager.get().notifierDebutTour(numJoueur);
 				//On fait jouer le joueur
 				this.getJoueur(numJoueur).jouerTour(this, saison);
 			}
@@ -137,7 +151,6 @@ public class Manche {
 		for(Iterator<MainJoueur> itMainJoueur = this.mainsDesJoueurs.iterator(); itMainJoueur.hasNext(); ) {
 			MainJoueur mainJoueur = itMainJoueur.next();
 			mainJoueur.getJoueur().incrementerScore(mainJoueur.getNombreMenhir());
-			
 		}
 	}
 	

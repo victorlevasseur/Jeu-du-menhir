@@ -65,8 +65,9 @@ public class Partie {
 					this.deckCartesAllies,
 					(premierJoueur + i) % this.joueurs.size());
 			
-			//On joue la manche
 			InterfaceManager.get().notifierDebutManche(i, manche);
+			
+			//On joue la manche
 			manche.jouer();
 		}
 	}
