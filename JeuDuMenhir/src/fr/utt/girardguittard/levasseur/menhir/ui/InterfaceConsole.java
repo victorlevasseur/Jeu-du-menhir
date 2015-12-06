@@ -1,6 +1,7 @@
 package fr.utt.girardguittard.levasseur.menhir.ui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
@@ -75,7 +76,36 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 	}
 	
 	public void notifierFinPartie() {
+		System.out.println("La partie est terminée.");
 		
+		//On affiche un classement de la manche (uniquement pour les parties avancées car cela est redondant
+		//avec le score final pour une partie simple)
+		System.out.println("Voici le classement des joueurs");
+		System.out.println("     Joueurs    Menhirs total (toute la partie)");
+		
+		ArrayList<Joueur> listeJoueursClasses = this.partieEnCours.calculerClassementPartie();
+		for(int i = 0; i < listeJoueursClasses.size(); i++) {
+			Joueur joueur = listeJoueursClasses.get(i);
+			
+			System.out.print("  " + (i+1) + ". " + (joueur.getNumero() == 0 ? "Vous     " : "Joueur #" + (joueur.getNumero()+1)));
+			System.out.println("  " + joueur.getMain().getNombreMenhir());
+		}
+		
+		ArrayList<Joueur> listeVainqueurs = this.partieEnCours.calculerVainqueurs();
+		if(listeVainqueurs.size() == 1) {
+			System.out.println("Le vainqueur est le joueur #" + (listeVainqueurs.get(0).getNumero()+1));
+		} else {
+			System.out.print("Les vainqueurs sont les joueurs ");
+			for(Iterator<Joueur> it = listeVainqueurs.iterator(); it.hasNext(); ) {
+				System.out.print("#" + (it.next().getNumero()+1));
+				if(it.hasNext()) {
+					System.out.print(", ");
+				}
+			}
+			System.out.print(".");
+		}
+		
+		Console.getInstance().attendreEntree();
 	}
 
 	public void notifierDebutManche(int numeroManche, Manche manche) {
