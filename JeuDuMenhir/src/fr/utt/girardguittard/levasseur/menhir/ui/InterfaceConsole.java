@@ -88,7 +88,12 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 			Joueur joueur = listeJoueursClasses.get(i);
 			
 			System.out.print("  " + (i+1) + ". " + (joueur.getNumero() == 0 ? "Vous     " : "Joueur #" + (joueur.getNumero()+1)));
-			System.out.println("  " + joueur.getMain().getNombreMenhir());
+			System.out.print("  " + joueur.getScore());
+			//Si c'est une partie simple, on affiche aussi le nombre de graines (car cela peut être décisif pour le classement de la partie)
+			if(!this.partieEnCours.isPartieAvancee()) {
+				System.out.print(" (et " + joueur.getMain().getNombreGraine() + " graine(s))");
+			}
+			System.out.println("");
 		}
 		
 		ArrayList<Joueur> listeVainqueurs = this.partieEnCours.calculerVainqueurs();
