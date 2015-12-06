@@ -61,10 +61,10 @@ public class StrategieAggressive implements Strategie {
 			else {
 				
 				//On vole le joueur ayant le plus de graines
-				int max = manche.getJoueur(0).getMain().getNombreGraine();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreGraine() > max) {
 						max = manche.getJoueur(i).getMain().getNombreGraine();
 						cible = i;
 					}
@@ -90,11 +90,10 @@ public class StrategieAggressive implements Strategie {
 			else {
 				
 				//On vole le joueur ayant le plus de graines
-				//On vole le joueur ayant le plus de graines
-				int max = manche.getJoueur(0).getMain().getNombreGraine();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreGraine() > max) {
 						max = manche.getJoueur(i).getMain().getNombreGraine();
 						cible = i;
 					}
@@ -103,7 +102,7 @@ public class StrategieAggressive implements Strategie {
 			}
 		}
 		
-		//En hiver il faut absolument transférer ces dernières graines en menhirs
+		//En hiver il faut absolument faire pousser ces dernières graines en menhirs
 		else{
 			
 			//Selection de la carte ayant la plus grande force sur l'action engrais en hiver
@@ -118,10 +117,10 @@ public class StrategieAggressive implements Strategie {
 			if(main.getCarteAllies().getNom() == "Taupes géantes") {
 				//On l'envoie sur le joueur ayant le plus de menhir
 				//On vole le joueur ayant le plus de graines
-				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreMenhir() > max) {
 						max = manche.getJoueur(i).getMain().getNombreMenhir();
 						cible = i;
 					}
@@ -141,10 +140,10 @@ public class StrategieAggressive implements Strategie {
 			else{
 				
 				//On utilise la carte Taupes Geante si un adversaire à plus de menhir que sa force
-				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreMenhir() > max) {
 						max = manche.getJoueur(i).getMain().getNombreMenhir();
 						cible = i;
 					}
@@ -157,34 +156,31 @@ public class StrategieAggressive implements Strategie {
 				}
 			}
 		}
-		
 		//Si l'on est au printemps ou en été on peut jouer une carte si elle est rentable
-		else{
+		else {
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
 				
 				//On utilise la carte Chiens de garde si l'on a plus de graines que ça force
 				if(main.getNombreGraine() > main.getCarteAllies().getForce(tour)) {
 					return new ChoixCarteAllies(true, 0);
-				}
-				else {
+				} else {
 					return new ChoixCarteAllies(false, 0);
 				}
 			}
 			else{
 				
 				//On utilise la carte Taupes Geante si un adversaire à plus de menhir que sa force
-				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreMenhir() > max) {
 						max = manche.getJoueur(i).getMain().getNombreMenhir();
 						cible = i;
 					}
 				}
 				if(max > main.getCarteAllies().getForce(tour)) {
 					return new ChoixCarteAllies(true, cible);
-				}
-				else {
+				} else {
 					return new ChoixCarteAllies(false, 0);
 				}
 			}

@@ -55,19 +55,18 @@ public class StrategieDefensive implements Strategie{
 			//Selection de la carte que l'on va joué
 			if(main.getNombreGraine() > maxEngrais.getForce(tour, Action.ENGRAIS)) {
 				return new ChoixCarteIngredient(maxEngrais, 0, Action.ENGRAIS);
-			}
-			else if(maxFarfadet.getForce(tour, Action.FARFADET) >= maxEngrais.getForce(tour, Action.ENGRAIS) + 2) {
+			} else if(maxFarfadet.getForce(tour, Action.FARFADET) >= maxEngrais.getForce(tour, Action.ENGRAIS) + 2) {
 				//On vole le joueur ayant le plus de graines
-				int max = manche.getJoueur(0).getMain().getNombreGraine();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreGraine() > max) {
 						max = manche.getJoueur(i).getMain().getNombreGraine();
 						cible = i;
 					}
 				}
-				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);			}
-			else {
+				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);			
+			} else {
 				return new ChoixCarteIngredient(maxGeant, 0, Action.GEANT);
 			}
 		}
@@ -82,19 +81,18 @@ public class StrategieDefensive implements Strategie{
 			//Selection de la carte que l'on va joué
 			if(main.getNombreGraine() > maxEngrais.getForce(tour, Action.ENGRAIS)) {
 				return new ChoixCarteIngredient(maxEngrais, 0, Action.ENGRAIS);
-			}
-			else if(maxFarfadet.getForce(tour, Action.FARFADET) >= maxEngrais.getForce(tour, Action.ENGRAIS) + 2) {
+			} else if(maxFarfadet.getForce(tour, Action.FARFADET) >= maxEngrais.getForce(tour, Action.ENGRAIS) + 2) {
 				//On vole le joueur ayant le plus de graines
-				int max = manche.getJoueur(0).getMain().getNombreGraine();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreGraine() > max) {
 						max = manche.getJoueur(i).getMain().getNombreGraine();
 						cible = i;
 					}
 				}
-				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);			}
-			else {
+				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);			
+			} else {
 				return new ChoixCarteIngredient(maxGeant, 0, Action.GEANT);
 			}
 		}
@@ -114,17 +112,16 @@ public class StrategieDefensive implements Strategie{
 			if(main.getCarteAllies().getNom() == "Taupes géantes") {
 				//On l'envoie sur le joueur ayant le plus de menhir
 				//On vole le joueur ayant le plus de graines
-				int max = manche.getJoueur(0).getMain().getNombreMenhir();
+				int max = -1;
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
-					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
+					if(main.getJoueur().getNumero() != i && manche.getJoueur(i).getMain().getNombreMenhir() > max) {
 						max = manche.getJoueur(i).getMain().getNombreMenhir();
 						cible = i;
 					}
 				}
 				return new ChoixCarteAllies(true, cible);
-			}
-			else {
+			} else {
 				return new ChoixCarteAllies(false, 0);
 			}
 		}
@@ -133,8 +130,7 @@ public class StrategieDefensive implements Strategie{
 		if(tour == Saison.AUTOMNE) {
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
 				return new ChoixCarteAllies(true, 0);
-			}
-			else {
+			} else {
 				return new ChoixCarteAllies(false, 0);
 			}
 		}
@@ -144,25 +140,22 @@ public class StrategieDefensive implements Strategie{
 			if(main.getCarteAllies().getNom() == "Chiens de garde") {
 				if(main.getNombreGraine() > main.getCarteAllies().getForce(tour)) {
 					return new ChoixCarteAllies(true, 0);
-				}
-				else {
+				} else {
 					return new ChoixCarteAllies(false, 0);
 				}
-			}
-			else {
+			} else {
 				return new ChoixCarteAllies(false, 0);
 			}
 		}
 	}
 	
 	/**
-	 * La stratégie défensive prend les graines si elle moins de 5 menhir.
+	 * La stratégie défensive prend les graines si elle a moins de 5 menhirs.
 	 */
 	public boolean deciderCarteOuGraines(MainJoueur main) {
-		if(main.getNombreMenhir()<=5) {
+		if(main.getJoueur().getScore() <= 5) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
