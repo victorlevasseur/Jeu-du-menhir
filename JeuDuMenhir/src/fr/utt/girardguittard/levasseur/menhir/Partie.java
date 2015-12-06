@@ -69,7 +69,11 @@ public class Partie {
 			
 			//On joue la manche
 			manche.jouer();
+			
+			InterfaceManager.get().notifierFinManche();
 		}
+		
+		InterfaceManager.get().notifierFinPartie();
 	}
 	
 	public boolean isPartieAvancee() {

@@ -46,11 +46,21 @@ public interface InterfaceUtilisateur {
 	public void notifierDebutPartie(Partie partie);
 	
 	/**
+	 * Méthode appelée lors de la fin de la partie (pour afficher les scores et le(s) vainqueur(s)).
+	 */
+	public void notifierFinPartie();
+	
+	/**
 	 * Méthode appelée au lancement d'une manche.
 	 * @param numeroManche le numéro de la manche (de 0 à 3)
 	 * @param manche la manche qui est lancée
 	 */
 	public void notifierDebutManche(int numeroManche, Manche manche);
+	
+	/**
+	 * Méthode appelée à la fin de la manche actuelle.
+	 */
+	public void notifierFinManche();
 	
 	/**
 	 * Méthode appelée au lancement d'une saison.
@@ -59,10 +69,20 @@ public interface InterfaceUtilisateur {
 	public void notifierDebutSaison(Saison saison);
 	
 	/**
+	 * Méthode appelée à la fin de la saison en cours.
+	 */
+	public void notifierFinSaison();
+	
+	/**
 	 * Méthode appelée au lancement du tour d'un joueur.
 	 * @param numeroJoueur le numéro du joueur qui débute son tour
 	 */
 	public void notifierDebutTour(int numeroJoueur);
+	
+	/**
+	 * Méthode appelée à la fin du tour du joueur actuel.
+	 */
+	public void notifierFinTour();
 	
 	/**
 	 * Méthode appelée lorsque le joueur physique est amené à choisir une carte ingrédient.

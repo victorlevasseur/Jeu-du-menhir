@@ -70,19 +70,31 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		this.partieEnCours = partie;
 		System.out.println("Début de la partie " + (partie.isPartieAvancee() ? "avancée" : "simple") + " avec " + partie.getNombreJoueurs() + " joueurs.");
 	}
+	
+	public void notifierFinPartie() {
+		
+	}
 
 	public void notifierDebutManche(int numeroManche, Manche manche) {
 		this.mancheEnCours = manche;
 		System.out.println("Manche #" + (numeroManche+1) + " :");
-		System.out.println("  4 cartes ingrédients ont été distribuées à chaque joueurs.");
+		System.out.println("  4 cartes ingrédients ont été distribuées à chaque joueur.");
 		System.out.println("  Le joueur #" + (manche.getPremierJoueur()+1) + " commence à jouer en premier.");
 	}
 
+	public void notifierFinManche() {
+		Console.getInstance().attendreEntree();
+	}
+	
 	public void notifierDebutSaison(Saison saison) {
 		System.out.println("  C'est la saison " + saison.name() + " : ");
 		this.saisonEnCours = saison;
 	}
 
+	public void notifierFinSaison() {
+		Console.getInstance().attendreEntree();
+	}
+	
 	public void notifierDebutTour(int numeroJoueur) {
 		if(numeroJoueur == 0) {
 			System.out.println("    C'est à votre tour : ");
@@ -94,7 +106,7 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		if(numeroJoueur == 0) {
 			designationJoueur = "Vous avez";
 		} else {
-			designationJoueur = "Le joueur a";
+			designationJoueur = "Le joueur #" + (numeroJoueur+1) + " a";
 		}
 		
 		System.out.println("      " + designationJoueur + " " + 
@@ -104,6 +116,10 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 		this.joueurEnCours = numeroJoueur;
 	}
 
+	public void notifierFinTour() {
+		Console.getInstance().attendreEntree();
+	}
+	
 	public ChoixCarteIngredient demanderCarteIngredientAJouer(MainJoueur mainJoueur) {
 		System.out.println("      Vous pouvez jouer les cartes suivantes : ");
 		
@@ -274,5 +290,4 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 			System.out.println("            " + designationJoueur2 + "détruit " + forceReelle + " menhir(s) du joueur " + (choixCarteAllies.getCible()+1) + ".");
 		}
 	}
-
 }

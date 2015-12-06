@@ -144,7 +144,11 @@ public class Manche {
 				
 				//On fait jouer le joueur
 				this.getJoueur(numJoueur).jouerTour(this, saison);
+				
+				InterfaceManager.get().notifierFinTour();
 			}
+			
+			InterfaceManager.get().notifierFinSaison();
 		}
 
 		//On ajoute les menhirs de la manche au score des joueurs
