@@ -33,7 +33,7 @@ public class CarteIngredient {
 	
 	/**
 	 * Instancie une carte ingrédient grâce à son nom et ses forces données par un tableau au lieu
-	 * d'une HashMap<Saison, HashMap<Action, int>>. Le tableau doit contenir 12 entiers sous forme de
+	 * d'une HashMap&lt;Saison, HashMap&lt;Action, int&gt;&gt;. Le tableau doit contenir 12 entiers sous forme de
 	 * 3 suites de 4 valeurs pour chaque action de la carte (GEANT, puis ENGRAIS et enfin FARFADET).
 	 * @param nom le nom de la carte
 	 * @param forces le tableau des forces de la carte
@@ -103,7 +103,6 @@ public class CarteIngredient {
 	 * @param joueurCible le joueur ciblé par la carte en cas de farfadet
 	 * @param tour le tour en cours
 	 * @param action l'action choisie par le joueur
-	 * @return 
 	 * @return la force réelle de la carte lors de l'action (par exemple : le nombre de graines réellement volées si farfadet)
 	 */
 	public int agir(Manche manche, MainJoueur mainJoueur, int joueurCible, Saison tour, Action action) {

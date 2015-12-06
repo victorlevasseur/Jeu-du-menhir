@@ -35,7 +35,7 @@ public class DeckCartes<E> {
 	/**
 	 * Ajoute des cartes au tas.
 	 * @param cartes une collection de cartes à ajouter
-	 * @note Attention, il faut bien remelanger les cartes après car cela n'est pas fait automatiquement (les cartes
+	 * Note : Attention, il faut bien remelanger les cartes après car cela n'est pas fait automatiquement (les cartes
 	 * ne serait alors pas prises en compte pour la distribution).
 	 */
 	public void ajouterCartes(Collection<E> cartes) {

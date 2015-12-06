@@ -19,6 +19,7 @@ public class JoueurVirtuel extends Joueur{
 	
 	/**
 	 * Le constructeur de joueur virtuel lui assigne aléatoirement une stratégie.
+	 * @param numero le numéro du joueur (à partir de 0)
 	 */
 	public JoueurVirtuel(int numero) {
 		super(numero);
@@ -51,6 +52,6 @@ public class JoueurVirtuel extends Joueur{
 	}
 	
 	public boolean veutCarteAllies() {
-		return strat.deciderCarteOuGraines(main);
+		return strat.deciderCarteOuGraines(this.main);
 	}
 }

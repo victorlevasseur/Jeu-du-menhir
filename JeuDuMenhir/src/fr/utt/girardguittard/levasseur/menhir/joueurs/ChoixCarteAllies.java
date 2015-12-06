@@ -20,7 +20,7 @@ public class ChoixCarteAllies {
 	
 	/**
 	 * Le constructeur de la classe, permettant au joueur d'initialiser les variables
-	 * @param carteChoisie la carte choisie
+	 * @param joue jouer ou non la carte alliés
 	 * @param cible la cible de l'action
 	 */
 	public ChoixCarteAllies(boolean joue, int cible) {

@@ -64,6 +64,7 @@ public class Manche {
 	 * @param joueurs une liste de joueurs qui participent à la partie
 	 * @param deckIngredient le deck des cartes ingrédients
 	 * @param deckAllies le deck des cartes alliés
+	 * @param premierJoueur le numéro du joueur qui débute la manche (à partir de 0)
 	 */
 	public Manche(boolean partieAvancee, ArrayList<Joueur> joueurs, 
 			DeckCartes<CarteIngredient> deckIngredient,
@@ -162,8 +163,8 @@ public class Manche {
 	
 	/**
 	 * Retourne un joueur.
-	 * @param numero le numéro du joueur
-	 * @return 
+	 * @param numero le numéro du joueur (à partir de 0)
+	 * @return le joueur associé à ce numéro
 	 */
 	public Joueur getJoueur(int numero) {
 		return this.mainsDesJoueurs.get(numero).getJoueur();

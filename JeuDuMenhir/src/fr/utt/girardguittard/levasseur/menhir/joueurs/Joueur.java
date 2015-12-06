@@ -30,8 +30,9 @@ public abstract class Joueur {
 	private final int numero;
 	
 	/**
-	 * Constructeur du joueur
-	 * Un joueur commence avec un score de 0
+	 * Constructeur du joueur.
+	 * Un joueur commence avec un score de 0.
+	 * @param numero le numéro du joueur (à partir de 0)
 	 */
 	public Joueur(int numero) {
 		this.scoreTotal = 0;
@@ -56,6 +57,7 @@ public abstract class Joueur {
 	 * Permet au joueur de jouer une carte allie s'il en a une.
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
+	 * @param joueurActuel le numéro du joueur dont c'est le tour actuellement
 	 */
 	public void jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
 		if(this.getMain().getCarteAllies() != null)
@@ -96,7 +98,6 @@ public abstract class Joueur {
 	
 	/**
 	 * Permet de savoir si le joueur souhaite une carte alliée ou deux graines
-	 * @param manche la manche en cours
 	 * @return true si le joueur veut une carte alliés
 	 */
 	public abstract boolean veutCarteAllies();

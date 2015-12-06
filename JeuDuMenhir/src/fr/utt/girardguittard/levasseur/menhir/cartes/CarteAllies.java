@@ -30,6 +30,7 @@ public abstract class CarteAllies {
 	 * @param main la main du joueur utilisant la carte
 	 * @param joueurCible le joueur ciblé par l'action (si besoin)
 	 * @param tour le tour en cours
+	 * @return la force réelle avec laquelle la carte a agit
 	 */
 	public abstract int agir(Manche manche, MainJoueur main, int joueurCible, Saison tour);
 	

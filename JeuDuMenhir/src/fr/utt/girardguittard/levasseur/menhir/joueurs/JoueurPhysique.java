@@ -13,6 +13,10 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
  */
 public class JoueurPhysique extends Joueur {
 
+	/**
+	 * Construit un joueur physique.
+	 * @param numero le numéro du joueur (à partir de 0)
+	 */
 	public JoueurPhysique(int numero) {
 		super(numero);
 	}

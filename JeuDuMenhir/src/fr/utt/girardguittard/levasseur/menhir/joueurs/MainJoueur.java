@@ -86,7 +86,7 @@ public class MainJoueur {
 	 * Vole le nombre de graine (si cela est possible)
 	 * @param graines le nombre de graine qui doivent être volées
 	 * @return le nombre de graines réellement volée
-	 * @note si la main possède moins de graines que ce qui est demandé, uniquement les graines possédées seront volées
+	 * Note : si la main possède moins de graines que ce qui est demandé, uniquement les graines possédées seront volées
 	 * (la valeur de retour permet d'obtenir le nombre réellement volé).
 	 */
 	public int volerGraines(int graines) {
@@ -111,7 +111,7 @@ public class MainJoueur {
 	 * Fait pousser des graines en menhirs.
 	 * @param graines le nombre de graines à faire pousser
 	 * @return le nombre de menhir réellement obtenus
-	 * @note Si le nombre de graines à faire pousser est plus grand que le stock de graine alors seulement les graines
+	 * Note : Si le nombre de graines à faire pousser est plus grand que le stock de graine alors seulement les graines
 	 * disponible pousseront.
 	 */
 	public int fairePousserMenhir(int graines) {
