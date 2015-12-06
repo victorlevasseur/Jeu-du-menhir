@@ -35,5 +35,5 @@ public interface Strategie {
 	 * @param manche la manche en cours
 	 * @return true si une carte allies est choisie
 	 */
-	public boolean deciderCarteOuGraines(Joueur joueur);
+	public boolean deciderCarteOuGraines(MainJoueur main);
 }
