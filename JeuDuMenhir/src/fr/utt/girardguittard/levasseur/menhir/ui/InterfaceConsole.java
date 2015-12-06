@@ -247,7 +247,8 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 	public ChoixCarteAllies demanderCarteAllies(MainJoueur mainJoueur) {
 		
 		//Récupération de la volonté de l'utilisateur à utiliser sa carte
-		System.out.println("      Voulez vous jouez votre carte " + mainJoueur.getCarteAllies().getNom() + "[O/N]");
+		System.out.println("      Voulez vous jouez votre carte " + mainJoueur.getCarteAllies().getNom() + " ? [O/N]");
+		System.out.println(mainJoueur.getCarteAllies());
 		String actionStr = Console.getInstance().readln().toUpperCase();;
 		while(!actionStr.equals("O") && !actionStr.equals("N") && !actionStr.equals("OUI") && !actionStr.equals("NON")) {
 			System.out.println("Ceci n'est pas un choix valide !");
