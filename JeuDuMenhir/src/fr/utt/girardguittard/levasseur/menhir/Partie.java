@@ -17,7 +17,7 @@ public class Partie {
 	
 	final private boolean partieAvancee;
 
-	private ArrayList<Joueur> joueurs;
+	private final ArrayList<Joueur> joueurs;
 	
 	private DeckCartes<CarteIngredient> deckCartesIngredient;
 	
@@ -28,10 +28,9 @@ public class Partie {
 		this.joueurs = new ArrayList<Joueur>();
 		
 		//Création des joueurs
-		this.joueurs.add(new JoueurPhysique());
-		while(nombreJoueurs - 1 > 0) {
-			this.joueurs.add(new JoueurVirtuel());
-			nombreJoueurs--;
+		this.joueurs.add(new JoueurPhysique(0));
+		for(int i = 1; i < nombreJoueurs; i++) {
+			this.joueurs.add(new JoueurVirtuel(i));
 		}
 		
 		//Création des decks
@@ -46,7 +45,7 @@ public class Partie {
 			this.deckCartesAllies = null;
 		}
 	}
-	
+
 	void jouer() {
 		//On notifie l'interface utilisateur que la partie est lancée
 		InterfaceManager.get().notifierDebutPartie(this);
@@ -82,5 +81,9 @@ public class Partie {
 	
 	public int getNombreJoueurs() {
 		return this.joueurs.size();
+	}
+	
+	public ArrayList<Joueur> getJoueurs() {
+		return joueurs;
 	}
 }

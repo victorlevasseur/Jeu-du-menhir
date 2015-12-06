@@ -20,8 +20,8 @@ public class JoueurVirtuel extends Joueur{
 	/**
 	 * Le constructeur de joueur virtuel lui assigne aléatoirement une stratégie.
 	 */
-	public JoueurVirtuel() {
-		super();
+	public JoueurVirtuel(int numero) {
+		super(numero);
 		Random random = new Random();
 		if (random.nextInt(2) == 0) {
 			this.strat = new StrategieAggressive();

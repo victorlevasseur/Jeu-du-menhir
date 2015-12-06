@@ -25,11 +25,17 @@ public abstract class Joueur {
 	protected MainJoueur main;
 	
 	/**
+	 * Le numéro du joueur
+	 */
+	private final int numero;
+	
+	/**
 	 * Constructeur du joueur
 	 * Un joueur commence avec un score de 0
 	 */
-	public Joueur() {
+	public Joueur(int numero) {
 		this.scoreTotal = 0;
+		this.numero = numero;
 	}
 
 	/**
@@ -94,6 +100,10 @@ public abstract class Joueur {
 	 * @return true si le joueur veut une carte alliés
 	 */
 	public abstract boolean veutCarteAllies();
+	
+	public int getNumero() {
+		return numero;
+	}
 	
 	public int getScore() {
 		return this.scoreTotal;

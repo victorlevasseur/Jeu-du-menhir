@@ -28,8 +28,8 @@ public class CarteIngredientTest {
 	@Test
 	public void agirTest() {
 		ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
-		joueurs.add(new JoueurPhysique());
-		joueurs.add(new JoueurVirtuel());
+		joueurs.add(new JoueurPhysique(0));
+		joueurs.add(new JoueurVirtuel(1));
 		
 		DeckCartes<CarteIngredient> deckIngredient = new DeckCartes<CarteIngredient>();
 		deckIngredient.ajouterCartes(CartesFabrique.genererCartesIngredients());

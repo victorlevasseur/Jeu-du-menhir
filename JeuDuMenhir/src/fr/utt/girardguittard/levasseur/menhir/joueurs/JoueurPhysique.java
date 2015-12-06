@@ -13,6 +13,10 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
  */
 public class JoueurPhysique extends Joueur {
 
+	public JoueurPhysique(int numero) {
+		super(numero);
+	}
+
 	/**
 	 * Permet de décider de l'action à réaliser en fonction de la carte ingrédient tirée
 	 * @param manche la manche en cours
