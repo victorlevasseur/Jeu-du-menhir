@@ -31,7 +31,7 @@ public class StrategieDefensive implements Strategie{
 		return carte;
 	}
 	
-	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main) {
+	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main, Joueur joueur) {
 	
 	
 		//Au printemps l'objectif sera systématiquement de récolter le plus de graines possibles
@@ -63,8 +63,10 @@ public class StrategieDefensive implements Strategie{
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
-						max = manche.getJoueur(i).getMain().getNombreGraine();
-						cible = i;
+						if(i!=joueur.getNumero()) {
+							max = manche.getJoueur(i).getMain().getNombreGraine();
+							cible = i;
+						}
 					}
 				}
 				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);			}
@@ -90,8 +92,10 @@ public class StrategieDefensive implements Strategie{
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreGraine() > max) {
-						max = manche.getJoueur(i).getMain().getNombreGraine();
-						cible = i;
+						if(i!=joueur.getNumero()) {
+							max = manche.getJoueur(i).getMain().getNombreGraine();
+							cible = i;
+						}
 					}
 				}
 				return new ChoixCarteIngredient(maxFarfadet, cible, Action.FARFADET);			}
@@ -108,7 +112,7 @@ public class StrategieDefensive implements Strategie{
 		}
 	}
 	
-	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main) {
+	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main, Joueur joueur) {
 	
 		//On joue la carte Taupes Geantes en hiver si le joueur avec le plus de menhir
 		if(tour == Saison.HIVER) {
@@ -119,8 +123,10 @@ public class StrategieDefensive implements Strategie{
 				int cible = 0;
 				for(int i = 0; i<manche.getNombreJoueurs(); i++) {
 					if(manche.getJoueur(i).getMain().getNombreMenhir() > max) {
-						max = manche.getJoueur(i).getMain().getNombreMenhir();
-						cible = i;
+						if(i!=joueur.getNumero()) {
+							max = manche.getJoueur(i).getMain().getNombreMenhir();
+							cible = i;
+						}
 					}
 				}
 				return new ChoixCarteAllies(true, cible);

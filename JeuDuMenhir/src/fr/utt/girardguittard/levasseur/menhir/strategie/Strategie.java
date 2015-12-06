@@ -21,7 +21,7 @@ public interface Strategie {
 	 * @param main la main du joueur
 	 * @return le choix d'action et de carte que fait l'algorithme
 	 */
-	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main);
+	public ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour, MainJoueur main, Joueur joueur);
 	
 	/**
 	 * Permet de choisir une carte allié
@@ -29,7 +29,7 @@ public interface Strategie {
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main); 
+	public ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel, MainJoueur main, Joueur joueur); 
 
 	/**
 	 * Permet de choisir si l'on prend deux graines ou une carte.
