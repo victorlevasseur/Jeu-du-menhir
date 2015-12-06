@@ -133,7 +133,7 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 			for(int i = 0; i < listeJoueursClasses.size(); i++) {
 				Joueur joueur = listeJoueursClasses.get(i);
 				
-				System.out.print("     " + (i+1) + ". " + (joueur.getNumero() == 0 ? "Vous     " : "Joueur #" + joueur.getNumero()));
+				System.out.print("     " + (i+1) + ". " + (joueur.getNumero() == 0 ? "Vous     " : "Joueur #" + (joueur.getNumero()+1)));
 				System.out.println("     " + joueur.getMain().getNombreMenhir() + "         " + joueur.getMain().getNombreGraine() + "       " + joueur.getScore());
 			}
 		}
