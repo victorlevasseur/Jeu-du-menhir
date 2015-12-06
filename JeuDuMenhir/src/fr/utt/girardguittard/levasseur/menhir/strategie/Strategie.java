@@ -1,7 +1,6 @@
 package fr.utt.girardguittard.levasseur.menhir.strategie;
 
 import fr.utt.girardguittard.levasseur.menhir.Manche;
-import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;

@@ -7,7 +7,6 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
-import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 public class StrategieDefensive implements Strategie{
@@ -159,8 +158,8 @@ public class StrategieDefensive implements Strategie{
 	/**
 	 * La stratégie défensive prend les graines si elle moins de 5 menhir.
 	 */
-	public boolean deciderCarteOuGraines(Joueur joueur) {
-		if(joueur.getScore()<=5) {
+	public boolean deciderCarteOuGraines(MainJoueur main) {
+		if(main.getNombreMenhir()<=5) {
 			return false;
 		}
 		else {

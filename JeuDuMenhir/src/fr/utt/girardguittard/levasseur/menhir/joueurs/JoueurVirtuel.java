@@ -51,6 +51,6 @@ public class JoueurVirtuel extends Joueur{
 	}
 	
 	public boolean veutCarteAllies() {
-		return strat.deciderCarteOuGraines(this);
+		return strat.deciderCarteOuGraines(main);
 	}
 }
