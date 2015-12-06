@@ -58,4 +58,11 @@ public class Console {
 		}
 	}
 	
+	/**
+	 * Affiche le message "<Entrée> pour continuer" et attends que l'utilisateur presse Entrée pour continuer.
+	 */
+	public void attendreEntree() {
+		this.println("<Entrée> pour continuer");
+		this.readln();
+	}
 }
