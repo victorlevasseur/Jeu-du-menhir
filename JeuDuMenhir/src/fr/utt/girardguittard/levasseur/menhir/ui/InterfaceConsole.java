@@ -224,6 +224,9 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 					if(joueurCible < 1 || joueurCible > partieEnCours.getNombreJoueurs()) {
 						System.out.println("Ce n'est pas numéro de joueur valide !");
 						joueurCible = -1;
+					} else if(joueurCible == 1) {
+						System.out.println("Vous ne pouvez pas vous voler des graines !");
+						joueurCible = -1;
 					}
 				}
 				catch(NumberFormatException e) {
@@ -320,19 +323,19 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 
 	public void notifierAgissementCarte(int joueur, ChoixCarteAllies choixCarteAllies, CarteAllies carteJouee, int forceReelle) {
 		String designationJoueur1;
-		if(this.joueurEnCours == 0) {
+		if(joueur == 0) {
 			designationJoueur1 = "Vous jouez ";
 		} else {
-			designationJoueur1 = "Le joueur " + (this.joueurEnCours+1) + " joue ";
+			designationJoueur1 = "Le joueur " + (joueur+1) + " joue ";
 		}
 		
 		System.out.println("        --> " + designationJoueur1 + "la carte \"" + carteJouee.getNom() + "\"");
 		
 		String designationJoueur2;
-		if(this.joueurEnCours == 0) {
+		if(joueur == 0) {
 			designationJoueur2 = "Vous avez ";
 		} else {
-			designationJoueur2 = "Le joueur " + (this.joueurEnCours+1) + " a ";
+			designationJoueur2 = "Le joueur " + (joueur+1) + " a ";
 		}
 		if(carteJouee instanceof ChiensDeGarde) {
 			System.out.println("            " + designationJoueur2 + "protégé " + forceReelle + " graine(s).");
