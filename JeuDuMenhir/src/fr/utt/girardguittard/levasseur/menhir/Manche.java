@@ -1,6 +1,7 @@
 package fr.utt.girardguittard.levasseur.menhir;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
@@ -10,6 +11,7 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
+import fr.utt.girardguittard.levasseur.menhir.util.ScoreMancheComparator;
 
 /**
  * La classe Manche représente une manche et permet de faire son déroulement.
@@ -93,7 +95,7 @@ public class Manche {
 	/**
 	 * Joue la manche.
 	 */
-	public void jouer() {	
+	public void jouer() {
 		
 		//Distribution des cartes ingrédients
 		for(int i = 0; i < 4; i++) {
@@ -181,6 +183,24 @@ public class Manche {
 	 */
 	public int getNombreJoueurs() {
 		return this.nombreJoueurs;
+	}
+	
+	/**
+	 * Calcule le classement des joueurs dans la manche (en ne prenant en compte que cette manche)
+	 * @return un tableau de Joueur ordonné du joueur le mieux classé au moins bien classé dans la manche
+	 */
+	public ArrayList<Joueur> calculerClassementManche() {
+		ArrayList<Joueur> joueursClasses = new ArrayList<Joueur>();
+		
+		//Insertion des joueurs à partir de leur main dans le tableau
+		for(Iterator<MainJoueur> it = this.mainsDesJoueurs.iterator(); it.hasNext(); ) {
+			joueursClasses.add(it.next().getJoueur());
+		}
+		
+		//Tri du tableau en fonction du nombre de menhirs puis de graines de la manche
+		Collections.sort(joueursClasses, new ScoreMancheComparator());
+		
+		return joueursClasses;
 	}
 	
 }

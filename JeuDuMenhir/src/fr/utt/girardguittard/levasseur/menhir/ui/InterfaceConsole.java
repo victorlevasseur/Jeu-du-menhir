@@ -1,5 +1,7 @@
 package fr.utt.girardguittard.levasseur.menhir.ui;
 
+import java.util.ArrayList;
+
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
@@ -9,6 +11,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.ChiensDeGarde;
 import fr.utt.girardguittard.levasseur.menhir.cartes.TaupesGeantes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
 
@@ -83,6 +86,23 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 	}
 
 	public void notifierFinManche() {
+		System.out.println("  La manche s'achève.");
+		
+		if(this.partieEnCours.isPartieAvancee()) {
+			//On affiche un classement de la manche (uniquement pour les parties avancées car cela est redondant
+			//avec le score final pour une partie simple)
+			System.out.println("  Voici le classement des joueurs dans cette manche");
+			System.out.println("        Joueurs    Menhirs   Graines   Menhirs total (toute la partie)");
+			
+			ArrayList<Joueur> listeJoueursClasses = this.mancheEnCours.calculerClassementManche();
+			for(int i = 0; i < listeJoueursClasses.size(); i++) {
+				Joueur joueur = listeJoueursClasses.get(i);
+				
+				System.out.print("     " + (i+1) + ". " + (joueur.getNumero() == 0 ? "Vous     " : "Joueur #" + joueur.getNumero()));
+				System.out.println("     " + joueur.getMain().getNombreMenhir() + "         " + joueur.getMain().getNombreGraine() + "       " + joueur.getScore());
+			}
+		}
+		
 		Console.getInstance().attendreEntree();
 	}
 	
@@ -92,7 +112,7 @@ public class InterfaceConsole implements InterfaceUtilisateur {
 	}
 
 	public void notifierFinSaison() {
-		Console.getInstance().attendreEntree();
+		
 	}
 	
 	public void notifierDebutTour(int numeroJoueur) {
