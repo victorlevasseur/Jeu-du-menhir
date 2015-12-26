@@ -224,6 +224,10 @@ public class Manche extends Observable {
 	}
 	
 	public void finManche() throws ActionIllegaleException {
+		if(this.etat != EtatManche.FIN_SAISON && this.saisonActuelle != Saison.HIVER) {
+			throw new ActionIllegaleException("finManche() doit être appelée à la fin de la saison HIVER !");
+		}
+		
 		//On ajoute les menhirs de la manche au score des joueurs
 		for(Iterator<MainJoueur> itMainJoueur = this.mainsDesJoueurs.iterator(); itMainJoueur.hasNext(); ) {
 			MainJoueur mainJoueur = itMainJoueur.next();

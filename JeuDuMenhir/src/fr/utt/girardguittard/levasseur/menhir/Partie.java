@@ -79,6 +79,11 @@ public class Partie extends Observable implements Observer {
 		}
 		
 		this.numeroMancheEnCours++;
+		if(this.numeroMancheEnCours >= (this.partieAvancee ? this.joueurs.size() : 1)) {
+			this.etat = EtatPartie.FINIE;
+			this.notifyObservers();
+			return;
+		}
 		
 		//Création de la manche
 		this.mancheEnCours = new Manche(this.partieAvancee, 
@@ -147,7 +152,7 @@ public class Partie extends Observable implements Observer {
 	
 	/**
 	 * Calcule le classement des joueurs dans la manche.
-	 * @return un tableau de Joueur ordonné du joueur le mieux classé au moins bien classé dans la manche
+	 * @return un tableau de Joueur ordonné du joueur le mieux classé au moins bien classé dans la partie
 	 */
 	public ArrayList<Joueur> calculerClassementPartie() {
 		ArrayList<Joueur> joueursClasses = new ArrayList<Joueur>(this.joueurs);
