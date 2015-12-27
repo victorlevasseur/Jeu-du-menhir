@@ -2,7 +2,8 @@ package fr.utt.girardguittard.levasseur.menhir.ui.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
+import java.util.Observer;
+import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,9 +18,11 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class ViewMenuPrincipal extends JFrame {
+public class ViewMenuPrincipal extends JFrame implements Observer{
 
 	private JPanel contentPane;
+	
+	private static final long serialVersionUID = 42L;
 
 	/**
 	 * Launch the application.
@@ -103,5 +106,9 @@ public class ViewMenuPrincipal extends JFrame {
 					.addContainerGap(225, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	public void update(Observable obs, Object obj) {
+		
 	}
 }
