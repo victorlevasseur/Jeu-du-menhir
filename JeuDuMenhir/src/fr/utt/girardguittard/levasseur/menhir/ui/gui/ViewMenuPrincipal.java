@@ -51,6 +51,14 @@ public class ViewMenuPrincipal extends JFrame {
 		
 		JRadioButton rdbtnPartieAvance = new JRadioButton("Partie Avancée");
 		
+		ButtonGroup btnGroup = new ButtonGroup();
+		
+		//On ajoute les deux JRadioButton au groupe
+		btnGroup.add(rdbtnPartieSimple);
+		btnGroup.add(rdbtnPartieAvance);
+		
+		//Partie simple est la sélection par défaut
+		rdbtnPartieSimple.setSelected(true);
 		
 		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(1, 1, 5, 1));
