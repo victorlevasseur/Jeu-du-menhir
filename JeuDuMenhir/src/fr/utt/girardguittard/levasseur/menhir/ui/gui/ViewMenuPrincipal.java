@@ -7,6 +7,7 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import fr.utt.girardguittard.levasseur.menhir.Partie;
 import java.awt.GridBagLayout;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -22,7 +23,23 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 
 	private JPanel contentPane;
 	
+	private Partie partie;
+	
 	private static final long serialVersionUID = 42L;
+	
+	private JRadioButton rdbtnPartieSimple = new JRadioButton("Partie Simple");
+	
+	private JRadioButton rdbtnPartieAvance = new JRadioButton("Partie Avancée");
+	
+	private ButtonGroup btnGroup = new ButtonGroup();
+	
+	private JSpinner spinner = new JSpinner();
+
+	private JLabel lblNombreDeJoueur = new JLabel("Nombre de Joueur");
+	
+	private JButton btnJouer = new JButton("Jouer");
+
+
 
 	/**
 	 * Launch the application.
@@ -49,13 +66,7 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		JRadioButton rdbtnPartieSimple = new JRadioButton("Partie Simple");
-		
-		JRadioButton rdbtnPartieAvance = new JRadioButton("Partie Avancée");
-		
-		ButtonGroup btnGroup = new ButtonGroup();
-		
+				
 		//On ajoute les deux JRadioButton au groupe
 		btnGroup.add(rdbtnPartieSimple);
 		btnGroup.add(rdbtnPartieAvance);
@@ -63,12 +74,8 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 		//Partie simple est la sélection par défaut
 		rdbtnPartieSimple.setSelected(true);
 		
-		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(1, 1, 5, 1));
 		
-		JLabel lblNombreDeJoueur = new JLabel("Nombre de Joueur");
-		
-		JButton btnJouer = new JButton("Jouer");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
