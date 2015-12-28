@@ -128,7 +128,7 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 	
 	public int getNombreJoueur() {
 		if(spinner.getValue() instanceof Integer) {
-			return spinner.getValue();
+			return (int)spinner.getValue();
 		}
 		else {
 			return 0;
