@@ -39,7 +39,7 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 	
 	private JButton btnJouer = new JButton("Jouer");
 
-	private ControllerMenuPrincipal controller = new ControllerMenuPrincipal();
+	private ControllerMenuPrincipal controller = new ControllerMenuPrincipal(partie, this);
 
 	/**
 	 * Launch the application.
