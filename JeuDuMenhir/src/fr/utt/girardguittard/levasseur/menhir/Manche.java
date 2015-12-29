@@ -8,6 +8,7 @@ import java.util.Observable;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.CarteInvalideException;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
@@ -191,7 +192,7 @@ public class Manche extends Observable {
 		this.notifyObservers();
 	}
 	
-	public void jouerTourJoueur() throws ActionIllegaleException {
+	public void jouerTourJoueur() throws ActionIllegaleException, CarteInvalideException {
 		if(this.etat != EtatManche.DEBUT_TOUR_JOUEUR) {
 			throw new ActionIllegaleException("jouerTourJoueur() doit être appelée après demarrerTour() !");
 		}

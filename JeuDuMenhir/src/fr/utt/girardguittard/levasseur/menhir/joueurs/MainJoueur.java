@@ -199,6 +199,15 @@ public class MainJoueur {
 			return null;
 		}
 	}
+	
+	/**
+	 * Détermine si la carte est bien dans la main du joueur.
+	 * @param carte la carte à tester
+	 * @return vrai ou faux suivant si la carte est bien dans la main
+	 */
+	public boolean contientCarteIngredient(CarteIngredient carte) {
+		return this.cartesIngredient.contains(carte);
+	}
 
 	/**
 	 * Récupère la carte alliés du joueur (s'il en a une)

@@ -12,6 +12,12 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
  *
  */
 public class JoueurPhysique extends Joueur {
+	
+	boolean veutPrendreCarteAllies;
+	
+	ChoixCarteIngredient prochainChoixIngredient;
+	
+	ChoixCarteAllies prochainChoixAllies;
 
 	/**
 	 * Construit un joueur physique.
@@ -19,6 +25,9 @@ public class JoueurPhysique extends Joueur {
 	 */
 	public JoueurPhysique(int numero) {
 		super(numero);
+		this.veutPrendreCarteAllies = false;
+		this.prochainChoixIngredient = null;
+		this.prochainChoixAllies = new ChoixCarteAllies(false, -1);
 	}
 
 	/**
@@ -27,7 +36,7 @@ public class JoueurPhysique extends Joueur {
 	 * @param tour le tour en cours
 	 */
 	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour){
-		return InterfaceManager.get().demanderCarteIngredientAJouer(getMain());
+		return this.prochainChoixIngredient;
 	}
 	
 	/**
@@ -37,10 +46,10 @@ public class JoueurPhysique extends Joueur {
 	 * @param joueurActuel le numéro du joueur
 	 */
 	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
-		return InterfaceManager.get().demanderCarteAllies(this.getMain());
+		return this.prochainChoixAllies;
 	}
 	
 	public boolean veutCarteAllies() {
-		return InterfaceManager.get().demanderCarteOuGraines();
+		return this.veutPrendreCarteAllies;
 	}
 }

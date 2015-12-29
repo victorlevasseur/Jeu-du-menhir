@@ -44,9 +44,16 @@ public abstract class Joueur {
 	 * Il s'agit de décider qu'elle action réaliser et de l'effectuer.
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
+	 * @throws CarteInvalideException 
 	 */
-	public void jouerTour(Manche manche, Saison tour) {
+	public void jouerTour(Manche manche, Saison tour) throws CarteInvalideException {
 		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
+		
+		//On vérifie bien que la carte est dans la main du joueur
+		if(!this.main.contientCarteIngredient(choix.getCarteChoisie())) {
+			throw new CarteInvalideException("La carte choisie est invalide (aucune ou pas dans la main du joueur) !");
+		}
+		
 		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 		this.getMain().retirerCarteIngredient(choix.getCarteChoisie());
 		
