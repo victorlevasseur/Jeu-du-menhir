@@ -3,6 +3,8 @@ package fr.utt.girardguittard.levasseur.menhir;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
@@ -18,7 +20,7 @@ import fr.utt.girardguittard.levasseur.menhir.util.Console;
 import fr.utt.girardguittard.levasseur.menhir.util.ScoreMancheComparator;
 import fr.utt.girardguittard.levasseur.menhir.util.ScorePartieComparator;
 
-public class Partie {
+public class Partie extends Observable implements Observer {
 	
 	final private boolean partieAvancee;
 
@@ -28,7 +30,17 @@ public class Partie {
 	
 	private DeckCartes<CarteAllies> deckCartesAllies;
 	
+	private int premierJoueur;
+	
+	private EtatPartie etat;
+	
+	private int numeroMancheEnCours;
+	
+	private Manche mancheEnCours;
+	
 	public Partie(int nombreJoueurs, boolean partieAvancee) {
+		super();
+		
 		this.partieAvancee = partieAvancee;
 		this.joueurs = new ArrayList<Joueur>();
 		
@@ -49,14 +61,47 @@ public class Partie {
 		} else {
 			this.deckCartesAllies = null;
 		}
-	}
-
-	void jouer() {
-		//On notifie l'interface utilisateur que la partie est lancée
-		InterfaceManager.get().notifierDebutPartie(this);
 		
 		//On choisit aléatoirement le premier joueur qui va débuter la première manche
-		int premierJoueur = (int)(Math.random() * (float)this.joueurs.size());
+		this.premierJoueur = (int)(Math.random() * (float)this.joueurs.size());
+		
+		//On dit que la partie est lancée
+		this.etat = EtatPartie.LANCEE;
+		
+		//La manche qui sera lancée sera la première manche
+		this.numeroMancheEnCours = -1;
+		this.mancheEnCours = null;
+	}
+
+	public void demarrerManche() throws ActionIllegaleException {
+		if(this.etat == EtatPartie.FINIE || this.etat == EtatPartie.MANCHE_EN_COURS) {
+			throw new ActionIllegaleException("Ne peut pas appeler demarrerManche() lorsque la partie est finie ou lorsqu'une manche est en cours");
+		}
+		
+		this.numeroMancheEnCours++;
+		if(this.numeroMancheEnCours >= (this.partieAvancee ? this.joueurs.size() : 1)) {
+			this.etat = EtatPartie.FINIE;
+			this.notifyObservers();
+			return;
+		}
+		
+		//Création de la manche
+		this.mancheEnCours = new Manche(this.partieAvancee, 
+			this.joueurs, 
+			this.deckCartesIngredient, 
+			this.deckCartesAllies,
+			(premierJoueur + this.numeroMancheEnCours) % this.joueurs.size()
+			);
+		this.mancheEnCours.addObserver(this);
+		
+		this.etat = EtatPartie.MANCHE_EN_COURS;
+		
+		this.notifyObservers();
+	}
+
+	public void jouer() {
+		//On notifie l'interface utilisateur que la partie est lancée
+		InterfaceManager.get().notifierDebutPartie(this);
 		
 		//On effectue le nombre de manches souhaités (1 si partie simple, le nombre de manches sinon)
 		//La condition ternaire est plutôt utile ici...
@@ -93,9 +138,21 @@ public class Partie {
 		return joueurs;
 	}
 	
+	public EtatPartie getEtat() {
+		return etat;
+	}
+
+	public int getNumeroMancheEnCours() {
+		return numeroMancheEnCours;
+	}
+
+	public Manche getMancheEnCours() {
+		return mancheEnCours;
+	}
+	
 	/**
 	 * Calcule le classement des joueurs dans la manche.
-	 * @return un tableau de Joueur ordonné du joueur le mieux classé au moins bien classé dans la manche
+	 * @return un tableau de Joueur ordonné du joueur le mieux classé au moins bien classé dans la partie
 	 */
 	public ArrayList<Joueur> calculerClassementPartie() {
 		ArrayList<Joueur> joueursClasses = new ArrayList<Joueur>(this.joueurs);
@@ -124,5 +181,21 @@ public class Partie {
 		}
 		
 		return vainqueurs;
+	}
+
+	/**
+	 * Méthode update du design pattern observer/observable.
+	 * La classe Partie observe la Manche en cours pour savoir quand elle se termine
+	 */
+	public void update(Observable arg0, Object arg1) {
+		// On regarde si arg0 est une Manche et voir si elle est terminée
+		//         ==> si c'est le cas, mettre etat à EtatPartie.MANCHE_FINIE
+		if(arg0 instanceof Manche) {
+			Manche manche = (Manche) arg0;
+			if(manche.getEtat() == EtatManche.FIN_MANCHE) {
+				this.etat = EtatPartie.MANCHE_FINIE;
+				this.notifyObservers();
+			}
+		}
 	}
 }

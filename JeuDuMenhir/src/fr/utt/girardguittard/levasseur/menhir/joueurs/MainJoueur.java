@@ -1,11 +1,13 @@
 package fr.utt.girardguittard.levasseur.menhir.joueurs;
 
 import java.util.ArrayList;
+import java.util.Observable;
+
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 
-public class MainJoueur {
+public class MainJoueur extends Observable {
 
 	/**
 	 * Le joueur auquel appartient la main.
@@ -48,6 +50,8 @@ public class MainJoueur {
 	 * @param manche la manche jouée par le joueur avec cette main
 	 */
 	public MainJoueur(Joueur joueur, Manche manche) {
+		super();
+		
 		//Initialisation de l'association
 		this.joueur = joueur;
 		this.manche = manche;
@@ -80,6 +84,8 @@ public class MainJoueur {
 	 */
 	public void ajouterGraines(int graines) {
 		this.nombreGraine += graines;
+		
+		this.notifyObservers();
 	}
 	
 	/**
@@ -96,6 +102,8 @@ public class MainJoueur {
 			grainesVolees--;
 		}
 		this.nombreGraine -= grainesVolees;
+		
+		this.notifyObservers();
 		
 		return grainesVolees;
 	}
@@ -120,6 +128,8 @@ public class MainJoueur {
 		this.defenseChienDeGarde = Math.max(0, this.defenseChienDeGarde - menhirsPousses); //On réduit la défense du nombre
 		this.nombreMenhir += menhirsPousses;
 		
+		this.notifyObservers();
+		
 		return menhirsPousses;
 	}
 	
@@ -131,6 +141,8 @@ public class MainJoueur {
 	public int detruireMenhir(int menhirs) {
 		int menhirsDetruits = Math.min(this.nombreMenhir, menhirs);
 		this.nombreMenhir -= menhirsDetruits;
+		
+		this.notifyObservers();
 		
 		return menhirsDetruits;
 	}
@@ -148,6 +160,8 @@ public class MainJoueur {
 
 	public void setDefenseChienDeGarde(int defenseChienDeGarde) {
 		this.defenseChienDeGarde = Math.min(defenseChienDeGarde, this.nombreGraine);
+		
+		this.notifyObservers();
 	}
 
 	/**
@@ -157,6 +171,8 @@ public class MainJoueur {
 	public void ajouterCarteIngredient(CarteIngredient carteIngredient) {
 		if(this.cartesIngredient.size() <= 3) {
 			this.cartesIngredient.add(carteIngredient);
+			
+			this.notifyObservers();
 		}
 	}
 	
@@ -167,6 +183,8 @@ public class MainJoueur {
 	public void retirerCarteIngredient(int carte) {
 		if(carte < this.cartesIngredient.size()) {
 			this.cartesIngredient.remove(carte);
+			
+			this.notifyObservers();
 		}
 	}
 	
@@ -177,6 +195,8 @@ public class MainJoueur {
 	 */
 	public void retirerCarteIngredient(CarteIngredient carte) {
 		this.cartesIngredient.remove(carte);
+		
+		this.notifyObservers();
 	}
 	
 	/**
@@ -199,6 +219,15 @@ public class MainJoueur {
 			return null;
 		}
 	}
+	
+	/**
+	 * Détermine si la carte est bien dans la main du joueur.
+	 * @param carte la carte à tester
+	 * @return vrai ou faux suivant si la carte est bien dans la main
+	 */
+	public boolean contientCarteIngredient(CarteIngredient carte) {
+		return this.cartesIngredient.contains(carte);
+	}
 
 	/**
 	 * Récupère la carte alliés du joueur (s'il en a une)
@@ -214,6 +243,8 @@ public class MainJoueur {
 	 */
 	public void setCarteAllies(CarteAllies carteAllies) {
 		this.carteAllies = carteAllies;
+		
+		this.notifyObservers();
 	}
 	
 	/**
@@ -221,5 +252,7 @@ public class MainJoueur {
 	 */
 	public void retirerCarteAllies() {
 		this.setCarteAllies(null);
+		
+		this.notifyObservers();
 	}
 }
