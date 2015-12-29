@@ -157,7 +157,7 @@ public class Manche extends Observable {
 		}
 		
 		//On incrémente la saison (à moins que ce soit le 1er appel de cette méthode)
-		if(this.etat == EtatManche.FIN_SAISON) {
+		if(this.etat == EtatManche.PRET_A_DEMARRER) {
 			this.saisonActuelle = Saison.PRINTEMPS;
 			this.joueurTour = this.premierJoueur;
 		} else {
