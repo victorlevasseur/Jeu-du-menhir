@@ -96,6 +96,7 @@ public class Partie extends Observable implements Observer {
 		
 		this.etat = EtatPartie.MANCHE_EN_COURS;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 
@@ -194,6 +195,7 @@ public class Partie extends Observable implements Observer {
 			Manche manche = (Manche) arg0;
 			if(manche.getEtat() == EtatManche.FIN_MANCHE) {
 				this.etat = EtatPartie.MANCHE_FINIE;
+				this.setChanged();
 				this.notifyObservers();
 			}
 		}

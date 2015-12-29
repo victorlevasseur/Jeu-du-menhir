@@ -117,6 +117,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -146,6 +147,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.PRET_A_DEMARRER;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -165,6 +167,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.DEBUT_SAISON;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -189,6 +192,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.DEBUT_TOUR_JOUEUR;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -202,6 +206,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.FIN_TOUR_JOUEUR;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -221,6 +226,7 @@ public class Manche extends Observable {
 			itMainJoueur.next().getJoueur().jouerCartesAllies(this, this.saisonActuelle, this.joueurTour);
 		}
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -238,6 +244,7 @@ public class Manche extends Observable {
 		//On signale que la manche est finie
 		this.etat = EtatManche.FIN_MANCHE;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
