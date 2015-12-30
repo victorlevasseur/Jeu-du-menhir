@@ -160,6 +160,8 @@ public class Manche extends Observable {
 		if(this.etat == EtatManche.PRET_A_DEMARRER) {
 			this.saisonActuelle = Saison.PRINTEMPS;
 			this.joueurTour = this.premierJoueur;
+		} else if(this.saisonActuelle == Saison.HIVER) {
+			this.finManche();
 		} else {
 			this.saisonActuelle = Saison.values()[this.saisonActuelle.ordinal() + 1];
 			this.joueurTour = this.premierJoueur;
@@ -232,7 +234,7 @@ public class Manche extends Observable {
 		this.notifyObservers();
 	}
 	
-	public void finManche() throws ActionIllegaleException {
+	private void finManche() throws ActionIllegaleException {
 		if(this.etat != EtatManche.FIN_SAISON && this.saisonActuelle != Saison.HIVER) {
 			throw new ActionIllegaleException("finManche() doit être appelée à la fin de la saison HIVER !");
 		}
