@@ -56,8 +56,6 @@ public abstract class Joueur {
 		
 		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 		this.getMain().retirerCarteIngredient(choix.getCarteChoisie());
-		
-		InterfaceManager.get().notifierAgissementCarte(choix, forceReelle);
 	}
 	
 	/**
@@ -73,7 +71,6 @@ public abstract class Joueur {
 			if(choix.isJoue())
 			{
 				int forceReelle = this.getMain().getCarteAllies().agir(manche, this.getMain(), choix.getCible(), tour);
-				InterfaceManager.get().notifierAgissementCarte(this.numero, choix, this.getMain().getCarteAllies(), forceReelle);
 				
 				this.getMain().retirerCarteAllies();	
 			}
