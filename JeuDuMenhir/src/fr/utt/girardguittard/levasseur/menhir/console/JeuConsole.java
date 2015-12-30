@@ -10,6 +10,7 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.CarteInvalideException;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
@@ -54,11 +55,15 @@ public class JeuConsole implements Observer {
 	
 	private Manche mancheEnCours;
 	
+	private boolean carteAlliesJouees;
+	
 	public JeuConsole(Partie partie) {
 		this.partie = partie;
 		this.partie.addObserver(this);
 		
 		this.mancheEnCours = null;
+		
+		this.carteAlliesJouees = false;
 	}
 	
 	void lancerPartie() {
@@ -134,7 +139,28 @@ public class JeuConsole implements Observer {
 					
 					this.mancheEnCours.jouerTourJoueur();
 				} else if(this.mancheEnCours.getEtat() == EtatManche.FIN_TOUR_JOUEUR) {
-					this.mancheEnCours.demarrerTour();
+					//C'est la fin du tour d'un joueur
+					Console.getInstance().attendreEntree();
+					
+					if(this.partie.isPartieAvancee() && !this.carteAlliesJouees) {
+						this.carteAlliesJouees = true;
+						//Si les cartes alliés n'ont pas été encore jouées :
+						
+						//On demande au joueur 1 (joueur physique) s'il veut jouer sa carte alliés (s'il en a une)
+						if(this.mancheEnCours.getJoueur(0).getMain().getCarteAllies() != null) {
+							this.demanderCarteAllies();
+						}
+						
+						this.mancheEnCours.jouerCartesAllies();
+					} else {
+						this.carteAlliesJouees = false;
+						
+						//Si les cartes alliés ont été jouées, on passe au tour suivant :
+						this.mancheEnCours.demarrerTour();
+					}
+				} else if(this.mancheEnCours.getEtat() == EtatManche.FIN_SAISON) {
+					//C'est la fin d'une saison, on lance la suivante
+					this.mancheEnCours.demarrerSaison();
 				}
 			}
 		} catch (ActionIllegaleException | CarteInvalideException e) { 
@@ -231,5 +257,47 @@ public class JeuConsole implements Observer {
 		}
 		
 		joueur.setProchainChoixIngredient(new ChoixCarteIngredient(mainJoueur.getCarteIngredient(numeroCarte-1), joueurCible-1, actionCarte));
+	}
+	
+	private void demanderCarteAllies() {
+		JoueurPhysique joueur = (JoueurPhysique)this.mancheEnCours.getJoueur(0);
+		MainJoueur mainJoueur = joueur.getMain();
+		
+		//Récupération de la volonté de l'utilisateur à utiliser sa carte
+		System.out.println("      Voulez vous jouez votre carte " + mainJoueur.getCarteAllies().getNom() + " ? [O/N]");
+		System.out.println(mainJoueur.getCarteAllies());
+		String actionStr = Console.getInstance().readln().toUpperCase();;
+		while(!actionStr.equals("O") && !actionStr.equals("N") && !actionStr.equals("OUI") && !actionStr.equals("NON")) {
+			System.out.println("Ceci n'est pas un choix valide !");
+			actionStr = Console.getInstance().readln().toUpperCase();
+		}
+		
+		if(actionStr.equals("O") || actionStr.equals("OUI")) {
+			
+			//Choix de la cible si le joueur dispose d'une carte Taupes géantes
+			int joueurCible = -1;
+			if (mainJoueur.getCarteAllies().getNom().equals("Taupes géantes")) {
+				System.out.println("      Veuillez saisir le joueur cible [1-" + this.partie.getNombreJoueurs() + "] : ");
+				do {
+					String joueurCibleStr = Console.getInstance().readln();
+					try {
+						joueurCible = Integer.parseInt(joueurCibleStr);
+						
+						if(joueurCible < 1 || joueurCible > this.partie.getNombreJoueurs()) {
+							System.out.println("Ce n'est pas numéro de joueur valide !");
+							joueurCible = -1;
+						}
+					}
+					catch(NumberFormatException e) {
+						System.out.println("Ceci n'est pas un nombre !");
+						joueurCible = -1;
+					}
+				} while(joueurCible == -1);
+			}
+			joueur.setProchainChoixAllies(new ChoixCarteAllies(true, joueurCible-1));
+		}
+		else {
+			joueur.setProchainChoixAllies(new ChoixCarteAllies(false, -1));
+		}
 	}
 }
