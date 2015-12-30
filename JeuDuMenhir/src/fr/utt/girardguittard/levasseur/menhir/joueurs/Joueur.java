@@ -50,7 +50,7 @@ public abstract class Joueur {
 		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
 		
 		//On vérifie bien que la carte est dans la main du joueur
-		if(!this.main.contientCarteIngredient(choix.getCarteChoisie())) {
+		if(choix == null || choix.getCarteChoisie() == null ||!this.main.contientCarteIngredient(choix.getCarteChoisie())) {
 			throw new CarteInvalideException("La carte choisie est invalide (aucune ou pas dans la main du joueur) !");
 		}
 		
