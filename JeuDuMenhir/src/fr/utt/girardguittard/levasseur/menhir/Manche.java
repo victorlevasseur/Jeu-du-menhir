@@ -162,6 +162,7 @@ public class Manche extends Observable {
 			this.joueurTour = this.premierJoueur;
 		} else if(this.saisonActuelle == Saison.HIVER) {
 			this.finManche();
+			return;
 		} else {
 			this.saisonActuelle = Saison.values()[this.saisonActuelle.ordinal() + 1];
 			this.joueurTour = this.premierJoueur;
