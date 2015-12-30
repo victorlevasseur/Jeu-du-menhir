@@ -13,11 +13,11 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
  */
 public class JoueurPhysique extends Joueur {
 	
-	boolean veutPrendreCarteAllies;
+	private boolean veutPrendreCarteAllies;
 	
-	ChoixCarteIngredient prochainChoixIngredient;
+	private ChoixCarteIngredient prochainChoixIngredient;
 	
-	ChoixCarteAllies prochainChoixAllies;
+	private ChoixCarteAllies prochainChoixAllies;
 
 	/**
 	 * Construit un joueur physique.
@@ -51,5 +51,17 @@ public class JoueurPhysique extends Joueur {
 	
 	public boolean veutCarteAllies() {
 		return this.veutPrendreCarteAllies;
+	}
+
+	public void setVeutPrendreCarteAllies(boolean veutPrendreCarteAllies) {
+		this.veutPrendreCarteAllies = veutPrendreCarteAllies;
+	}
+
+	public void setProchainChoixIngredient(ChoixCarteIngredient prochainChoixIngredient) {
+		this.prochainChoixIngredient = prochainChoixIngredient;
+	}
+
+	public void setProchainChoixAllies(ChoixCarteAllies prochainChoixAllies) {
+		this.prochainChoixAllies = prochainChoixAllies;
 	}
 }

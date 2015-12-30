@@ -50,14 +50,12 @@ public abstract class Joueur {
 		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
 		
 		//On vérifie bien que la carte est dans la main du joueur
-		if(!this.main.contientCarteIngredient(choix.getCarteChoisie())) {
+		if(choix == null || choix.getCarteChoisie() == null ||!this.main.contientCarteIngredient(choix.getCarteChoisie())) {
 			throw new CarteInvalideException("La carte choisie est invalide (aucune ou pas dans la main du joueur) !");
 		}
 		
 		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 		this.getMain().retirerCarteIngredient(choix.getCarteChoisie());
-		
-		InterfaceManager.get().notifierAgissementCarte(choix, forceReelle);
 	}
 	
 	/**
@@ -73,7 +71,6 @@ public abstract class Joueur {
 			if(choix.isJoue())
 			{
 				int forceReelle = this.getMain().getCarteAllies().agir(manche, this.getMain(), choix.getCible(), tour);
-				InterfaceManager.get().notifierAgissementCarte(this.numero, choix, this.getMain().getCarteAllies(), forceReelle);
 				
 				this.getMain().retirerCarteAllies();	
 			}

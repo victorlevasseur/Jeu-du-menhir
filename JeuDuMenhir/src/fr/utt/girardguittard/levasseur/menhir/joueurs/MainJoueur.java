@@ -85,6 +85,7 @@ public class MainJoueur extends Observable {
 	public void ajouterGraines(int graines) {
 		this.nombreGraine += graines;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -103,6 +104,7 @@ public class MainJoueur extends Observable {
 		}
 		this.nombreGraine -= grainesVolees;
 		
+		this.setChanged();
 		this.notifyObservers();
 		
 		return grainesVolees;
@@ -128,6 +130,7 @@ public class MainJoueur extends Observable {
 		this.defenseChienDeGarde = Math.max(0, this.defenseChienDeGarde - menhirsPousses); //On réduit la défense du nombre
 		this.nombreMenhir += menhirsPousses;
 		
+		this.setChanged();
 		this.notifyObservers();
 		
 		return menhirsPousses;
@@ -142,6 +145,7 @@ public class MainJoueur extends Observable {
 		int menhirsDetruits = Math.min(this.nombreMenhir, menhirs);
 		this.nombreMenhir -= menhirsDetruits;
 		
+		this.setChanged();
 		this.notifyObservers();
 		
 		return menhirsDetruits;
@@ -161,6 +165,7 @@ public class MainJoueur extends Observable {
 	public void setDefenseChienDeGarde(int defenseChienDeGarde) {
 		this.defenseChienDeGarde = Math.min(defenseChienDeGarde, this.nombreGraine);
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 
@@ -172,6 +177,7 @@ public class MainJoueur extends Observable {
 		if(this.cartesIngredient.size() <= 3) {
 			this.cartesIngredient.add(carteIngredient);
 			
+			this.setChanged();
 			this.notifyObservers();
 		}
 	}
@@ -184,6 +190,7 @@ public class MainJoueur extends Observable {
 		if(carte < this.cartesIngredient.size()) {
 			this.cartesIngredient.remove(carte);
 			
+			this.setChanged();
 			this.notifyObservers();
 		}
 	}
@@ -196,6 +203,7 @@ public class MainJoueur extends Observable {
 	public void retirerCarteIngredient(CarteIngredient carte) {
 		this.cartesIngredient.remove(carte);
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -244,6 +252,7 @@ public class MainJoueur extends Observable {
 	public void setCarteAllies(CarteAllies carteAllies) {
 		this.carteAllies = carteAllies;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -253,6 +262,7 @@ public class MainJoueur extends Observable {
 	public void retirerCarteAllies() {
 		this.setCarteAllies(null);
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 }

@@ -117,6 +117,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -146,6 +147,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.PRET_A_DEMARRER;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -155,9 +157,12 @@ public class Manche extends Observable {
 		}
 		
 		//On incrémente la saison (à moins que ce soit le 1er appel de cette méthode)
-		if(this.etat == EtatManche.FIN_SAISON) {
+		if(this.etat == EtatManche.PRET_A_DEMARRER) {
 			this.saisonActuelle = Saison.PRINTEMPS;
 			this.joueurTour = this.premierJoueur;
+		} else if(this.saisonActuelle == Saison.HIVER) {
+			this.finManche();
+			return;
 		} else {
 			this.saisonActuelle = Saison.values()[this.saisonActuelle.ordinal() + 1];
 			this.joueurTour = this.premierJoueur;
@@ -165,6 +170,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.DEBUT_SAISON;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -182,6 +188,8 @@ public class Manche extends Observable {
 			if(this.joueurTour == this.premierJoueur) { //Si après incrémentation, on retombe sur le premier joueur
 				//Cela signifie que l'on a fini la saison
 				this.etat = EtatManche.FIN_SAISON;
+				
+				this.setChanged();
 				this.notifyObservers();
 				return;
 			}
@@ -189,6 +197,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.DEBUT_TOUR_JOUEUR;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -202,6 +211,7 @@ public class Manche extends Observable {
 		
 		this.etat = EtatManche.FIN_TOUR_JOUEUR;
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
@@ -221,10 +231,11 @@ public class Manche extends Observable {
 			itMainJoueur.next().getJoueur().jouerCartesAllies(this, this.saisonActuelle, this.joueurTour);
 		}
 		
+		this.setChanged();
 		this.notifyObservers();
 	}
 	
-	public void finManche() throws ActionIllegaleException {
+	private void finManche() throws ActionIllegaleException {
 		if(this.etat != EtatManche.FIN_SAISON && this.saisonActuelle != Saison.HIVER) {
 			throw new ActionIllegaleException("finManche() doit être appelée à la fin de la saison HIVER !");
 		}
@@ -238,14 +249,8 @@ public class Manche extends Observable {
 		//On signale que la manche est finie
 		this.etat = EtatManche.FIN_MANCHE;
 		
+		this.setChanged();
 		this.notifyObservers();
-	}
-	
-	/**
-	 * Joue la manche.
-	 */
-	public void jouer() {
-		
 	}
 	
 	/**
