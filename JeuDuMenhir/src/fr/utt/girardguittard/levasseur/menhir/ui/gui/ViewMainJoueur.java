@@ -34,14 +34,19 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		this.add(nbrGraines);
 		this.add(nbrMenhirs);
 		
+		//Ajout des cartes s'il s'agit d'un joueur physique
 		if (physique) {
 			//gérer l'affichage des cartes
 		}
 		
+		//On s'ajoute en observer de la main
+		main.addObserver(this);
 	}
 
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable obs, Object obj) {
+		if (obs == main) {
+			nbrGraines.setText("Nombre de graines : " + main.getNombreGraine());
+			nbrMenhirs.setText("Nombre de menhirs : " + main.getNombreMenhir());
+		}
 	}
 }
