@@ -39,7 +39,7 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 	
 	private JButton btnJouer = new JButton("Jouer");
 
-
+	private ControllerMenuPrincipal controller = new ControllerMenuPrincipal(partie, this);
 
 	/**
 	 * Launch the application.
@@ -73,6 +73,9 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 		
 		//Partie simple est la sélection par défaut
 		rdbtnPartieSimple.setSelected(true);
+		
+		//Ajout du Controller au bouton
+		btnJouer.addActionListener(controller);
 		
 		spinner.setModel(new SpinnerNumberModel(1, 1, 5, 1));
 		
@@ -117,5 +120,18 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 	
 	public void update(Observable obs, Object obj) {
 		
+	}
+	
+	public boolean isSimple() {
+		return rdbtnPartieSimple.isSelected();
+	}
+	
+	public int getNombreJoueur() {
+		if(spinner.getValue() instanceof Integer) {
+			return (int)spinner.getValue();
+		}
+		else {
+			return 0;
+		}
 	}
 }
