@@ -185,6 +185,8 @@ public class Manche extends Observable {
 			if(this.joueurTour == this.premierJoueur) { //Si après incrémentation, on retombe sur le premier joueur
 				//Cela signifie que l'on a fini la saison
 				this.etat = EtatManche.FIN_SAISON;
+				
+				this.setChanged();
 				this.notifyObservers();
 				return;
 			}
