@@ -6,8 +6,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import java.awt.Dimension;
+import java.util.Observable;
 import java.util.Observer;
-
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
@@ -18,35 +19,40 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	
 	private JList listeCarte = new JList();
 		
-	private JLabel nomCarte = new JLabel();
+	private JLabel affichageCarte = new JLabel();
 	
-	private JLabel forcesGeant = new JLabel();
+	private DefaultListModel listModel = new DefaultListModel();
 	
-	private JLabel forcesEngrais = new JLabel();
-	
-	private JLabel forcesFarfadets = new JLabel();
+	private JScrollPane listScroller = new JScrollPane(listeCarte);
 	
 	public ViewCartesIngredients(MainJoueur m) {
+		//Ajout en tant qu'observateur
 		this.main = m;
+		main.addObserver(this);
 		
 		//Initialisation de la liste
 		listeCarte.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listeCarte.setLayoutOrientation(JList.VERTICAL);
 
-		JScrollPane listScroller = new JScrollPane(listeCarte);
 		listScroller.setPreferredSize(new Dimension(250, 80)); //A voir suivant la fenêtre de jeu
 
-		DefaultListModel listModel = new DefaultListModel();
-		
 		for(int i = 0; i < main.getNombreCarteIngredient(); i++){
 			listModel.addElement(main.getCarteIngredient(i).getNom());
 		}
 		
 		//On affiche les données de la première carte
 		listeCarte.setSelectedIndex(0);
-		nomCarte.setText(main.getCarteIngredient(0).getNom());
-		//reste à faire l'affichage des actions/forces
+		affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
+		//L'utilisation du html permet d'avoir simplement des JLabel multilignes
 	}
 	
-	
+	public void update(Observable obs, Object obj) {
+		if(obs == main) {
+			for(int i = 0; i < main.getNombreCarteIngredient(); i++){
+				listModel.addElement(main.getCarteIngredient(i).getNom());
+			}
+			listeCarte.setSelectedIndex(0);
+			affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
+		}
+	}
 }
