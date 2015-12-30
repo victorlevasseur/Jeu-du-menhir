@@ -23,7 +23,7 @@ public class ViewMainJoueur extends JPanel implements Observer{
 	public ViewMainJoueur(boolean physique, MainJoueur m) {
 		
 		//Initialisation des variables
-		main = m;
+		this.main = m;
 		nomJoueur.setText("Joueur " + main.getJoueur().getNumero());
 		nbrGraines.setText("Nombre de graines : " + main.getNombreGraine());
 		nbrMenhirs.setText("Nombre de menhirs : " + main.getNombreMenhir());
