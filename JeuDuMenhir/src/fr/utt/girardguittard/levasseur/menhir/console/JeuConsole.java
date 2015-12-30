@@ -1,5 +1,6 @@
 package fr.utt.girardguittard.levasseur.menhir.console;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,6 +13,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.CarteInvalideException;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
@@ -89,6 +91,9 @@ public class JeuConsole implements Observer {
 					
 					//On lance la manche
 					this.mancheEnCours.distribuerCartesIngredients();
+				} else if(this.partie.getEtat() == EtatPartie.MANCHE_FINIE) {
+					//Une manche vient de se finir, on débute la manche suivante
+					this.partie.demarrerManche();
 				}
 			} else if (arg0 == this.partie.getMancheEnCours()) {
 				if(this.mancheEnCours.getEtat() == EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES) {
@@ -140,7 +145,6 @@ public class JeuConsole implements Observer {
 					this.mancheEnCours.jouerTourJoueur();
 				} else if(this.mancheEnCours.getEtat() == EtatManche.FIN_TOUR_JOUEUR) {
 					//C'est la fin du tour d'un joueur
-					Console.getInstance().attendreEntree();
 					
 					if(this.partie.isPartieAvancee() && !this.carteAlliesJouees) {
 						this.carteAlliesJouees = true;
@@ -155,12 +159,32 @@ public class JeuConsole implements Observer {
 					} else {
 						this.carteAlliesJouees = false;
 						
+						Console.getInstance().attendreEntree();
+						
 						//Si les cartes alliés ont été jouées, on passe au tour suivant :
 						this.mancheEnCours.demarrerTour();
 					}
 				} else if(this.mancheEnCours.getEtat() == EtatManche.FIN_SAISON) {
 					//C'est la fin d'une saison, on lance la suivante
 					this.mancheEnCours.demarrerSaison();
+				} else if(this.mancheEnCours.getEtat() == EtatManche.FIN_MANCHE) {
+					//C'est la fin de la manche, on affiche le classement de cette dernière
+					//(uniquement pour les parties avancée car le classement général d'une partie simple
+					//correspond à celui de l'unique manche).
+					if(this.partie.isPartieAvancee()) {
+						System.out.println("  Voici le classement des joueurs dans cette manche");
+						System.out.println("        Joueurs    Menhirs   Graines   Menhirs total (toute la partie)");
+						
+						ArrayList<Joueur> listeJoueursClasses = this.mancheEnCours.calculerClassementManche();
+						for(int i = 0; i < listeJoueursClasses.size(); i++) {
+							Joueur joueur = listeJoueursClasses.get(i);
+							
+							System.out.print("     " + (i+1) + ". " + (joueur.getNumero() == 0 ? "Vous     " : "Joueur #" + (joueur.getNumero()+1)));
+							System.out.println("     " + joueur.getMain().getNombreMenhir() + "         " + joueur.getMain().getNombreGraine() + "       " + joueur.getScore());
+						}
+						
+						Console.getInstance().attendreEntree();
+					}
 				}
 			}
 		} catch (ActionIllegaleException | CarteInvalideException e) { 
