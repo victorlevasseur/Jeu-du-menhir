@@ -254,13 +254,6 @@ public class Manche extends Observable {
 	}
 	
 	/**
-	 * Joue la manche.
-	 */
-	public void jouer() {
-		
-	}
-	
-	/**
 	 * Retourne un joueur.
 	 * @param numero le numéro du joueur (à partir de 0)
 	 * @return le joueur associé à ce numéro

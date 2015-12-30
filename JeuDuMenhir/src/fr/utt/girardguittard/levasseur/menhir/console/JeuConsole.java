@@ -130,13 +130,11 @@ public class JeuConsole implements Observer {
 						}
 						System.out.print(".");
 					}
-					
+
 					Console.getInstance().attendreEntree();
-					
-					this.partie.deleteObserver(this);
-					this.mancheEnCours.deleteObserver(this);
 				}
 			} else if (arg0 == this.partie.getMancheEnCours()) {
+				
 				if(this.mancheEnCours.getEtat() == EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES) {
 					//Le jeu attend de savoir si le joueur physique veut une carte alliés
 					
@@ -226,6 +224,9 @@ public class JeuConsole implements Observer {
 						
 						Console.getInstance().attendreEntree();
 					}
+					
+					this.mancheEnCours.deleteObserver(this);
+					this.mancheEnCours = null;
 				}
 			}
 		} catch (ActionIllegaleException | CarteInvalideException e) { 

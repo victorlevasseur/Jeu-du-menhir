@@ -101,33 +101,6 @@ public class Partie extends Observable implements Observer {
 		this.setChanged();
 		this.notifyObservers();
 	}
-
-	public void jouer() {
-		//On notifie l'interface utilisateur que la partie est lancée
-		InterfaceManager.get().notifierDebutPartie(this);
-		
-		//On effectue le nombre de manches souhaités (1 si partie simple, le nombre de manches sinon)
-		//La condition ternaire est plutôt utile ici...
-		Manche manche = null; //Obligé pour conserver manche à la fin de la boucle.
-		for(int i = 0; i < (this.partieAvancee ? this.getNombreJoueurs() : 1); i++) {
-			
-			//Création de la manche
-			manche = new Manche(this.partieAvancee, 
-					this.joueurs, 
-					this.deckCartesIngredient, 
-					this.deckCartesAllies,
-					(premierJoueur + i) % this.joueurs.size());
-			
-			InterfaceManager.get().notifierDebutManche(i, manche);
-			
-			//On joue la manche
-			manche.jouer();
-			
-			InterfaceManager.get().notifierFinManche();
-		}
-		
-		InterfaceManager.get().notifierFinPartie();
-	}
 	
 	public boolean isPartieAvancee() {
 		return this.partieAvancee;
@@ -195,7 +168,7 @@ public class Partie extends Observable implements Observer {
 		//         ==> si c'est le cas, mettre etat à EtatPartie.MANCHE_FINIE
 		if(arg0 instanceof Manche) {
 			Manche manche = (Manche) arg0;
-			if(manche.getEtat() == EtatManche.FIN_MANCHE) {
+			if(this.getEtat() == EtatPartie.MANCHE_EN_COURS && manche.getEtat() == EtatManche.FIN_MANCHE) {
 				this.etat = EtatPartie.MANCHE_FINIE;
 				this.setChanged();
 				this.notifyObservers();
