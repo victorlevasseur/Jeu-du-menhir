@@ -81,6 +81,8 @@ public class Partie extends Observable implements Observer {
 		this.numeroMancheEnCours++;
 		if(this.numeroMancheEnCours >= (this.partieAvancee ? this.joueurs.size() : 1)) {
 			this.etat = EtatPartie.FINIE;
+			
+			this.setChanged();
 			this.notifyObservers();
 			return;
 		}

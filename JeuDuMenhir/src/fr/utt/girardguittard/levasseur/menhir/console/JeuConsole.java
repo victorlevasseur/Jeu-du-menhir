@@ -1,6 +1,7 @@
 package fr.utt.girardguittard.levasseur.menhir.console;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -94,6 +95,46 @@ public class JeuConsole implements Observer {
 				} else if(this.partie.getEtat() == EtatPartie.MANCHE_FINIE) {
 					//Une manche vient de se finir, on débute la manche suivante
 					this.partie.demarrerManche();
+				} else if(this.partie.getEtat() == EtatPartie.FINIE) {
+					//Gestion de la fin de la partie
+					System.out.println("La partie est terminée.");
+					
+					//On affiche un classement de la manche (uniquement pour les parties avancées car cela est redondant
+					//avec le score final pour une partie simple)
+					System.out.println("Voici le classement des joueurs");
+					System.out.println("     Joueurs    Menhirs total (toute la partie)");
+					
+					ArrayList<Joueur> listeJoueursClasses = this.partie.calculerClassementPartie();
+					for(int i = 0; i < listeJoueursClasses.size(); i++) {
+						Joueur joueur = listeJoueursClasses.get(i);
+						
+						System.out.print("  " + (i+1) + ". " + (joueur.getNumero() == 0 ? "Vous     " : "Joueur #" + (joueur.getNumero()+1)));
+						System.out.print("  " + joueur.getScore());
+						//Si c'est une partie simple, on affiche aussi le nombre de graines (car cela peut être décisif pour le classement de la partie)
+						if(!this.partie.isPartieAvancee()) {
+							System.out.print(" (et " + joueur.getMain().getNombreGraine() + " graine(s))");
+						}
+						System.out.println("");
+					}
+					
+					ArrayList<Joueur> listeVainqueurs = this.partie.calculerVainqueurs();
+					if(listeVainqueurs.size() == 1) {
+						System.out.println("Le vainqueur est le joueur #" + (listeVainqueurs.get(0).getNumero()+1));
+					} else {
+						System.out.print("Les vainqueurs sont les joueurs ");
+						for(Iterator<Joueur> it = listeVainqueurs.iterator(); it.hasNext(); ) {
+							System.out.print("#" + (it.next().getNumero()+1));
+							if(it.hasNext()) {
+								System.out.print(", ");
+							}
+						}
+						System.out.print(".");
+					}
+					
+					Console.getInstance().attendreEntree();
+					
+					this.partie.deleteObserver(this);
+					this.mancheEnCours.deleteObserver(this);
 				}
 			} else if (arg0 == this.partie.getMancheEnCours()) {
 				if(this.mancheEnCours.getEtat() == EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES) {
