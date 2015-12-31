@@ -5,6 +5,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.Dimension;
@@ -18,13 +19,19 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	
 	private MainJoueur main;
 	
-	private JList listeCarte = new JList();
+	private JList<String> listeCarte = new JList();
 		
 	private JLabel affichageCarte = new JLabel();
 	
-	private DefaultListModel listModel = new DefaultListModel();
+	private JButton bouttonJouer = new JButton("Jouer");
+	
+	private DefaultListModel<String> listModel = new DefaultListModel();
 	
 	private JScrollPane listScroller = new JScrollPane(listeCarte);
+	
+	private ControllerJouerCartesIngredients controllerBoutonJouer;
+	
+	private ControllerListCartesIngredients controllerListe;
 	
 	public ViewCartesIngredients(MainJoueur m) {
 		//Ajout en tant qu'observateur
@@ -46,10 +53,19 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
 		//L'utilisation du html permet d'avoir simplement des JLabel multilignes
 		
+		//Ajout d'un controlleur au bouton
+		controllerBoutonJouer = new ControllerJouerCartesIngredients(main, this);
+		bouttonJouer.addActionListener(controllerBoutonJouer);
+		
+		//Ajout d'un controlleur à la liste
+		controllerListe = new ControllerListCartesIngredients(main, this);
+		listeCarte.addListSelectionListener(controllerListe);
+		
 		//Ajout des éléments au panel
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.add(listeCarte);
 		this.add(affichageCarte);
+		this.add(bouttonJouer);
 	}
 	
 	public void update(Observable obs, Object obj) {
