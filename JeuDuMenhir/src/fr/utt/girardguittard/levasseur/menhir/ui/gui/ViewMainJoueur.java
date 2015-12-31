@@ -20,7 +20,7 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		
 	private MainJoueur main;
 	
-	public ViewMainJoueur(boolean physique, MainJoueur m) {
+	public ViewMainJoueur(boolean physique, boolean avancee, MainJoueur m) {
 		
 		//Initialisation des variables
 		this.main = m;
@@ -34,10 +34,16 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		this.add(nbrGraines);
 		this.add(nbrMenhirs);
 		
-		//Ajout des cartes s'il s'agit d'un joueur physique
+		//Ajout des cartes ingrédients s'il s'agit d'un joueur physique
 		if (physique) {
 			ViewCartesIngredients viewCartesIngredients = new ViewCartesIngredients(main);
 			this.add(viewCartesIngredients);
+			
+			//Ajout de l'affichage de la carte alliés s'il s'agit d'une partie avancée
+			if (avancee) {
+				ViewCartesAllies viewCartesAllies = new ViewCartesAllies(main);
+				this.add(viewCartesAllies);
+			}
 		}
 		
 		//On s'ajoute en observer de la main
