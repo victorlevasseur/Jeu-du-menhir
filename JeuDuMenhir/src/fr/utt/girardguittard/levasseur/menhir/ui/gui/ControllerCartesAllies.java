@@ -17,7 +17,7 @@ public class ControllerCartesAllies implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
+		//Reste à trouver à moyen de lui passer la manche et le tour et de rajouter des controles pour la cible
 	}
 
 }
