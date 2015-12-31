@@ -20,13 +20,13 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	
 	private MainJoueur main;
 	
-	private JList<String> listeCarte = new JList();
+	private JList<String> listeCarte = new JList<String>();
 		
 	private JLabel affichageCarte = new JLabel();
 	
 	private JButton bouttonJouer = new JButton("Jouer");
 	
-	private DefaultListModel<String> listModel = new DefaultListModel();
+	private DefaultListModel<String> listModel = new DefaultListModel<String>();
 	
 	private JScrollPane listScroller = new JScrollPane(listeCarte);
 	
@@ -66,7 +66,7 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		listeCarte.addListSelectionListener(controllerListe);
 		
 		//Création de comboAction
-		comboAction = new JComboBox(new String[]{"Geant", "Engrais", "Farfadets"});
+		comboAction = new JComboBox<String>(new String[]{"Geant", "Engrais", "Farfadets"});
 		comboAction.setSelectedIndex(0);
 		
 		//Ajout des éléments au panel
