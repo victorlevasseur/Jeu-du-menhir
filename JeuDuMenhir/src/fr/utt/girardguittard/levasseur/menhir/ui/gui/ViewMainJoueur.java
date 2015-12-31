@@ -17,7 +17,7 @@ public class ViewMainJoueur extends JPanel implements Observer{
 	private JLabel nbrGraines = new JLabel();
 	
 	private JLabel nbrMenhirs = new JLabel();
-	
+		
 	private MainJoueur main;
 	
 	public ViewMainJoueur(boolean physique, MainJoueur m) {
@@ -36,7 +36,8 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		
 		//Ajout des cartes s'il s'agit d'un joueur physique
 		if (physique) {
-			//gérer l'affichage des cartes
+			ViewCartesIngredients viewCartesIngredients = new ViewCartesIngredients(main);
+			this.add(ViewCartesIngredients);
 		}
 		
 		//On s'ajoute en observer de la main
