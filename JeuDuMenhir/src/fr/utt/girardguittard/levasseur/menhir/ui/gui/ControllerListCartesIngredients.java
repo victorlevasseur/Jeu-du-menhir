@@ -12,8 +12,9 @@ public class ControllerListCartesIngredients implements ListSelectionListener {
 
 	private MainJoueur main;
 	
-	public ControllerListCartesIngredients(MainJoueur main, ViewCartesIngredients view) {
-		
+	public ControllerListCartesIngredients(MainJoueur m, ViewCartesIngredients v) {
+		this.main = m;
+		this.view = v;
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
