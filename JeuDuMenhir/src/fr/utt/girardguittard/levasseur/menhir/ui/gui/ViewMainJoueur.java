@@ -37,7 +37,7 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		//Ajout des cartes s'il s'agit d'un joueur physique
 		if (physique) {
 			ViewCartesIngredients viewCartesIngredients = new ViewCartesIngredients(main);
-			this.add(ViewCartesIngredients);
+			this.add(viewCartesIngredients);
 		}
 		
 		//On s'ajoute en observer de la main
