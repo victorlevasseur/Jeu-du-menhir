@@ -61,4 +61,8 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 			affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
 		}
 	}
+	
+	public void setLabel(String s) {
+		affichageCarte.setText(s);
+	}
 }

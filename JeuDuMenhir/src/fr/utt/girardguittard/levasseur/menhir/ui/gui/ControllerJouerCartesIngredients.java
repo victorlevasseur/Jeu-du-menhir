@@ -6,19 +6,19 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 
 
-public class ControllerCartesIngredients implements ActionListener{
+public class ControllerJouerCartesIngredients implements ActionListener{
 	
 	private MainJoueur main;
 	
 	private ViewCartesIngredients view;
 	
-	public ControllerCartesIngredients(MainJoueur m, ViewCartesIngredients v) {
+	public ControllerJouerCartesIngredients(MainJoueur m, ViewCartesIngredients v) {
 		this.main = m;
 		this.view = v;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-
+		
 	}
 
 }
