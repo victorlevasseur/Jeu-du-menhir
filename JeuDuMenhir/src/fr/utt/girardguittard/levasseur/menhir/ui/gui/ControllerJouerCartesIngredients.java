@@ -18,7 +18,8 @@ public class ControllerJouerCartesIngredients implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
+		CarteIngredient carte = main.getCarteIngredient(view.getSelection());
+		//nécessite encore de récupérer l'action
 	}
 
 }

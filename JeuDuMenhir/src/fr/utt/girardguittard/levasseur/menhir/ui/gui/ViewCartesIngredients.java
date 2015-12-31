@@ -65,4 +65,8 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	public void setLabel(String s) {
 		affichageCarte.setText(s);
 	}
+	
+	public int getSelection() {
+		return listeCarte.getSelectedIndex();
+	}
 }
