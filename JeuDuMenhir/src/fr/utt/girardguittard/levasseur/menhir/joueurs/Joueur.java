@@ -4,6 +4,8 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
@@ -44,9 +46,10 @@ public abstract class Joueur {
 	 * Il s'agit de décider qu'elle action réaliser et de l'effectuer.
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
+	 * @return 
 	 * @throws CarteInvalideException 
 	 */
-	public void jouerTour(Manche manche, Saison tour) throws CarteInvalideException {
+	public InfoCarteIngredientJouee jouerTour(Manche manche, Saison tour) throws CarteInvalideException {
 		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
 		
 		//On vérifie bien que la carte est dans la main du joueur
@@ -56,6 +59,8 @@ public abstract class Joueur {
 		
 		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 		this.getMain().retirerCarteIngredient(choix.getCarteChoisie());
+		
+		return new InfoCarteIngredientJouee(this.numero, tour, choix, forceReelle);
 	}
 	
 	/**
@@ -63,18 +68,24 @@ public abstract class Joueur {
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur dont c'est le tour actuellement
+	 * @return 
 	 */
-	public void jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
+	public InfoCarteAlliesJouee jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
 		if(this.getMain().getCarteAllies() != null)
 		{
 			ChoixCarteAllies choix = deciderCarteAllies(manche, tour, joueurActuel);
 			if(choix.isJoue())
 			{
-				int forceReelle = this.getMain().getCarteAllies().agir(manche, this.getMain(), choix.getCible(), tour);
+				CarteAllies carteAllies = this.getMain().getCarteAllies();
+				int forceReelle = carteAllies.agir(manche, this.getMain(), choix.getCible(), tour);
 				
-				this.getMain().retirerCarteAllies();	
+				this.getMain().retirerCarteAllies();
+				
+				return new InfoCarteAlliesJouee(this.numero, tour, choix, carteAllies, forceReelle);
 			}
 		}
+		
+		return new InfoCarteAlliesJouee(this.numero, tour, new ChoixCarteAllies(false, -1), null, 0);
 	}
 	
 	/**
