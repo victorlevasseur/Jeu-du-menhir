@@ -8,6 +8,8 @@ import java.util.Observable;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.CarteInvalideException;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
@@ -207,12 +209,12 @@ public class Manche extends Observable {
 		}
 		
 		//On fait jouer le joueur
-		this.getJoueur(this.joueurTour).jouerTour(this, this.saisonActuelle);
+		InfoCarteIngredientJouee info = this.getJoueur(this.joueurTour).jouerTour(this, this.saisonActuelle);
 		
 		this.etat = EtatManche.FIN_TOUR_JOUEUR;
 		
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(info);
 	}
 	
 	public void jouerCartesAllies() throws ActionIllegaleException {
@@ -227,12 +229,14 @@ public class Manche extends Observable {
 		//On propose à tous les joueurs de jouer une carte alliés s'ils le veulent
 		//(car il est possible de jouer des cartes alliés à tout moment)
 		//(uniquement pour les parties avancées)
+		ArrayList<InfoCarteAlliesJouee> infos = new ArrayList<InfoCarteAlliesJouee>();
 		for(Iterator<MainJoueur> itMainJoueur = this.mainsDesJoueurs.iterator(); itMainJoueur.hasNext(); ) {
-			itMainJoueur.next().getJoueur().jouerCartesAllies(this, this.saisonActuelle, this.joueurTour);
+			InfoCarteAlliesJouee info = itMainJoueur.next().getJoueur().jouerCartesAllies(this, this.saisonActuelle, this.joueurTour);
+			infos.add(info);
 		}
 		
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(infos);
 	}
 	
 	private void finManche() throws ActionIllegaleException {

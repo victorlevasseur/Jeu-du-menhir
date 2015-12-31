@@ -11,6 +11,11 @@ import fr.utt.girardguittard.levasseur.menhir.EtatPartie;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
+import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
+import fr.utt.girardguittard.levasseur.menhir.cartes.ChiensDeGarde;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
+import fr.utt.girardguittard.levasseur.menhir.cartes.TaupesGeantes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.CarteInvalideException;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
@@ -185,7 +190,27 @@ public class JeuConsole implements Observer {
 				} else if(this.mancheEnCours.getEtat() == EtatManche.FIN_TOUR_JOUEUR) {
 					//C'est la fin du tour d'un joueur
 					
+					//On affiche les notification des cartes qui ont été jouées (s'il y en a)
+					if(arg1 instanceof InfoCarteIngredientJouee) {
+						//On affiche le résultat de l'exécution de la carte ingrédient du joueur
+						InfoCarteIngredientJouee info = (InfoCarteIngredientJouee)arg1;
+						this.notifierAgissementCarte(info);
+					} else if(arg1 instanceof ArrayList<?>) { 
+						if(((ArrayList<?>)arg1).size() > 0 && ((ArrayList<?>)arg1).get(0) instanceof InfoCarteAlliesJouee) {
+							//On affiche le résultat des cartes allies si certaines ont été jouées
+							ArrayList<InfoCarteAlliesJouee> infos = (ArrayList<InfoCarteAlliesJouee>)arg1;
+							for(Iterator<InfoCarteAlliesJouee> it = infos.iterator(); it.hasNext(); ) {
+								InfoCarteAlliesJouee info = it.next();
+								if(info.isJouee()) {
+									//On affiche que le joueur a joué la carte alliés uniquement s'il l'a jouée !
+									this.notifierAgissementCarte(info);
+								}
+							}
+						}
+					}
+					
 					if(this.partie.isPartieAvancee() && !this.carteAlliesJouees) {
+						
 						this.carteAlliesJouees = true;
 						//Si les cartes alliés n'ont pas été encore jouées :
 						
@@ -364,6 +389,56 @@ public class JeuConsole implements Observer {
 		}
 		else {
 			joueur.setProchainChoixAllies(new ChoixCarteAllies(false, -1));
+		}
+	}
+	
+	private void notifierAgissementCarte(InfoCarteIngredientJouee info) {
+		
+		String designationJoueur1;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur1 = "Vous jouez ";
+		} else {
+			designationJoueur1 = "Le joueur " + (info.getNumeroJoueur()+1) + " joue ";
+		}
+		
+		System.out.println("        --> " + designationJoueur1 + "la carte \"" + info.getCarteJouee().getNom() + "\"");
+	
+		
+		String designationJoueur2;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur2 = "Vous avez ";
+		} else {
+			designationJoueur2 = "Le joueur " + (info.getNumeroJoueur()+1) + " a ";
+		}
+		if(info.getActionJouee() == Action.GEANT) {
+			System.out.println("            " + designationJoueur2 + "récupéré " + info.getForceReelle() + " graine(s).");
+		} else if(info.getActionJouee() == Action.ENGRAIS) {
+			System.out.println("            " + designationJoueur2 + "fait pousser " + info.getForceReelle() + " graine(s) en menhir(s).");
+		} else {
+			System.out.println("            " + designationJoueur2 + "volé " + info.getForceReelle() + " graine(s) au joueur " + (info.getJoueurCible()+1) + ".");
+		}
+	}
+	
+	public void notifierAgissementCarte(InfoCarteAlliesJouee info) {
+		String designationJoueur1;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur1 = "Vous jouez ";
+		} else {
+			designationJoueur1 = "Le joueur " + (info.getNumeroJoueur()+1) + " joue ";
+		}
+		
+		System.out.println("        --> " + designationJoueur1 + "la carte \"" + info.getCarteJouee().getNom() + "\"");
+		
+		String designationJoueur2;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur2 = "Vous avez ";
+		} else {
+			designationJoueur2 = "Le joueur " + (info.getNumeroJoueur()+1) + " a ";
+		}
+		if(info.getCarteJouee() instanceof ChiensDeGarde) {
+			System.out.println("            " + designationJoueur2 + "protégé " + info.getForceReelle() + " graine(s).");
+		} else if(info.getCarteJouee() instanceof TaupesGeantes) {
+			System.out.println("            " + designationJoueur2 + "détruit " + info.getForceReelle() + " menhir(s) du joueur " + (info.getJoueurCible()+1) + ".");
 		}
 	}
 }
