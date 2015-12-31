@@ -3,6 +3,7 @@ package fr.utt.girardguittard.levasseur.menhir.ui.gui;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -44,6 +45,11 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		listeCarte.setSelectedIndex(0);
 		affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
 		//L'utilisation du html permet d'avoir simplement des JLabel multilignes
+		
+		//Ajout des éléments au panel
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.add(listeCarte);
+		this.add(affichageCarte);
 	}
 	
 	public void update(Observable obs, Object obj) {
