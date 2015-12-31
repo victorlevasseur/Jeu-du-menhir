@@ -6,6 +6,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.Dimension;
@@ -32,6 +33,9 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	private ControllerJouerCartesIngredients controllerBoutonJouer;
 	
 	private ControllerListCartesIngredients controllerListe;
+	
+	private JComboBox<String> comboAction;
+	
 	
 	public ViewCartesIngredients(MainJoueur m) {
 		//Ajout en tant qu'observateur
@@ -61,10 +65,15 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		controllerListe = new ControllerListCartesIngredients(main, this);
 		listeCarte.addListSelectionListener(controllerListe);
 		
+		//Création de comboAction
+		comboAction = new JComboBox(new String[]{"Geant", "Engrais", "Farfadets"});
+		comboAction.setSelectedIndex(0);
+		
 		//Ajout des éléments au panel
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.add(listeCarte);
 		this.add(affichageCarte);
+		this.add(comboAction);
 		this.add(bouttonJouer);
 	}
 	
@@ -84,5 +93,16 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	
 	public int getSelection() {
 		return listeCarte.getSelectedIndex();
+	}
+	
+	public Action getAction() {
+		switch(comboAction.getSelectedIndex()) {
+			case 1: 
+				return Action.ENGRAIS;
+			case 2:
+				return Action.FARFADET;
+			default:
+				return Action.GEANT;
+		}
 	}
 }
