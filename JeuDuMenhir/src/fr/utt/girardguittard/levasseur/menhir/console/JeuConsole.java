@@ -11,7 +11,6 @@ import fr.utt.girardguittard.levasseur.menhir.EtatPartie;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
-import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.ChiensDeGarde;
 import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
 import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
@@ -198,6 +197,7 @@ public class JeuConsole implements Observer {
 					} else if(arg1 instanceof ArrayList<?>) { 
 						if(((ArrayList<?>)arg1).size() > 0 && ((ArrayList<?>)arg1).get(0) instanceof InfoCarteAlliesJouee) {
 							//On affiche le résultat des cartes allies si certaines ont été jouées
+							@SuppressWarnings("unchecked")
 							ArrayList<InfoCarteAlliesJouee> infos = (ArrayList<InfoCarteAlliesJouee>)arg1;
 							for(Iterator<InfoCarteAlliesJouee> it = infos.iterator(); it.hasNext(); ) {
 								InfoCarteAlliesJouee info = it.next();

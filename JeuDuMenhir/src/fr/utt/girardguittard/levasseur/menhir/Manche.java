@@ -13,7 +13,6 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.CarteInvalideException;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
-import fr.utt.girardguittard.levasseur.menhir.util.Console;
 import fr.utt.girardguittard.levasseur.menhir.util.ScoreMancheComparator;
 
 /**

@@ -1,7 +1,6 @@
 package fr.utt.girardguittard.levasseur.menhir.strategie;
 
 import fr.utt.girardguittard.levasseur.menhir.Manche;
-import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
@@ -9,7 +8,7 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
-public class StrategieDefensive implements Strategie{
+public class StrategieDefensive implements Strategie {
 	
 	/**
 	 * La méthode getMax permet de connaître la carte la plus forte dans la main du joueur pour une action et une saison donnée

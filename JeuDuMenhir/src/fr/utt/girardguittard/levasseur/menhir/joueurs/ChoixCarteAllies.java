@@ -1,7 +1,5 @@
 package fr.utt.girardguittard.levasseur.menhir.joueurs;
 
-import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
-
 /**
  * Classe contenant la carte alliés choisie par le joueur.
  *

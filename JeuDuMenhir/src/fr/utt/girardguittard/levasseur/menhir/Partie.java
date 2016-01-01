@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
-
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CartesFabrique;
@@ -14,9 +12,6 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.DeckCartes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurVirtuel;
-import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
-import fr.utt.girardguittard.levasseur.menhir.util.Console;
-import fr.utt.girardguittard.levasseur.menhir.util.ScoreMancheComparator;
 import fr.utt.girardguittard.levasseur.menhir.util.ScorePartieComparator;
 
 /**
