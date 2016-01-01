@@ -20,24 +20,73 @@ import fr.utt.girardguittard.levasseur.menhir.util.Console;
 import fr.utt.girardguittard.levasseur.menhir.util.ScoreMancheComparator;
 import fr.utt.girardguittard.levasseur.menhir.util.ScorePartieComparator;
 
+/**
+ * Représente une partie du jeu du menhir.
+ * 
+ * Pour faire fonctionner une partie, les controlleurs doivent : 
+ * <ul>
+ * <li>Construire une instance de Partie : les joueurs physiques et virtuels sont initialisés suivant le nombre de joueurs précisés
+ * dans le constructeur</li>
+ * <li>Lancer la première manche grâce à demarrerManche(). L'état de la partie passe à EtatPartie.MANCHE_EN_COURS</li>
+ * <li>Se mettre observer de la Manche construire (récupérable avec getMancheActuelle())</li>
+ * <li>Effectuer le déroulement de la manche (voir la documentation de Manche). A la fin de la manche, l'état de la partie
+ * passe à EtatPartie.MANCHE_FINIE ou EtatPartie.FINIE.</li>
+ * <li>Suivant l'état de la partie : 
+ * <ul>
+ * <li>Si EtatPartie.MANCHE_FINIE (cas possible uniquement dans une partie avancée) : lancer la manche suivante</li>
+ * <li>Si EtatPartie.FINIE : afficher les scores et signaler que la partie est finie</li>
+ * </ul>
+ * </li>
+ * </ul>
+ */
 public class Partie extends Observable implements Observer {
 	
+	/**
+	 * Vaut true si c'est une partie avancée.
+	 */
 	final private boolean partieAvancee;
 
+	/**
+	 * Les joueurs participants à la partie.
+	 */
 	private final ArrayList<Joueur> joueurs;
 	
+	/**
+	 * Le tas de cartes ingrédients de la partie.
+	 */
 	private DeckCartes<CarteIngredient> deckCartesIngredient;
 	
+	/**
+	 * Le tas de cartes alliés de la partie.
+	 */
 	private DeckCartes<CarteAllies> deckCartesAllies;
 	
+	/**
+	 * Entier représentant le joueur qui débutera à jouer la 1ère manche.
+	 */
 	private int premierJoueur;
 	
+	/**
+	 * Etat de la partie.
+	 * @see EtatPartie
+	 */
 	private EtatPartie etat;
 	
+	/**
+	 * Entier représentant le numéro de la manche actuelle.
+	 */
 	private int numeroMancheEnCours;
 	
+	/**
+	 * La manche actuelle.
+	 */
 	private Manche mancheEnCours;
 	
+	/**
+	 * Construit une partie.
+	 * @param nombreJoueurs le nombre de joueurs qui participent à la partie (joueur physique inclus)
+	 * @param partieAvancee true si c'est une partie avancée
+	 */
 	public Partie(int nombreJoueurs, boolean partieAvancee) {
 		super();
 		
@@ -73,6 +122,11 @@ public class Partie extends Observable implements Observer {
 		this.mancheEnCours = null;
 	}
 
+	/**
+	 * Lance la manche suivante (ou la première manche das le cas où la partie vient d'être créée).
+	 * @throws ActionIllegaleException si la méthode est appelée alors qu'une manche est en cours
+	 * et n'est pas finie.
+	 */
 	public void demarrerManche() throws ActionIllegaleException {
 		if(this.etat == EtatPartie.FINIE || this.etat == EtatPartie.MANCHE_EN_COURS) {
 			throw new ActionIllegaleException("Ne peut pas appeler demarrerManche() lorsque la partie est finie ou lorsqu'une manche est en cours");
@@ -139,6 +193,10 @@ public class Partie extends Observable implements Observer {
 		return joueursClasses;
 	}
 	
+	/**
+	 * Donne la liste des vainqueurs de la partie (ou de ceux en-tête si la partie est en cours).
+	 * @return une collection (de type List) des vainqueurs de la partie
+	 */
 	public ArrayList<Joueur> calculerVainqueurs() {
 		ArrayList<Joueur> joueursClasses = this.calculerClassementPartie();
 		ArrayList<Joueur> vainqueurs = new ArrayList<Joueur>();
@@ -161,7 +219,8 @@ public class Partie extends Observable implements Observer {
 
 	/**
 	 * Méthode update du design pattern observer/observable.
-	 * La classe Partie observe la Manche en cours pour savoir quand elle se termine
+	 * La classe Partie observe la Manche en cours pour savoir quand elle se termine. La partie passe à l'état MANCHE_FINIE
+	 * dès que la manche actuelle vient de se finir.
 	 */
 	public void update(Observable arg0, Object arg1) {
 		// On regarde si arg0 est une Manche et voir si elle est terminée

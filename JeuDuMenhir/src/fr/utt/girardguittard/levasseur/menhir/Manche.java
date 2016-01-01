@@ -18,7 +18,51 @@ import fr.utt.girardguittard.levasseur.menhir.util.Console;
 import fr.utt.girardguittard.levasseur.menhir.util.ScoreMancheComparator;
 
 /**
- * La classe Manche représente une manche et permet de faire son déroulement.
+ * La classe Manche représente une manche et permet de faire son déroulement. Les manches utilisent le pattern Observer/Observable
+ * afin de notifier les controlleurs/vues de leur changement d'état (ce qui permet à ces derniers d'agir en conséquence).
+ * Pour effectuer le déroulement d'une manche,
+ * les controlleurs doivent : 
+ * <ol>
+ * <li>Récupérer la manche auprès de la partie après le lancement de cette première.</li>
+ * <li>S'ajouter en observer de la manche afin de recevoir ses notifications</li>
+ * <li><em>La manche est dans l'état EtatManche.DEBUT_MANCHE</em></li>
+ * <li>Distribuer les cartes ingrédient en lançant la méthode distribuerCartesIngredients()</li>
+ * <li><em>La manche passe dans l'état EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES</em></li>
+ * <li>La/les vue(s) demande(nt) au joueur physique s'il veut la carte alliés ou prendre 2 graines et affecte le résultat
+ * à l'instance de JoueurPhysique de la partie avec setVeutPrendreCarteAllies(ouiOuNon) <em>(uniquement partie avancée).</em></li>
+ * <li>Distribuer les cartes alliés/graines en lançant distribuerCartesAllies() (<b>même si partie simple : cela aura pour
+ * effet de distribuer les graines aux joueurs</b>)</li>
+ * <li><em>La manche passe dans l'état EtatManche.PRET_A_DEMARRER</em></li>
+ * <li>Lancer la première saison en appelant demarrerSaison()</li>
+ * <li><em>La manche passe dans l'état EtatManche.DEBUT_SAISON et la saison est récupérable avec getSaisonActuelle()</em></li>
+ * <li>Démarrer le tour du 1er joueur à jouer la saison demarrerTour()</li>
+ * <li><em>La manche passe dans l'état EtatManche.DEBUT_TOUR et le numéro du joueur qui joue est récupérable avec getJoueurTour()</em></li>
+ * <li><strong>Si c'est le tour du joueur physique (0) : </strong>Le controlleur/vue doit demander au joueur la carte qu'il veut jouer (voir ChoixCarteIngredient) et
+ * affecter ce choix à l'instance JoueurPhysique grâce à setProchainChoixIngredient(choixDuJoueur)</li>
+ * <li>Effectuer le déroulement du tour en lançant jouerTourJoueur()</li>
+ * <li><em>La manche passe dans l'état EtatManche.FIN_TOUR</em></li>
+ * <li><strong>Dans une partie avancée uniquement : </strong>Demander au joueur physique s'il veut jouer sa carte alliés s'il en a
+ * une et stocker son choix (voir ChoixCarteAllies) dans son instance de JoueurPhysique en utilisant setProchainChoixAllies</li>
+ * <li>Lancer jouerCarteAllies() qui aura pour effet de jouer les cartes alliés que les joueurs souhaitent jouer (tous les joueurs sont autorisés
+ * à jouer leur carte alliés à n'importe quel tour et saison)</li>
+ * <li><em>La manche ne change pas d'état (EtatManche.FIN_TOUR) mais les observers sont tout de même notifiés</em></li>
+ * <li>Appeler demarrerTour() pour <strong>tenter</strong> de lancer le tour suivant.</li>
+ * <li><strong>Il y a plusieurs possibilités : </strong>
+ * <ul>
+ * <li><em>La manche passe à l'état EtatManche.DEBUT_TOUR : </em>Le tour suivant vient d'être démarré, reprendre à l'étape 12 (c'est le tour du joueur suivant).</li>	
+ * <li><em>La manche passe à l'état EtatManche.FIN_SAISON : </em>Tous les joueurs ont déjà joué la saison. <strong>Lancer la saison suivante en appelant
+ * demarrerSaison().</strong> Ensuite, il y a ici deux sous-possibilités également : 
+ * <ul>
+ * <li><em>La manche passe à l'état EtatManche.DEBUT_SAISON : </em>La saison suivante est prête à démarrer, reprendre à l'étape 11</li>
+ * <li><em>La manche passe à l'état EtatManche.FIN_MANCHE : </em>La manche est finie (Voir la documentation de Partie pour lancer la manche suivante).</li>
+ * </ul>
+ * </li>	
+ * </ul>
+ * </li>
+ * </ol>
+ * <strong>Note : </strong>Tout ce déroulement ne doit pas être fait en appelant les différentes méthodes à la suite mais en
+ * attendant les notifications de Manche/Partie lors des changements d'état pour lancer l'étape suivante (ou pour autoriser
+ * l'utilisateur à cliquer sur le bouton pour aller à l'étape suivante, dans le cas d'une GUI).
  */
 public class Manche extends Observable {
 	
@@ -33,37 +77,39 @@ public class Manche extends Observable {
 	private int joueurTour;
 	
 	/**
-	 * Joueur qui débute chaque saison
+	 * Joueur qui débute chaque saison.
 	 */
 	final private int premierJoueur;
 	
 	/**
-	 * Liste des mains des joueurs
+	 * Liste des mains des joueurs.
 	 */
 	private ArrayList<MainJoueur> mainsDesJoueurs;
 	
 	/**
-	 * Contient vrai si la partie est avancée
+	 * Contient vrai si la partie est avancée.
 	 */
 	boolean partieAvancee;
 	
 	/**
-	 * Contient le nombre de joueurs
+	 * Contient le nombre de joueurs.
 	 */
 	private int nombreJoueurs;
 	
 	/**
-	 * Le deck contenant les cartes ingrédients
+	 * Le deck contenant les cartes ingrédients.
 	 */
 	private DeckCartes<CarteIngredient> deckIngredient;
 	
 	/**
-	 * Le deck contenant les cartes alliés
+	 * Le deck contenant les cartes alliés.
 	 */
 	private DeckCartes<CarteAllies> deckAllies;
 	
+	/**
+	 * L'état de la manche.
+	 */
 	private EtatManche etat;
-	
 	
 	
 	/**
