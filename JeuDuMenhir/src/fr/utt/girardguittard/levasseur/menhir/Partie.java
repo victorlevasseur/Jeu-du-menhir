@@ -15,7 +15,6 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.Joueur;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurVirtuel;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
-import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
 import fr.utt.girardguittard.levasseur.menhir.util.ScoreMancheComparator;
 import fr.utt.girardguittard.levasseur.menhir.util.ScorePartieComparator;

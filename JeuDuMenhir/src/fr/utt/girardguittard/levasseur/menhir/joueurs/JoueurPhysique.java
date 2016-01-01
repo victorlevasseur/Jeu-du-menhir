@@ -4,7 +4,6 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
-import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 
 /**

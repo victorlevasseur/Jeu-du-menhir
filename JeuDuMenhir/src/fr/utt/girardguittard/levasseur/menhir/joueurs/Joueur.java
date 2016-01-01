@@ -8,7 +8,6 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
 import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
-import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 
 /**
  * Représente un joueur avec son score et les différentes actions qu'il réalise au cours d'une manche
