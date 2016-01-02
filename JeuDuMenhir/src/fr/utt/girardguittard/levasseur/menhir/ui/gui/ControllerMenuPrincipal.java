@@ -10,12 +10,28 @@ public class ControllerMenuPrincipal implements ActionListener{
 	
 	private ViewMenuPrincipal view;
 	
-	public ControllerMenuPrincipal(Partie p, ViewMenuPrincipal v){
-		this.partie = p;
-		this.view = v;
+	public ControllerMenuPrincipal(){
+		this.partie = null;
+		this.view = null;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		this.partie = new Partie(view.getNombreJoueur(), view.isSimple());
+	}
+
+	public Partie getPartie() {
+		return partie;
+	}
+
+	public ViewMenuPrincipal getView() {
+		return view;
+	}
+
+	public void setView(ViewMenuPrincipal view) {
+		if(this.view != null) {
+			this.view.deconnecterController(this);
+		}
+		this.view = view;
+		this.view.connecterController(this);
 	}
 }

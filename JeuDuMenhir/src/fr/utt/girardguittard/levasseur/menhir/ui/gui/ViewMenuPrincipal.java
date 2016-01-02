@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
+
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -23,8 +25,6 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 
 	private JPanel contentPane;
 	
-	private Partie partie;
-	
 	private static final long serialVersionUID = 42L;
 	
 	private JRadioButton rdbtnPartieSimple = new JRadioButton("Partie Simple");
@@ -38,8 +38,6 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 	private JLabel lblNombreDeJoueur = new JLabel("Nombre de Joueur");
 	
 	private JButton btnJouer = new JButton("Jouer");
-
-	private ControllerMenuPrincipal controller = new ControllerMenuPrincipal(partie, this);
 
 	/**
 	 * Launch the application.
@@ -73,9 +71,6 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 		
 		//Partie simple est la sélection par défaut
 		rdbtnPartieSimple.setSelected(true);
-		
-		//Ajout du Controller au bouton
-		btnJouer.addActionListener(controller);
 		
 		spinner.setModel(new SpinnerNumberModel(1, 1, 5, 1));
 		
@@ -120,6 +115,15 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 	
 	public void update(Observable obs, Object obj) {
 		
+	}
+	
+	public void connecterController(ActionListener controller) {
+		//Ajout du Controller au bouton
+		this.btnJouer.addActionListener(controller);
+	}
+	
+	public void deconnecterController(ActionListener controller) {
+		this.btnJouer.removeActionListener(controller);
 	}
 	
 	public boolean isSimple() {
