@@ -48,7 +48,7 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		
 		//Ajout des éléments au panel
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		this.add(listeCarte);
+		this.add(listScroller);
 		this.add(affichageCarte);
 	}
 	
