@@ -10,16 +10,37 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 public class ViewMainJoueur extends JPanel implements Observer{
 	
+	/**
+	 * Le serialVersionUID généré par Eclipse
+	 */
 	private static final long serialVersionUID = 8609006407550255268L;
 	
+	/**
+	 * Un label permettant d'afficher le nom du joueur
+	 */
 	private JLabel nomJoueur = new JLabel();
 	
+	/**
+	 * Un label permettant d'afficher le nombre de graines collectées par le joueur
+	 */
 	private JLabel nbrGraines = new JLabel();
 	
+	/**
+	 * Un label permettant d'fficher le nombre de menhirs obtenus par le joueur
+	 */
 	private JLabel nbrMenhirs = new JLabel();
 		
+	/**
+	 * La main du joueur concerné
+	 */
 	private MainJoueur main;
 	
+	/**
+	 * Le constructeur de la classe concernée
+	 * @param physique Un booléen vrai s'il s'agit d'un joueur physique
+	 * @param avancee Un booléen vrai s'il s'agit d'une partie avancée
+	 * @param m La main du joueur concerné
+	 */
 	public ViewMainJoueur(boolean physique, boolean avancee, MainJoueur m) {
 		
 		//Initialisation des variables
@@ -50,6 +71,9 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		main.addObserver(this);
 	}
 
+	/**
+	 * Méthode appelé lors de chaque changement sur la main
+	 */
 	public void update(Observable obs, Object obj) {
 		if (obs == main) {
 			nbrGraines.setText("Nombre de graines : " + main.getNombreGraine());

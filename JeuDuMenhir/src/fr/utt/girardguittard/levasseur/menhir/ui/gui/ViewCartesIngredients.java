@@ -18,25 +18,61 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 public class ViewCartesIngredients extends JPanel implements Observer{
 	
+	/**
+	 * Le serialVersionUID généré par Eclipse
+	 */
+	private static final long serialVersionUID = 3102850947102073806L;
+
+	/**
+	 * La main du joueur concernée (observable)
+	 */
 	private MainJoueur main;
 	
+	/**
+	 * Une liste affichant le nom des cartes ingrédients contenu dans la main
+	 */
 	private JList<String> listeCarte = new JList<String>();
 		
+	/**
+	 * Un label permettant d'afficher le contenu de la carte ingrédient
+	 */
 	private JLabel affichageCarte = new JLabel();
 	
+	/**
+	 * Un boutton permettant de jouer la carte ingrédient sélectionnée
+	 */
 	private JButton bouttonJouer = new JButton("Jouer");
 	
+	/**
+	 * Le DefaultListModel contenant les données utilisé par la liste
+	 */
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();
 	
+	/**
+	 * Le JScrollPane permettant de faire défiler la liste
+	 */
 	private JScrollPane listScroller = new JScrollPane(listeCarte);
 	
-	private ControllerJouerCartesIngredients controllerBoutonJouer;
+	/**
+	 * Un controlleur écoutant pour les utilisations du boutton jouer
+	 */
+	private ControllerJouerCartesIngredients controllerBouttonJouer;
 	
+	/**
+	 * Un controlleur écoutant pour les changement de sélection dans la liste
+	 */
 	private ControllerListCartesIngredients controllerListe;
 	
+	/**
+	 * Une JComboBox permettant à l'utilisateur de choisir une action
+	 */
 	private JComboBox<String> comboAction;
 	
 	
+	/**
+	 * Le constructeur de la classe
+	 * @param m La main du joueur concerné
+	 */
 	public ViewCartesIngredients(MainJoueur m) {
 		//Ajout en tant qu'observateur
 		this.main = m;
@@ -58,8 +94,8 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		//L'utilisation du html permet d'avoir simplement des JLabel multilignes
 		
 		//Ajout d'un controlleur au bouton
-		controllerBoutonJouer = new ControllerJouerCartesIngredients(main, this);
-		bouttonJouer.addActionListener(controllerBoutonJouer);
+		controllerBouttonJouer = new ControllerJouerCartesIngredients(main, this);
+		bouttonJouer.addActionListener(controllerBouttonJouer);
 		
 		//Ajout d'un controlleur à la liste
 		controllerListe = new ControllerListCartesIngredients(main, this);
@@ -77,6 +113,9 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		this.add(bouttonJouer);
 	}
 	
+	/**
+	 * La méthode update appelée à chaque changement dans la main
+	 */
 	public void update(Observable obs, Object obj) {
 		if(obs == main) {
 			for(int i = 0; i < main.getNombreCarteIngredient(); i++){
@@ -87,14 +126,26 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		}
 	}
 	
+	/**
+	 * Une méthode permettant de modifier le texte affiché par le label
+	 * @param s La chaîne de caractère à afficher
+	 */
 	public void setLabel(String s) {
 		affichageCarte.setText(s);
 	}
 	
+	/**
+	 * Une méthode permettant de connaître l'indice de la sélection de la liste
+	 * @return L'indice de la sélection de la liste
+	 */
 	public int getSelection() {
 		return listeCarte.getSelectedIndex();
 	}
 	
+	/**
+	 * Une méthode permettant de connaître l'action sélectionnée par le joueur
+	 * @return L'action sélectionnée par le joueur
+	 */
 	public Action getAction() {
 		switch(comboAction.getSelectedIndex()) {
 			case 1: 

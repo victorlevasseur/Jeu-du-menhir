@@ -8,10 +8,22 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 
 public class ControllerJouerCartesIngredients implements ActionListener{
 	
+	/**
+	 * La main du joueur concerné
+	 */
 	private MainJoueur main;
 	
+	/**
+	 * La vue concernée
+	 */
 	private ViewCartesIngredients view;
 	
+	/**
+	 * Constructeur de ce controller
+	 * Initialise les attributs
+	 * @param m La main du joueur concerné
+	 * @param v La vue concernée
+	 */
 	public ControllerJouerCartesIngredients(MainJoueur m, ViewCartesIngredients v) {
 		this.main = m;
 		this.view = v;

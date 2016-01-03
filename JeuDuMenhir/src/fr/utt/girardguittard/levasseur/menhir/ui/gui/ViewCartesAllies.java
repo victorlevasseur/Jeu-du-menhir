@@ -17,16 +17,40 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 public class ViewCartesAllies extends JPanel implements Observer {
 	
+	/**
+	 * Le serialVersionUID généré par Eclipse
+	 */
+	private static final long serialVersionUID = -4227936361613708315L;
+
+	/**
+	 * La main du joueur concerné (observable)
+	 */
 	private MainJoueur main;
-			
+	
+	/**
+	 * Un label permettant d'afficher le contenu de la carte alliés du joueur
+	 */
 	private JLabel affichageCarte = new JLabel();
 	
+	/**
+	 * Un bouton permettant de jouer la carte "sélectionnée"
+	 */
 	private JButton bouttonJouer = new JButton("Jouer");
 	
+	/**
+	 * Le controlleur écoutant pour l'utilisation du boutton
+	 */
 	private ControllerCartesAllies controller;
 	
+	/**
+	 * Une comboBox permettant de choisir la cible
+	 */
 	private JComboBox comboCible;
 	
+	/**
+	 * Le constructeur de la classe
+	 * @param m La main du joueur concernée
+	 */
 	public ViewCartesAllies(MainJoueur m) {
 		//Ajout en tant qu'observateur
 		this.main = m;
@@ -51,6 +75,10 @@ public class ViewCartesAllies extends JPanel implements Observer {
 		this.add(bouttonJouer);
 	}
 
+	/**
+	 * La méhode update appelée à chaque changement sur la main
+	 * Permet de mettre à jour l'affichage de la carte allié et de permettre ou non l'utilisation du boutton
+	 */
 	public void update(Observable obs, Object obj) {
 		if(obs == main){
 			if(main.getCarteAllies() != null) {
