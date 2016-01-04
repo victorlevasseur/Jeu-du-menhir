@@ -313,7 +313,7 @@ public class ViewJeu extends JFrame implements Observer {
 		} else if(etat == EtatManche.FIN_TOUR_JOUEUR) {
 			//On affiche la carte jouée
 			if(arg instanceof InfoCarteIngredientJouee) {
-				this.ajouterTexteAHistorique(this.afficherResultatCarte((InfoCarteIngredientJouee)arg));
+				this.afficherResultatCarte((InfoCarteIngredientJouee)arg);
 			}
 		} else if(etat == EtatManche.FIN_SAISON) {
 			this.btnProchaineEtape.setText("Démarrer la saison");
@@ -321,14 +321,22 @@ public class ViewJeu extends JFrame implements Observer {
 		}
 	}
 	
+	/**
+	 * Mets à jour le texte ainsi que les "indicateurs de tour joueurs" en fonction de l'état actuel de la manche.
+	 */
 	private void mettreAJourTitreManche() {
 		if(this.manche != null) {
+			//Affichage du numéro de la manche
 			this.mancheLbl.setText("Manche " + (this.partie.getNumeroMancheEnCours()+1));
+			
+			//Affichage du nom de la saison actuelle si le jeu est dans une saison actuellement
 			if(this.manche.getEtat() == EtatManche.DEBUT_SAISON || this.manche.getEtat() == EtatManche.DEBUT_TOUR_JOUEUR ||
 					this.manche.getEtat() == EtatManche.FIN_TOUR_JOUEUR || this.manche.getEtat() == EtatManche.FIN_SAISON) {
 				this.mancheLbl.setText(this.mancheLbl.getText() + " > " + this.manche.getSaisonActuelle().name());
 			}
-			if(this.manche.getJoueurTour() >= 0) {
+			
+			//Affichage du joueur qui joue actuellement (s'il y en a un)
+			if(this.manche.getEtat() == EtatManche.DEBUT_TOUR_JOUEUR || this.manche.getEtat() == EtatManche.FIN_TOUR_JOUEUR) {
 				int boutonAActiver = (this.manche.getJoueurTour() - this.manche.getPremierJoueur() + this.partie.getNombreJoueurs()) % this.partie.getNombreJoueurs();
 				for(int i = 0; i < this.partie.getNombreJoueurs(); i++) {
 					if(i < boutonAActiver) {
@@ -346,7 +354,8 @@ public class ViewJeu extends JFrame implements Observer {
 		}
 	}
 	
-	private String afficherResultatCarte(InfoCarteIngredientJouee info) {
+	
+	private void afficherResultatCarte(InfoCarteIngredientJouee info) {
 		StringBuffer str = new StringBuffer();
 		
 		String designationJoueur1;
@@ -373,7 +382,7 @@ public class ViewJeu extends JFrame implements Observer {
 			str.append("            " + designationJoueur2 + "volé " + info.getForceReelle() + " graine(s) au joueur " + (info.getJoueurCible()+1) + ".");
 		}
 		
-		return str.toString();
+		this.ajouterTexteAHistorique(str.toString());
 	}
 	
 	private void ajouterTexteAHistorique(String texte) {
