@@ -12,7 +12,10 @@ import fr.utt.girardguittard.levasseur.menhir.EtatPartie;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
+import fr.utt.girardguittard.levasseur.menhir.cartes.ChiensDeGarde;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
 import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
+import fr.utt.girardguittard.levasseur.menhir.cartes.TaupesGeantes;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 
 import java.awt.GridBagLayout;
@@ -26,6 +29,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -277,8 +282,6 @@ public class ViewJeu extends JFrame implements Observer {
 		this.mettreAJourTitreManche();
 		
 		if(etat == EtatManche.DEBUT_MANCHE) {
-			this.btnProchaineEtape.setText("Distribuer les cartes ingredient");
-			this.btnProchaineEtape.setActionCommand("DISTRIBUER_INGREDIENTS");
 			this.ajouterTexteAHistorique("MANCHE " + (this.partie.getNumeroMancheEnCours()+1));
 		} else if(etat == EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES) {
 			//Le joueur doit dire s'il veut la carte alliés ou les 2 graines (partie avancée uniquement)
@@ -314,6 +317,19 @@ public class ViewJeu extends JFrame implements Observer {
 			//On affiche la carte jouée
 			if(arg instanceof InfoCarteIngredientJouee) {
 				this.afficherResultatCarte((InfoCarteIngredientJouee)arg);
+			} else if(arg instanceof ArrayList<?>) {
+				if(((ArrayList<?>) arg).size() > 0 && ((ArrayList<?>) arg).get(0) instanceof InfoCarteAlliesJouee) {
+					//C'est bien un ArrayList (non vide) de InfoCarteAlliesJouee qui a été passé,
+					//cela veut dire que des cartes alliés ont peut-être été jouées
+					@SuppressWarnings("unchecked")
+					ArrayList<InfoCarteAlliesJouee> infos = (ArrayList<InfoCarteAlliesJouee>) arg;
+					for(Iterator<InfoCarteAlliesJouee> it = infos.iterator(); it.hasNext(); ) {
+						InfoCarteAlliesJouee info = it.next();
+						if(info.isJouee()) {
+							this.afficherResultatCarte(info);
+						}
+					}
+				}
 			}
 		} else if(etat == EtatManche.FIN_SAISON) {
 			this.btnProchaineEtape.setText("Démarrer la saison");
@@ -380,6 +396,34 @@ public class ViewJeu extends JFrame implements Observer {
 			str.append("            " + designationJoueur2 + "fait pousser " + info.getForceReelle() + " graine(s) en menhir(s).");
 		} else {
 			str.append("            " + designationJoueur2 + "volé " + info.getForceReelle() + " graine(s) au joueur " + (info.getJoueurCible()+1) + ".");
+		}
+		
+		this.ajouterTexteAHistorique(str.toString());
+	}
+	
+	private void afficherResultatCarte(InfoCarteAlliesJouee info) {
+		StringBuffer str = new StringBuffer();
+		
+		String designationJoueur1;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur1 = "Vous jouez ";
+		} else {
+			designationJoueur1 = "Le joueur " + (info.getNumeroJoueur()+1) + " joue ";
+		}
+		
+		str.append("        --> " + designationJoueur1 + "la carte \"" + info.getCarteJouee().getNom() + "\"");
+		str.append("\n");
+		
+		String designationJoueur2;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur2 = "Vous avez ";
+		} else {
+			designationJoueur2 = "Le joueur " + (info.getNumeroJoueur()+1) + " a ";
+		}
+		if(info.getCarteJouee() instanceof ChiensDeGarde) {
+			str.append("            " + designationJoueur2 + "protégé " + info.getForceReelle() + " graine(s).");
+		} else if(info.getCarteJouee() instanceof TaupesGeantes) {
+			str.append("            " + designationJoueur2 + "détruit " + info.getForceReelle() + " menhir(s) du joueur " + (info.getJoueurCible()+1) + ".");
 		}
 		
 		this.ajouterTexteAHistorique(str.toString());

@@ -37,8 +37,6 @@ public class ControllerJeu implements ActionListener {
 			if(e.getActionCommand() == "DEMARRER_MANCHE") {
 				//La vue veut démarrer la manche
 				this.partie.demarrerManche();
-			} else if(e.getActionCommand() == "DISTRIBUER_INGREDIENTS") {
-				//La vue veut distribuer les cartes ingrédients
 				this.partie.getMancheEnCours().distribuerCartesIngredients();
 			} else if(e.getActionCommand() == "DEMARRER_SAISON") {
 				this.partie.getMancheEnCours().demarrerSaison();
