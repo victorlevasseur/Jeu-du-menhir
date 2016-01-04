@@ -45,7 +45,9 @@ public class ControllerJeu implements ActionListener {
 				this.partie.getMancheEnCours().demarrerTour(); //Démarrage du 1er tour
 			} else if(e.getActionCommand() == "JOUER_TOUR") {
 				this.partie.getMancheEnCours().jouerTourJoueur(); //On fait jouer le joueur actuel
-				this.partie.getMancheEnCours().jouerCartesAllies();
+				if(this.partie.isPartieAvancee()) {
+					this.partie.getMancheEnCours().jouerCartesAllies();
+				}
 				this.partie.getMancheEnCours().demarrerTour(); //On passe au tour suivant
 			}
 		} catch (ActionIllegaleException | CarteInvalideException e1) {

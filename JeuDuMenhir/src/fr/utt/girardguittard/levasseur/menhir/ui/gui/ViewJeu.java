@@ -2,8 +2,6 @@ package fr.utt.girardguittard.levasseur.menhir.ui.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +11,8 @@ import fr.utt.girardguittard.levasseur.menhir.EtatManche;
 import fr.utt.girardguittard.levasseur.menhir.EtatPartie;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
+import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 
 import java.awt.GridBagLayout;
@@ -24,7 +24,6 @@ import java.awt.Font;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JInternalFrame;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -32,11 +31,10 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
-import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 
 public class ViewJeu extends JFrame implements Observer {
+
+	private static final long serialVersionUID = -7624969535039883844L;
 
 	private JPanel contentPane;
 	
@@ -53,6 +51,7 @@ public class ViewJeu extends JFrame implements Observer {
 	
 	private JButton[] btnJoueurs;
 	private JLabel mancheLbl;
+	private JTextPane historiqueTextPane;
 
 	/**
 	 * Create the frame.
@@ -70,9 +69,8 @@ public class ViewJeu extends JFrame implements Observer {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		contentPane.add(scrollPane);
 		
-		JTextPane historiqueTextPane = new JTextPane();
+		historiqueTextPane = new JTextPane();
 		historiqueTextPane.setEditable(false);
-		historiqueTextPane.setText("Historique partie");
 		scrollPane.setViewportView(historiqueTextPane);
 		
 		JPanel panel = new JPanel();
@@ -190,9 +188,9 @@ public class ViewJeu extends JFrame implements Observer {
 	 */
 	public void update(Observable o, Object arg) {
 		if(o == this.partie) {
-			this.mettreAJourSelonEtatDePartie(this.partie.getEtat());
+			this.mettreAJourSelonEtatDePartie(this.partie.getEtat(), arg);
 		} else if(o == this.manche) {
-			this.mettreAJourSelonEtatDeManche(this.manche.getEtat());
+			this.mettreAJourSelonEtatDeManche(this.manche.getEtat(), arg);
 		}
 	}
 	
@@ -224,7 +222,7 @@ public class ViewJeu extends JFrame implements Observer {
 			this.btnJoueurs[i].setBackground(new Color(175, 175, 175));
 		}
 		
-		this.mettreAJourSelonEtatDePartie(partie.getEtat());
+		this.mettreAJourSelonEtatDePartie(partie.getEtat(), null);
 		
 		if(this.partie.getMancheEnCours() != null) {
 			this.initialiserAvecMancheActuelle();
@@ -251,14 +249,15 @@ public class ViewJeu extends JFrame implements Observer {
 		
 		//TODO: Créer les vues des mains
 		
-		this.mettreAJourSelonEtatDeManche(this.manche.getEtat());
+		this.mettreAJourSelonEtatDeManche(this.manche.getEtat(), null);
 	}
 	
 	/**
 	 * Met à jour la vue selon l'état de la partie (en utilisant la partie stockée en attribut)
 	 * @param etat l'état de la partie
+	 * @param arg un objet qui a été passé par l'observable
 	 */
-	private void mettreAJourSelonEtatDePartie(EtatPartie etat) {
+	private void mettreAJourSelonEtatDePartie(EtatPartie etat, Object arg) {
 		this.mettreAJourTitreManche();
 		
 		if(etat == EtatPartie.LANCEE) {
@@ -272,8 +271,9 @@ public class ViewJeu extends JFrame implements Observer {
 	/**
 	 * Met à jour la vue selon l'état de la manche (en utilisant la manche stockée en attribut)
 	 * @param etat l'état de la manche
+	 * @param arg un objet qui a été passé par l'observable
 	 */
-	private void mettreAJourSelonEtatDeManche(EtatManche etat) {
+	private void mettreAJourSelonEtatDeManche(EtatManche etat, Object arg) {
 		this.mettreAJourTitreManche();
 		
 		if(etat == EtatManche.DEBUT_MANCHE) {
@@ -302,6 +302,11 @@ public class ViewJeu extends JFrame implements Observer {
 			} else {
 				this.btnProchaineEtape.setText("OK");
 			}
+		} else if(etat == EtatManche.FIN_TOUR_JOUEUR) {
+			//On affiche la carte jouée
+			if(arg instanceof InfoCarteIngredientJouee) {
+				this.ajouterTexteAHistorique(this.afficherResultatCarte((InfoCarteIngredientJouee)arg));
+			}
 		} else if(etat == EtatManche.FIN_SAISON) {
 			this.btnProchaineEtape.setText("Démarrer la saison");
 			this.btnProchaineEtape.setActionCommand("DEMARRER_SAISON");
@@ -319,7 +324,7 @@ public class ViewJeu extends JFrame implements Observer {
 				int boutonAActiver = (this.manche.getJoueurTour() - this.manche.getPremierJoueur() + this.partie.getNombreJoueurs()) % this.partie.getNombreJoueurs();
 				for(int i = 0; i < this.partie.getNombreJoueurs(); i++) {
 					if(i < boutonAActiver) {
-						this.btnJoueurs[i].setBackground(new Color(0, 100, 0));
+						this.btnJoueurs[i].setBackground(new Color(0, 80, 0));
 					} else if(i == boutonAActiver) {
 						this.btnJoueurs[i].setBackground(new Color(0, 255, 0));
 					} else {
@@ -331,5 +336,39 @@ public class ViewJeu extends JFrame implements Observer {
 		} else {
 			this.mancheLbl.setText("");
 		}
+	}
+	
+	private String afficherResultatCarte(InfoCarteIngredientJouee info) {
+		StringBuffer str = new StringBuffer();
+		
+		String designationJoueur1;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur1 = "Vous jouez ";
+		} else {
+			designationJoueur1 = "Le joueur " + (info.getNumeroJoueur()+1) + " joue ";
+		}
+		
+		str.append("        --> " + designationJoueur1 + "la carte \"" + info.getCarteJouee().getNom() + "\"");
+		str.append("\n");
+		
+		String designationJoueur2;
+		if(info.getNumeroJoueur() == 0) {
+			designationJoueur2 = "Vous avez ";
+		} else {
+			designationJoueur2 = "Le joueur " + (info.getNumeroJoueur()+1) + " a ";
+		}
+		if(info.getActionJouee() == Action.GEANT) {
+			str.append("            " + designationJoueur2 + "récupéré " + info.getForceReelle() + " graine(s).");
+		} else if(info.getActionJouee() == Action.ENGRAIS) {
+			str.append("            " + designationJoueur2 + "fait pousser " + info.getForceReelle() + " graine(s) en menhir(s).");
+		} else {
+			str.append("            " + designationJoueur2 + "volé " + info.getForceReelle() + " graine(s) au joueur " + (info.getJoueurCible()+1) + ".");
+		}
+		
+		return str.toString();
+	}
+	
+	private void ajouterTexteAHistorique(String texte) {
+		this.historiqueTextPane.setText(this.historiqueTextPane.getText() + "\n" + texte);
 	}
 }
