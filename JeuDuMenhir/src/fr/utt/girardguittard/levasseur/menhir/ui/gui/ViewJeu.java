@@ -242,6 +242,13 @@ public class ViewJeu extends JFrame implements Observer {
 		this.manche = this.partie.getMancheEnCours();
 		this.manche.addObserver(this);
 		
+		//Afficher les numéros des joueurs dans l'ordre qu'ils jouent
+		for(int i = 0; i < this.partie.getNombreJoueurs(); i++) {
+			this.btnJoueurs[i].setText("J" + Integer.toString(
+					(this.manche.getPremierJoueur() + i) % this.partie.getNombreJoueurs() + 1
+					));
+		}
+		
 		//TODO: Créer les vues des mains
 		
 		this.mettreAJourSelonEtatDeManche(this.manche.getEtat());
@@ -279,13 +286,23 @@ public class ViewJeu extends JFrame implements Observer {
 			    int answer = JOptionPane.showConfirmDialog(frame, "Voulez-vous prendre la carte alliés ?");
 			    JoueurPhysique joueur = (JoueurPhysique)this.manche.getJoueur(0);
 			    joueur.setVeutPrendreCarteAllies(answer == JOptionPane.YES_OPTION);
-			    try {
-					this.manche.distribuerCartesAllies();
-				} catch (ActionIllegaleException e) {
-					e.printStackTrace();
-				}
+			}
+			try {
+				this.manche.distribuerCartesAllies();
+			} catch (ActionIllegaleException e) {
+				e.printStackTrace();
 			}
 		} else if(etat == EtatManche.PRET_A_DEMARRER) {
+			this.btnProchaineEtape.setText("Démarrer la saison");
+			this.btnProchaineEtape.setActionCommand("DEMARRER_SAISON");
+		} else if(etat == EtatManche.DEBUT_TOUR_JOUEUR) {
+			this.btnProchaineEtape.setActionCommand("JOUER_TOUR");
+			if(this.manche.getJoueurTour() == 0) { //Si c'est au tour du joueur physique, on lui permet de valider son choix de carte avec le bouton
+				this.btnProchaineEtape.setText("Valider le choix de carte ingrédient (et de son action/cible)");
+			} else {
+				this.btnProchaineEtape.setText("OK");
+			}
+		} else if(etat == EtatManche.FIN_SAISON) {
 			this.btnProchaineEtape.setText("Démarrer la saison");
 			this.btnProchaineEtape.setActionCommand("DEMARRER_SAISON");
 		}
@@ -297,6 +314,19 @@ public class ViewJeu extends JFrame implements Observer {
 			if(this.manche.getEtat() == EtatManche.DEBUT_SAISON || this.manche.getEtat() == EtatManche.DEBUT_TOUR_JOUEUR ||
 					this.manche.getEtat() == EtatManche.FIN_TOUR_JOUEUR || this.manche.getEtat() == EtatManche.FIN_SAISON) {
 				this.mancheLbl.setText(this.mancheLbl.getText() + " > " + this.manche.getSaisonActuelle().name());
+			}
+			if(this.manche.getJoueurTour() >= 0) {
+				int boutonAActiver = (this.manche.getJoueurTour() - this.manche.getPremierJoueur() + this.partie.getNombreJoueurs()) % this.partie.getNombreJoueurs();
+				for(int i = 0; i < this.partie.getNombreJoueurs(); i++) {
+					if(i < boutonAActiver) {
+						this.btnJoueurs[i].setBackground(new Color(0, 100, 0));
+					} else if(i == boutonAActiver) {
+						this.btnJoueurs[i].setBackground(new Color(0, 255, 0));
+					} else {
+						this.btnJoueurs[i].setBackground(new Color(175, 175, 175));
+					}
+				}
+				
 			}
 		} else {
 			this.mancheLbl.setText("");
