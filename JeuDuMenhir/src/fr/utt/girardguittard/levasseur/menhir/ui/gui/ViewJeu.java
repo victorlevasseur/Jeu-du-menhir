@@ -208,6 +208,15 @@ public class ViewJeu extends JFrame implements Observer {
 	}
 	
 	/**
+	 * Affiche une boîte de dialogue affichant le message d'erreur spécifié.
+	 * @param erreur le message d'erreur
+	 */
+	public void afficherErreur(String erreur) {
+		JFrame frame = new JFrame();
+	    JOptionPane.showMessageDialog(frame, erreur);
+	}
+	
+	/**
 	 * Utilisée par le constructeur pour initialiser la vue avec la partie
 	 * @param partie
 	 */
@@ -311,7 +320,7 @@ public class ViewJeu extends JFrame implements Observer {
 			    JOptionPane.showMessageDialog(frame, "C'est à votre tour !\nChoisissez une carte et valider votre choix pour la jouer");
 			    
 			} else {
-				this.btnProchaineEtape.setText("OK");
+				this.btnProchaineEtape.setText("Suivant");
 			}
 		} else if(etat == EtatManche.FIN_TOUR_JOUEUR) {
 			//On affiche la carte jouée

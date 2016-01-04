@@ -48,9 +48,12 @@ public class ControllerJeu implements ActionListener {
 				}
 				this.partie.getMancheEnCours().demarrerTour(); //On passe au tour suivant
 			}
-		} catch (ActionIllegaleException | CarteInvalideException e1) {
-			// TODO Bloc catch généré automatiquement
+		} catch (ActionIllegaleException e1) {
 			e1.printStackTrace();
+		} catch (CarteInvalideException e2) {
+			//Au lieu de planter, vu que l'on sait que cette exception a été lancée car le joueur n'a pas
+			//sélectionné de carte, on affiche un message d'erreur au joueur lui demandant de bien choisir une carte
+			this.view.afficherErreur("Il faut sélectionner une carte ingrédient et son action (et sa cible si farfadet) avant de poursuivre.");
 		}
 	}
 	
