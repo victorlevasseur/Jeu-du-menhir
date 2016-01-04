@@ -279,11 +279,12 @@ public class ViewJeu extends JFrame implements Observer {
 		if(etat == EtatManche.DEBUT_MANCHE) {
 			this.btnProchaineEtape.setText("Distribuer les cartes ingredient");
 			this.btnProchaineEtape.setActionCommand("DISTRIBUER_INGREDIENTS");
+			this.ajouterTexteAHistorique("MANCHE " + (this.partie.getNumeroMancheEnCours()+1));
 		} else if(etat == EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES) {
 			//Le joueur doit dire s'il veut la carte alliés ou les 2 graines (partie avancée uniquement)
 			if(this.partie.isPartieAvancee()) {
 				JFrame frame = new JFrame();
-			    int answer = JOptionPane.showConfirmDialog(frame, "Voulez-vous prendre la carte alliés ?");
+			    int answer = JOptionPane.showConfirmDialog(frame, "Voulez-vous prendre la carte alliés ?", "Démarrage manche", JOptionPane.YES_NO_OPTION);
 			    JoueurPhysique joueur = (JoueurPhysique)this.manche.getJoueur(0);
 			    joueur.setVeutPrendreCarteAllies(answer == JOptionPane.YES_OPTION);
 			}
@@ -295,10 +296,17 @@ public class ViewJeu extends JFrame implements Observer {
 		} else if(etat == EtatManche.PRET_A_DEMARRER) {
 			this.btnProchaineEtape.setText("Démarrer la saison");
 			this.btnProchaineEtape.setActionCommand("DEMARRER_SAISON");
+		} else if(etat == EtatManche.DEBUT_SAISON) {
+			this.ajouterTexteAHistorique(" Saison " + this.manche.getSaisonActuelle().name());
 		} else if(etat == EtatManche.DEBUT_TOUR_JOUEUR) {
 			this.btnProchaineEtape.setActionCommand("JOUER_TOUR");
 			if(this.manche.getJoueurTour() == 0) { //Si c'est au tour du joueur physique, on lui permet de valider son choix de carte avec le bouton
 				this.btnProchaineEtape.setText("Valider le choix de carte ingrédient (et de son action/cible)");
+				
+				//On affiche également une petite boîte de dialogue pour lui signaler que c'est son tour
+				JFrame frame = new JFrame();
+			    JOptionPane.showMessageDialog(frame, "C'est à votre tour !\nChoisissez une carte et valider votre choix pour la jouer");
+			    
 			} else {
 				this.btnProchaineEtape.setText("OK");
 			}
