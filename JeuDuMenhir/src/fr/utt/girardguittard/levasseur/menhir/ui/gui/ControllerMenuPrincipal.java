@@ -17,7 +17,7 @@ public class ControllerMenuPrincipal implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		this.partie = new Partie(view.getNombreJoueur(), view.isSimple());
+		this.partie = new Partie(view.getNombreJoueur(), !view.isSimple());
 		this.view.setVisible(false);
 		
 		EventQueue.invokeLater(new Runnable() {

@@ -8,13 +8,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import fr.utt.girardguittard.levasseur.menhir.ActionIllegaleException;
 import fr.utt.girardguittard.levasseur.menhir.EtatManche;
 import fr.utt.girardguittard.levasseur.menhir.EtatPartie;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
+import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.JTextPane;
@@ -48,6 +52,7 @@ public class ViewJeu extends JFrame implements Observer {
 	private JButton btnJ6;
 	
 	private JButton[] btnJoueurs;
+	private JLabel mancheLbl;
 
 	/**
 	 * Create the frame.
@@ -79,13 +84,13 @@ public class ViewJeu extends JFrame implements Observer {
 		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
 		
-		JLabel label = new JLabel("Manche X > Printemps");
-		label.setFont(new Font("Dialog", Font.BOLD, 18));
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 0;
-		panel.add(label, gbc_label);
+		mancheLbl = new JLabel("Manche X > Printemps");
+		mancheLbl.setFont(new Font("Dialog", Font.BOLD, 18));
+		GridBagConstraints gbc_mancheLbl = new GridBagConstraints();
+		gbc_mancheLbl.insets = new Insets(0, 0, 5, 5);
+		gbc_mancheLbl.gridx = 0;
+		gbc_mancheLbl.gridy = 0;
+		panel.add(mancheLbl, gbc_mancheLbl);
 		
 		JLabel lblAuTourDe = new JLabel("Au tour de : ");
 		GridBagConstraints gbc_lblAuTourDe = new GridBagConstraints();
@@ -247,6 +252,8 @@ public class ViewJeu extends JFrame implements Observer {
 	 * @param etat l'état de la partie
 	 */
 	private void mettreAJourSelonEtatDePartie(EtatPartie etat) {
+		this.mettreAJourTitreManche();
+		
 		if(etat == EtatPartie.LANCEE) {
 			this.btnProchaineEtape.setText("Démarrer la première manche");
 			this.btnProchaineEtape.setActionCommand("DEMARRER_MANCHE");
@@ -260,12 +267,39 @@ public class ViewJeu extends JFrame implements Observer {
 	 * @param etat l'état de la manche
 	 */
 	private void mettreAJourSelonEtatDeManche(EtatManche etat) {
+		this.mettreAJourTitreManche();
+		
 		if(etat == EtatManche.DEBUT_MANCHE) {
 			this.btnProchaineEtape.setText("Distribuer les cartes ingredient");
 			this.btnProchaineEtape.setActionCommand("DISTRIBUER_INGREDIENTS");
 		} else if(etat == EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES) {
-			this.btnProchaineEtape.setText("OK");
-			this.btnProchaineEtape.setActionCommand("VALIDER_CHOIX_CARTES_ALLIES");
+			//Le joueur doit dire s'il veut la carte alliés ou les 2 graines (partie avancée uniquement)
+			if(this.partie.isPartieAvancee()) {
+				JFrame frame = new JFrame();
+			    int answer = JOptionPane.showConfirmDialog(frame, "Voulez-vous prendre la carte alliés ?");
+			    JoueurPhysique joueur = (JoueurPhysique)this.manche.getJoueur(0);
+			    joueur.setVeutPrendreCarteAllies(answer == JOptionPane.YES_OPTION);
+			    try {
+					this.manche.distribuerCartesAllies();
+				} catch (ActionIllegaleException e) {
+					e.printStackTrace();
+				}
+			}
+		} else if(etat == EtatManche.PRET_A_DEMARRER) {
+			this.btnProchaineEtape.setText("Démarrer la saison");
+			this.btnProchaineEtape.setActionCommand("DEMARRER_SAISON");
+		}
+	}
+	
+	private void mettreAJourTitreManche() {
+		if(this.manche != null) {
+			this.mancheLbl.setText("Manche " + (this.partie.getNumeroMancheEnCours()+1));
+			if(this.manche.getEtat() == EtatManche.DEBUT_SAISON || this.manche.getEtat() == EtatManche.DEBUT_TOUR_JOUEUR ||
+					this.manche.getEtat() == EtatManche.FIN_TOUR_JOUEUR || this.manche.getEtat() == EtatManche.FIN_SAISON) {
+				this.mancheLbl.setText(this.mancheLbl.getText() + " > " + this.manche.getSaisonActuelle().name());
+			}
+		} else {
+			this.mancheLbl.setText("");
 		}
 	}
 }
