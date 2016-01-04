@@ -72,7 +72,7 @@ public class ViewMenuPrincipal extends JFrame implements Observer{
 		//Partie simple est la sélection par défaut
 		rdbtnPartieSimple.setSelected(true);
 		
-		spinner.setModel(new SpinnerNumberModel(1, 1, 5, 1));
+		spinner.setModel(new SpinnerNumberModel(2, 2, 6, 1));
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
