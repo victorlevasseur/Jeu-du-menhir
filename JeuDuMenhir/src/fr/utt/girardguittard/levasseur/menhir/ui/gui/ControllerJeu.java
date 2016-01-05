@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import fr.utt.girardguittard.levasseur.menhir.ActionIllegaleException;
+import fr.utt.girardguittard.levasseur.menhir.EtatManche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.CarteInvalideException;
 
@@ -60,7 +61,9 @@ public class ControllerJeu implements ActionListener {
 				this.partie.getMancheEnCours().distribuerCartesIngredients();
 			} else if(e.getActionCommand() == "DEMARRER_SAISON") {
 				this.partie.getMancheEnCours().demarrerSaison();
-				this.partie.getMancheEnCours().demarrerTour(); //Démarrage du 1er tour
+				if(this.partie.getMancheEnCours().getEtat() == EtatManche.DEBUT_SAISON) {
+					this.partie.getMancheEnCours().demarrerTour(); //Démarrage du 1er tour si on débute bien manche
+				}
 			} else if(e.getActionCommand() == "JOUER_TOUR") {
 				this.partie.getMancheEnCours().jouerTourJoueur(); //On fait jouer le joueur actuel
 				if(this.partie.isPartieAvancee()) {
