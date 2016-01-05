@@ -31,6 +31,7 @@ import fr.utt.girardguittard.levasseur.menhir.EtatManche;
 import fr.utt.girardguittard.levasseur.menhir.EtatPartie;
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
+import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.cartes.ChiensDeGarde;
 import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
@@ -333,6 +334,9 @@ public class ViewJeu extends JFrame implements Observer {
 			this.btnProchaineEtape.setActionCommand("DEMARRER_MANCHE");
 		} else if(etat == EtatPartie.MANCHE_EN_COURS) {
 			this.initialiserAvecMancheActuelle();
+		} else if(etat == EtatPartie.MANCHE_FINIE) {
+			this.btnProchaineEtape.setText("Démarrer la première manche");
+			this.btnProchaineEtape.setActionCommand("DEMARRER_MANCHE");
 		}
 	}
 	
@@ -398,8 +402,16 @@ public class ViewJeu extends JFrame implements Observer {
 				}
 			}
 		} else if(etat == EtatManche.FIN_SAISON) {
-			this.btnProchaineEtape.setText("Démarrer la saison");
+			//La saison est finie, si c'est l'hiver qui vient de se terminer, on affiche "Finir la manche" sur
+			//le bouton, sinon, on affiche "Démarrer la saison" pour débuter la saison suivante
+			if(this.manche.getSaisonActuelle() != Saison.HIVER) {
+				this.btnProchaineEtape.setText("Démarrer la saison");
+			} else {
+				this.btnProchaineEtape.setText("Finir la manche");
+			}
 			this.btnProchaineEtape.setActionCommand("DEMARRER_SAISON");
+		} else if(etat == EtatManche.FIN_MANCHE) {
+			
 		}
 	}
 	
