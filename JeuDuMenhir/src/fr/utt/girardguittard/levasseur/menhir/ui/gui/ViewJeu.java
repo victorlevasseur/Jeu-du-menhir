@@ -335,7 +335,7 @@ public class ViewJeu extends JFrame implements Observer {
 		} else if(etat == EtatPartie.MANCHE_EN_COURS) {
 			this.initialiserAvecMancheActuelle();
 		} else if(etat == EtatPartie.MANCHE_FINIE) {
-			this.btnProchaineEtape.setText("Démarrer la première manche");
+			this.btnProchaineEtape.setText("Démarrer la manche suivante");
 			this.btnProchaineEtape.setActionCommand("DEMARRER_MANCHE");
 		}
 	}
