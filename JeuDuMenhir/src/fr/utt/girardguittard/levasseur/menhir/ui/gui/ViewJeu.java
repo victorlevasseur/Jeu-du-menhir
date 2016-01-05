@@ -335,7 +335,13 @@ public class ViewJeu extends JFrame implements Observer {
 		} else if(etat == EtatPartie.MANCHE_EN_COURS) {
 			this.initialiserAvecMancheActuelle();
 		} else if(etat == EtatPartie.MANCHE_FINIE) {
-			this.btnProchaineEtape.setText("Démarrer la manche suivante");
+			if(!this.partie.isPartieAvancee() || this.partie.getNumeroMancheEnCours() + 1 == this.partie.getNombreJoueurs()) {
+				//Si la partie est sur le point de se finir, on affiche "Finir la partie" sur le bouton
+				this.btnProchaineEtape.setText("Finir la partie");
+			} else {
+				//Sinon, on va afficher "Démarrer la manche suivante"
+				this.btnProchaineEtape.setText("Démarrer la manche suivante");
+			}
 			this.btnProchaineEtape.setActionCommand("DEMARRER_MANCHE");
 		} else if(etat == EtatPartie.FINIE) {
 			JFrame messageFin = new JFrame();
