@@ -1,11 +1,33 @@
+/*
+	JeuDuMenhir is a board game adapted into a computer game.
+	Copyright (C) 2015-2016  
+	Antoine Girard Guittard (antoine.girard_guittard@utt.fr), Victor Levasseur (victorlevasseur52@gmail.com)
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
 package fr.utt.girardguittard.levasseur.menhir.joueurs;
 
 import java.util.ArrayList;
+import java.util.Observable;
+
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 
-public class MainJoueur {
+public class MainJoueur extends Observable {
 
 	/**
 	 * Le joueur auquel appartient la main.
@@ -48,6 +70,8 @@ public class MainJoueur {
 	 * @param manche la manche jouée par le joueur avec cette main
 	 */
 	public MainJoueur(Joueur joueur, Manche manche) {
+		super();
+		
 		//Initialisation de l'association
 		this.joueur = joueur;
 		this.manche = manche;
@@ -80,6 +104,9 @@ public class MainJoueur {
 	 */
 	public void ajouterGraines(int graines) {
 		this.nombreGraine += graines;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -96,6 +123,9 @@ public class MainJoueur {
 			grainesVolees--;
 		}
 		this.nombreGraine -= grainesVolees;
+		
+		this.setChanged();
+		this.notifyObservers();
 		
 		return grainesVolees;
 	}
@@ -120,6 +150,9 @@ public class MainJoueur {
 		this.defenseChienDeGarde = Math.max(0, this.defenseChienDeGarde - menhirsPousses); //On réduit la défense du nombre
 		this.nombreMenhir += menhirsPousses;
 		
+		this.setChanged();
+		this.notifyObservers();
+		
 		return menhirsPousses;
 	}
 	
@@ -131,6 +164,9 @@ public class MainJoueur {
 	public int detruireMenhir(int menhirs) {
 		int menhirsDetruits = Math.min(this.nombreMenhir, menhirs);
 		this.nombreMenhir -= menhirsDetruits;
+		
+		this.setChanged();
+		this.notifyObservers();
 		
 		return menhirsDetruits;
 	}
@@ -148,6 +184,9 @@ public class MainJoueur {
 
 	public void setDefenseChienDeGarde(int defenseChienDeGarde) {
 		this.defenseChienDeGarde = Math.min(defenseChienDeGarde, this.nombreGraine);
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -157,6 +196,9 @@ public class MainJoueur {
 	public void ajouterCarteIngredient(CarteIngredient carteIngredient) {
 		if(this.cartesIngredient.size() <= 3) {
 			this.cartesIngredient.add(carteIngredient);
+			
+			this.setChanged();
+			this.notifyObservers();
 		}
 	}
 	
@@ -167,6 +209,9 @@ public class MainJoueur {
 	public void retirerCarteIngredient(int carte) {
 		if(carte < this.cartesIngredient.size()) {
 			this.cartesIngredient.remove(carte);
+			
+			this.setChanged();
+			this.notifyObservers();
 		}
 	}
 	
@@ -177,6 +222,9 @@ public class MainJoueur {
 	 */
 	public void retirerCarteIngredient(CarteIngredient carte) {
 		this.cartesIngredient.remove(carte);
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -199,6 +247,15 @@ public class MainJoueur {
 			return null;
 		}
 	}
+	
+	/**
+	 * Détermine si la carte est bien dans la main du joueur.
+	 * @param carte la carte à tester
+	 * @return vrai ou faux suivant si la carte est bien dans la main
+	 */
+	public boolean contientCarteIngredient(CarteIngredient carte) {
+		return this.cartesIngredient.contains(carte);
+	}
 
 	/**
 	 * Récupère la carte alliés du joueur (s'il en a une)
@@ -214,6 +271,9 @@ public class MainJoueur {
 	 */
 	public void setCarteAllies(CarteAllies carteAllies) {
 		this.carteAllies = carteAllies;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -221,5 +281,8 @@ public class MainJoueur {
 	 */
 	public void retirerCarteAllies() {
 		this.setCarteAllies(null);
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 }

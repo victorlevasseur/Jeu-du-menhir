@@ -1,12 +1,31 @@
+/*
+	JeuDuMenhir is a board game adapted into a computer game.
+	Copyright (C) 2015-2016  
+	Antoine Girard Guittard (antoine.girard_guittard@utt.fr), Victor Levasseur (victorlevasseur52@gmail.com)
+	
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
 package fr.utt.girardguittard.levasseur.menhir.joueurs;
 
 import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
-import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
-import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteAlliesJouee;
+import fr.utt.girardguittard.levasseur.menhir.cartes.InfoCarteIngredientJouee;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
-import fr.utt.girardguittard.levasseur.menhir.ui.InterfaceManager;
 
 /**
  * Représente un joueur avec son score et les différentes actions qu'il réalise au cours d'une manche
@@ -44,13 +63,21 @@ public abstract class Joueur {
 	 * Il s'agit de décider qu'elle action réaliser et de l'effectuer.
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
+	 * @return 
+	 * @throws CarteInvalideException 
 	 */
-	public void jouerTour(Manche manche, Saison tour) {
+	public InfoCarteIngredientJouee jouerTour(Manche manche, Saison tour) throws CarteInvalideException {
 		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
+		
+		//On vérifie bien que la carte est dans la main du joueur
+		if(choix == null || choix.getCarteChoisie() == null ||!this.main.contientCarteIngredient(choix.getCarteChoisie())) {
+			throw new CarteInvalideException("La carte choisie est invalide (aucune ou pas dans la main du joueur) !");
+		}
+		
 		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
 		this.getMain().retirerCarteIngredient(choix.getCarteChoisie());
 		
-		InterfaceManager.get().notifierAgissementCarte(choix, forceReelle);
+		return new InfoCarteIngredientJouee(this.numero, tour, choix, forceReelle);
 	}
 	
 	/**
@@ -58,19 +85,24 @@ public abstract class Joueur {
 	 * @param manche la manche en cours
 	 * @param tour le tour en cours
 	 * @param joueurActuel le numéro du joueur dont c'est le tour actuellement
+	 * @return 
 	 */
-	public void jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
+	public InfoCarteAlliesJouee jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
 		if(this.getMain().getCarteAllies() != null)
 		{
 			ChoixCarteAllies choix = deciderCarteAllies(manche, tour, joueurActuel);
 			if(choix.isJoue())
 			{
-				int forceReelle = this.getMain().getCarteAllies().agir(manche, this.getMain(), choix.getCible(), tour);
-				InterfaceManager.get().notifierAgissementCarte(this.numero, choix, this.getMain().getCarteAllies(), forceReelle);
+				CarteAllies carteAllies = this.getMain().getCarteAllies();
+				int forceReelle = carteAllies.agir(manche, this.getMain(), choix.getCible(), tour);
 				
-				this.getMain().retirerCarteAllies();	
+				this.getMain().retirerCarteAllies();
+				
+				return new InfoCarteAlliesJouee(this.numero, tour, choix, carteAllies, forceReelle);
 			}
 		}
+		
+		return new InfoCarteAlliesJouee(this.numero, tour, new ChoixCarteAllies(false, -1), null, 0);
 	}
 	
 	/**
