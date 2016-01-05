@@ -124,7 +124,7 @@ public class ViewCartesAllies extends JPanel implements Observer {
 		if(obs == main){
 			if(main.getCarteAllies() != null) {
 				affichageCarte.setText("<html><pre>" + main.getCarteAllies().toString() + "</pre></html>");
-				bouttonJouer.setEnabled(true);
+				bouttonJouer.setVisible(false);
 				if (main.getCarteAllies().getNom() == "Taupes géantes") {
 					comboCible.setVisible(true);
 				}
@@ -134,7 +134,8 @@ public class ViewCartesAllies extends JPanel implements Observer {
 			}
 			else {
 				affichageCarte.setText("Vous ne disposez pas de carte alliés.");
-				bouttonJouer.setEnabled(false);
+				bouttonJouer.setVisible(false);
+				comboCible.setVisible(false);
 			}
 		}
 	}
