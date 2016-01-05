@@ -21,6 +21,7 @@
 package fr.utt.girardguittard.levasseur.menhir.ui.gui;
 
 import java.util.Observer;
+import java.awt.Component;
 import java.util.Observable;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -56,6 +57,11 @@ public class ViewMainJoueur extends JPanel implements Observer{
 	private MainJoueur main;
 	
 	/**
+	 * Un label affichant le score total du joueur
+	 */
+	private JLabel scoreTotal = new JLabel();
+	
+	/**
 	 * Le constructeur de la classe concernée
 	 * @param physique Un booléen vrai s'il s'agit d'un joueur physique
 	 * @param avancee Un booléen vrai s'il s'agit d'une partie avancée
@@ -68,21 +74,31 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		nomJoueur.setText("Joueur " + (main.getJoueur().getNumero()+1));
 		nbrGraines.setText("Nombre de graines : " + main.getNombreGraine());
 		nbrMenhirs.setText("Nombre de menhirs : " + main.getNombreMenhir());
+		scoreTotal.setText("Score total : " + (main.getJoueur().getScore() + main.getNombreMenhir()));
+		
+		//Création du laout et alignement à gauche des élements
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		nomJoueur.setAlignmentX(Component.LEFT_ALIGNMENT);
+		nbrGraines.setAlignmentX(Component.LEFT_ALIGNMENT);
+		nbrMenhirs.setAlignmentX(Component.LEFT_ALIGNMENT);
+		scoreTotal.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Ajout des éléments au panel
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.add(nomJoueur);
 		this.add(nbrGraines);
 		this.add(nbrMenhirs);
+		this.add(scoreTotal);
 		
 		//Ajout des cartes ingrédients s'il s'agit d'un joueur physique
 		if (physique) {
 			ViewCartesIngredients viewCartesIngredients = new ViewCartesIngredients(main, nbrJoueurs);
+			viewCartesIngredients.setAlignmentX(Component.LEFT_ALIGNMENT);
 			this.add(viewCartesIngredients);
 			
 			//Ajout de l'affichage de la carte alliés s'il s'agit d'une partie avancée
 			if (avancee) {
 				ViewCartesAllies viewCartesAllies = new ViewCartesAllies(main, nbrJoueurs);
+				viewCartesAllies.setAlignmentX(Component.LEFT_ALIGNMENT);
 				this.add(viewCartesAllies);
 			}
 		}
