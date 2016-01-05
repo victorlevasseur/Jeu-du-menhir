@@ -384,7 +384,7 @@ public class ViewJeu extends JFrame implements Observer {
 	private void mettreAJourTitreManche() {
 		if(this.manche != null) {
 			//Affichage du numéro de la manche
-			this.mancheLbl.setText("Manche " + (this.partie.getNumeroMancheEnCours()+1));
+			this.mancheLbl.setText("Manche " + (this.partie.getNumeroMancheEnCours()+1) + "/" + (this.partie.isPartieAvancee() ? this.partie.getNombreJoueurs() : 1));
 			
 			//Affichage du nom de la saison actuelle si le jeu est dans une saison actuellement
 			if(this.manche.getEtat() == EtatManche.DEBUT_SAISON || this.manche.getEtat() == EtatManche.DEBUT_TOUR_JOUEUR ||
