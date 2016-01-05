@@ -30,6 +30,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -124,7 +125,7 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		comboCible.setVisible(false);
 		
 		//Ajout des éléments au panel
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new FlowLayout(FlowLayout.LEADING));
 		this.add(listScroller);
 		this.add(affichageCarte);
 		this.add(comboAction);

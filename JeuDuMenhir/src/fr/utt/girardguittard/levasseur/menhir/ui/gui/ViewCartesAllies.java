@@ -21,6 +21,7 @@
 package fr.utt.girardguittard.levasseur.menhir.ui.gui;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -110,7 +111,7 @@ public class ViewCartesAllies extends JPanel implements Observer {
 		}
 		
 		//Ajout des éléments au panel
-		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		this.setLayout(new FlowLayout(FlowLayout.LEADING));
 		this.add(affichageCarte);
 		this.add(comboCible);
 		this.add(bouttonJouer);
