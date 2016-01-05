@@ -82,7 +82,7 @@ public class ViewMainJoueur extends JPanel implements Observer{
 			
 			//Ajout de l'affichage de la carte alliés s'il s'agit d'une partie avancée
 			if (avancee) {
-				ViewCartesAllies viewCartesAllies = new ViewCartesAllies(main);
+				ViewCartesAllies viewCartesAllies = new ViewCartesAllies(main, nbrJoueurs);
 				this.add(viewCartesAllies);
 			}
 		}
