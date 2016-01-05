@@ -146,7 +146,9 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 				listModel.addElement(main.getCarteIngredient(i).getNom());
 			}
 			listeCarte.setSelectedIndex(0);
-			affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
+			if(main.getNombreCarteIngredient() > 0) {
+				affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
+			}
 		}
 	}
 	
