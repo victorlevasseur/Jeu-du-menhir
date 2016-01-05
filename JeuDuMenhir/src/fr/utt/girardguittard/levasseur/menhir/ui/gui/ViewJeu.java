@@ -340,19 +340,21 @@ public class ViewJeu extends JFrame implements Observer {
 		} else if(etat == EtatPartie.FINIE) {
 			JFrame messageFin = new JFrame();
 			String resultat;
+			Icon iconeDuMessage = null;
 			if (partie.calculerVainqueurs().contains(partie.getJoueurs().get(0))) {
+				iconeDuMessage = new ImageIcon(this.getClass().getResource("GAGNE.png"));
 				resultat = new String("Vous avez gagné avec un score de " + partie.getJoueurs().get(0).getScore() + ". Voulez vous recommencer?");
-			}
-			else {
-				resultat = new String("Vous avez perdu avec un socre de " + partie.getJoueurs().get(0).getScore() + ". Voulez vous reommencer?");
+			} else {
+				iconeDuMessage = new ImageIcon(this.getClass().getResource("PERDU.png"));
+				resultat = new String("Vous avez perdu avec un score de " + partie.getJoueurs().get(0).getScore() + ". Voulez vous recommencer?");
 			}
 			String[] options = {"Oui", "Non"};
-			int c = JOptionPane.showOptionDialog(messageFin, resultat, "Fin du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+			int c = JOptionPane.showOptionDialog(messageFin, resultat, "Fin du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, iconeDuMessage, options, options[1]);
 			if (c == JOptionPane.YES_OPTION) {
-				messageFin.setVisible(false);
+				this.setVisible(false);
+				this.dispose();
 				JeuGUI.main(null);
-			}
-			else {
+			} else {
 				System.exit(0);
 			}
 		}
