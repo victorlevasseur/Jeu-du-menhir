@@ -27,8 +27,14 @@ import fr.utt.girardguittard.levasseur.menhir.Partie;
 
 public class ControllerMenuPrincipal implements ActionListener{
 	
+	/**
+	 * La partie concernée
+	 */
 	private Partie partie;
 	
+	/**
+	 * La vue concernée
+	 */
 	private ViewMenuPrincipal view;
 	
 	public ControllerMenuPrincipal(){
@@ -36,6 +42,9 @@ public class ControllerMenuPrincipal implements ActionListener{
 		this.view = null;
 	}
 	
+	/**
+	 * L'action a effectuer lorsque le boutton Jouer du menu principal est utilisé
+	 */
 	public void actionPerformed(ActionEvent e) {
 		this.partie = new Partie(view.getNombreJoueur(), !view.isSimple());
 		this.view.setVisible(false);

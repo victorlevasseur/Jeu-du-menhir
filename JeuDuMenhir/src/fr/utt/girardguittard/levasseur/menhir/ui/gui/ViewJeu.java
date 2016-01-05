@@ -302,7 +302,7 @@ public class ViewJeu extends JFrame implements Observer {
 		this.listeAutresJoueursPanel.removeAll();
 		
 		//Création de la vue et du controlleur de la main du joueur physique
-		ViewMainJoueur vueMainJoueurPhysique = new ViewMainJoueur(true, this.partie.isPartieAvancee(), this.manche.getJoueur(0).getMain());
+		ViewMainJoueur vueMainJoueurPhysique = new ViewMainJoueur(true, this.partie.isPartieAvancee(), this.manche.getJoueur(0).getMain(), this.partie.getNombreJoueurs());
 		this.mainJoueurPhysiquePanel.add(vueMainJoueurPhysique, BorderLayout.CENTER);
 		
 		//Création des vues des autres joueurs
@@ -312,7 +312,7 @@ public class ViewJeu extends JFrame implements Observer {
 			gbc.gridx = 0;
 			gbc.gridy = i;
 			this.listeAutresJoueursPanel.add(
-					new ViewMainJoueur(false, this.partie.isPartieAvancee(), this.manche.getJoueur(i).getMain()), 
+					new ViewMainJoueur(false, this.partie.isPartieAvancee(), this.manche.getJoueur(i).getMain(), this.partie.getNombreJoueurs()), 
 					gbc
 					);
 		}
