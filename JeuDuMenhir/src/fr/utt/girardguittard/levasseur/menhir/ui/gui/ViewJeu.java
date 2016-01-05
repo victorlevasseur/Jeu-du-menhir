@@ -56,6 +56,8 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class ViewJeu extends JFrame implements Observer {
 
@@ -77,6 +79,7 @@ public class ViewJeu extends JFrame implements Observer {
 	private JButton[] btnJoueurs;
 	private JLabel mancheLbl;
 	private JTextPane historiqueTextPane;
+	private JLabel iconeSaison;
 
 	/**
 	 * Create the frame.
@@ -101,66 +104,72 @@ public class ViewJeu extends JFrame implements Observer {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[] {0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
 		
 		mancheLbl = new JLabel("Manche X > Printemps");
 		mancheLbl.setFont(new Font("Dialog", Font.BOLD, 18));
 		GridBagConstraints gbc_mancheLbl = new GridBagConstraints();
-		gbc_mancheLbl.insets = new Insets(0, 0, 5, 5);
+		gbc_mancheLbl.insets = new Insets(0, 0, 0, 5);
 		gbc_mancheLbl.gridx = 0;
 		gbc_mancheLbl.gridy = 0;
 		panel.add(mancheLbl, gbc_mancheLbl);
 		
+		iconeSaison = new JLabel("");
+		GridBagConstraints gbc_iconeSaison = new GridBagConstraints();
+		gbc_iconeSaison.insets = new Insets(0, 0, 0, 5);
+		gbc_iconeSaison.gridx = 1;
+		gbc_iconeSaison.gridy = 0;
+		panel.add(iconeSaison, gbc_iconeSaison);
+		
 		JLabel lblAuTourDe = new JLabel("Au tour de : ");
 		GridBagConstraints gbc_lblAuTourDe = new GridBagConstraints();
-		gbc_lblAuTourDe.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAuTourDe.gridx = 2;
+		gbc_lblAuTourDe.insets = new Insets(0, 0, 0, 5);
+		gbc_lblAuTourDe.gridx = 3;
 		gbc_lblAuTourDe.gridy = 0;
 		panel.add(lblAuTourDe, gbc_lblAuTourDe);
 		
 		btnJ1 = new JButton("JX");
 		GridBagConstraints gbc_btnJ1 = new GridBagConstraints();
-		gbc_btnJ1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnJ1.gridx = 3;
+		gbc_btnJ1.insets = new Insets(0, 0, 0, 5);
+		gbc_btnJ1.gridx = 4;
 		gbc_btnJ1.gridy = 0;
 		panel.add(btnJ1, gbc_btnJ1);
 		
 		btnJ2 = new JButton("JX");
 		GridBagConstraints gbc_btnJ2 = new GridBagConstraints();
-		gbc_btnJ2.insets = new Insets(0, 0, 5, 5);
-		gbc_btnJ2.gridx = 4;
+		gbc_btnJ2.insets = new Insets(0, 0, 0, 5);
+		gbc_btnJ2.gridx = 5;
 		gbc_btnJ2.gridy = 0;
 		panel.add(btnJ2, gbc_btnJ2);
 		
 		btnJ3 = new JButton("JX");
 		GridBagConstraints gbc_btnJ3 = new GridBagConstraints();
-		gbc_btnJ3.insets = new Insets(0, 0, 5, 5);
-		gbc_btnJ3.gridx = 5;
+		gbc_btnJ3.insets = new Insets(0, 0, 0, 5);
+		gbc_btnJ3.gridx = 6;
 		gbc_btnJ3.gridy = 0;
 		panel.add(btnJ3, gbc_btnJ3);
 		
 		btnJ4 = new JButton("JX");
 		GridBagConstraints gbc_btnJ4 = new GridBagConstraints();
-		gbc_btnJ4.insets = new Insets(0, 0, 5, 5);
-		gbc_btnJ4.gridx = 6;
+		gbc_btnJ4.insets = new Insets(0, 0, 0, 5);
+		gbc_btnJ4.gridx = 7;
 		gbc_btnJ4.gridy = 0;
 		panel.add(btnJ4, gbc_btnJ4);
 		
 		btnJ5 = new JButton("JX");
 		GridBagConstraints gbc_btnJ5 = new GridBagConstraints();
-		gbc_btnJ5.insets = new Insets(0, 0, 5, 5);
-		gbc_btnJ5.gridx = 7;
+		gbc_btnJ5.insets = new Insets(0, 0, 0, 5);
+		gbc_btnJ5.gridx = 8;
 		gbc_btnJ5.gridy = 0;
 		panel.add(btnJ5, gbc_btnJ5);
 		
 		btnJ6 = new JButton("JX");
 		GridBagConstraints gbc_btnJ6 = new GridBagConstraints();
-		gbc_btnJ6.insets = new Insets(0, 0, 5, 0);
-		gbc_btnJ6.gridx = 8;
+		gbc_btnJ6.gridx = 9;
 		gbc_btnJ6.gridy = 0;
 		panel.add(btnJ6, gbc_btnJ6);
 		
@@ -329,7 +338,10 @@ public class ViewJeu extends JFrame implements Observer {
 			this.btnProchaineEtape.setText("Démarrer la saison");
 			this.btnProchaineEtape.setActionCommand("DEMARRER_SAISON");
 		} else if(etat == EtatManche.DEBUT_SAISON) {
+			//Affichage du nom de la saison
 			this.ajouterTexteAHistorique(" Saison " + this.manche.getSaisonActuelle().name());
+			//Affichage de l'icône correspondante
+			this.iconeSaison.setIcon(new ImageIcon(this.getClass().getResource(this.manche.getSaisonActuelle().name() + ".png")));
 		} else if(etat == EtatManche.DEBUT_TOUR_JOUEUR) {
 			this.btnProchaineEtape.setActionCommand("JOUER_TOUR");
 			if(this.manche.getJoueurTour() == 0) { //Si c'est au tour du joueur physique, on lui permet de valider son choix de carte avec le bouton
