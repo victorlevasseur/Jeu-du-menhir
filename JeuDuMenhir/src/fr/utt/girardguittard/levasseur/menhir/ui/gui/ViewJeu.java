@@ -80,6 +80,8 @@ public class ViewJeu extends JFrame implements Observer {
 	private JLabel mancheLbl;
 	private JTextPane historiqueTextPane;
 	private JLabel iconeSaison;
+	private JPanel mainJoueurPhysiquePanel;
+	private JPanel listeAutresJoueursPanel;
 
 	/**
 	 * Create the frame.
@@ -189,24 +191,24 @@ public class ViewJeu extends JFrame implements Observer {
 		gbc_lblAutresJoueurs.gridy = 0;
 		listeJoueursVirtuelsPanel.add(lblAutresJoueurs, gbc_lblAutresJoueurs);
 		
-		JPanel listeAutresJoueursPanel = new JPanel();
+		listeAutresJoueursPanel = new JPanel();
 		GridBagConstraints gbc_listeAutresJoueursPanel = new GridBagConstraints();
 		gbc_listeAutresJoueursPanel.fill = GridBagConstraints.BOTH;
 		gbc_listeAutresJoueursPanel.gridx = 0;
 		gbc_listeAutresJoueursPanel.gridy = 1;
 		listeJoueursVirtuelsPanel.add(listeAutresJoueursPanel, gbc_listeAutresJoueursPanel);
-		listeAutresJoueursPanel.setLayout(new BoxLayout(listeAutresJoueursPanel, BoxLayout.X_AXIS));
+		listeAutresJoueursPanel.setLayout(new BoxLayout(listeAutresJoueursPanel, BoxLayout.Y_AXIS));
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		mainJoueurPhysiquePanel = new JPanel();
+		contentPane.add(mainJoueurPhysiquePanel, BorderLayout.SOUTH);
+		mainJoueurPhysiquePanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblVotreMain = new JLabel("Votre main");
 		lblVotreMain.setFont(new Font("Dialog", Font.BOLD, 16));
-		panel_1.add(lblVotreMain, BorderLayout.NORTH);
+		mainJoueurPhysiquePanel.add(lblVotreMain, BorderLayout.NORTH);
 		
 		btnProchaineEtape = new JButton("=== PROCHAINE ETAPE ===");
-		panel_1.add(btnProchaineEtape, BorderLayout.SOUTH);
+		mainJoueurPhysiquePanel.add(btnProchaineEtape, BorderLayout.SOUTH);
 		
 		this.btnJoueurs = new JButton[]{btnJ1, btnJ2, btnJ3, btnJ4, btnJ5, btnJ6};
 		
@@ -290,7 +292,30 @@ public class ViewJeu extends JFrame implements Observer {
 					));
 		}
 		
-		//TODO: Créer les vues des mains
+		//Suppression des anciennes vues des mains des joueurs
+		// -> pour le joueur physique
+		BorderLayout mainJoueurPhysiqueLayout = (BorderLayout) this.mainJoueurPhysiquePanel.getLayout();
+		if(mainJoueurPhysiqueLayout.getLayoutComponent(BorderLayout.CENTER) != null) {
+			this.mainJoueurPhysiquePanel.remove(mainJoueurPhysiqueLayout.getLayoutComponent(BorderLayout.CENTER));
+		}
+		// -> pour les joueurs virtuels
+		this.listeAutresJoueursPanel.removeAll();
+		
+		//Création de la vue et du controlleur de la main du joueur physique
+		ViewMainJoueur vueMainJoueurPhysique = new ViewMainJoueur(true, this.partie.isPartieAvancee(), this.manche.getJoueur(0).getMain());
+		this.mainJoueurPhysiquePanel.add(vueMainJoueurPhysique, BorderLayout.CENTER);
+		
+		//Création des vues des autres joueurs
+		for(int i = 1; i < this.partie.getNombreJoueurs(); i++) {
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.gridx = 0;
+			gbc.gridy = i;
+			this.listeAutresJoueursPanel.add(
+					new ViewMainJoueur(false, this.partie.isPartieAvancee(), this.manche.getJoueur(i).getMain()), 
+					gbc
+					);
+		}
 		
 		this.mettreAJourSelonEtatDeManche(this.manche.getEtat(), null);
 	}
