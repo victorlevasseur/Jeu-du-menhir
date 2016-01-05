@@ -337,6 +337,24 @@ public class ViewJeu extends JFrame implements Observer {
 		} else if(etat == EtatPartie.MANCHE_FINIE) {
 			this.btnProchaineEtape.setText("Démarrer la première manche");
 			this.btnProchaineEtape.setActionCommand("DEMARRER_MANCHE");
+		} else if(etat == EtatPartie.FINIE) {
+			JFrame messageFin = new JFrame();
+			String resultat;
+			if (partie.calculerVainqueurs().contains(partie.getJoueurs().get(0))) {
+				resultat = new String("Vous avez gagné avec un score de " + partie.getJoueurs().get(0).getScore() + ". Voulez vous recommencer?");
+			}
+			else {
+				resultat = new String("Vous avez perdu avec un socre de " + partie.getJoueurs().get(0).getScore() + ". Voulez vous reommencer?");
+			}
+			String[] options = {"Oui", "Non"};
+			int c = JOptionPane.showOptionDialog(messageFin, resultat, "Fin du jeu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+			if (c == JOptionPane.YES_OPTION) {
+				messageFin.setVisible(false);
+				JeuGUI.main(null);
+			}
+			else {
+				System.exit(0);
+			}
 		}
 	}
 	
