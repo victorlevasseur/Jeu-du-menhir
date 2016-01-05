@@ -48,10 +48,14 @@ public class ControllerCartesIngredients implements ListSelectionListener, Actio
 	public void valueChanged(ListSelectionEvent e) {
 		view.setLabel("<html><pre>" + main.getCarteIngredient(view.getSelection()).toString() + "</pre></html>");
 		choix = new ChoixCarteIngredient(main.getCarteIngredient(view.getSelection()), view.getCible() + 1, view.getAction());
+		JoueurPhysique joueur  = (JoueurPhysique)main.getJoueur();
+		joueur.setProchainChoixIngredient(choix);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		choix = new ChoixCarteIngredient(main.getCarteIngredient(view.getSelection()), view.getCible() + 1, view.getAction());
+		JoueurPhysique joueur  = (JoueurPhysique)main.getJoueur();
+		joueur.setProchainChoixIngredient(choix);
 		if (view.getAction() == Action.FARFADET) {
 			view.setComboCibleVisibility(true);
 		}
