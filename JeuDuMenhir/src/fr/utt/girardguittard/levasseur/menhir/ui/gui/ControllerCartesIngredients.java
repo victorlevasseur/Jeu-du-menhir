@@ -46,17 +46,21 @@ public class ControllerCartesIngredients implements ListSelectionListener, Actio
 	 * L'action a effectuer lorsque que le joueur change la sélection de la liste des cartes ingrédients
 	 */
 	public void valueChanged(ListSelectionEvent e) {
-		view.setLabel("<html><pre>" + main.getCarteIngredient(view.getSelection()).toString() + "</pre></html>");
-		choix = new ChoixCarteIngredient(main.getCarteIngredient(view.getSelection()), view.getCible() + 1, view.getAction());
+		if(view.getSelection() != -1 && main.getNombreCarteIngredient() > 0) {
+			view.setLabel("<html><pre>" + main.getCarteIngredient(view.getSelection()).toString() + "</pre></html>");
+			choix = new ChoixCarteIngredient(main.getCarteIngredient(view.getSelection()), view.getCible() + 1, view.getAction());
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		choix = new ChoixCarteIngredient(main.getCarteIngredient(view.getSelection()), view.getCible() + 1, view.getAction());
-		if (view.getAction() == Action.FARFADET) {
-			view.setComboCibleVisibility(true);
-		}
-		else {
-			view.setComboCibleVisibility(false);
+		if(view.getSelection() != -1 && main.getNombreCarteIngredient() > 0) {
+			choix = new ChoixCarteIngredient(main.getCarteIngredient(view.getSelection()), view.getCible() + 1, view.getAction());
+			if (view.getAction() == Action.FARFADET) {
+				view.setComboCibleVisibility(true);
+			}
+			else {
+				view.setComboCibleVisibility(false);
+			}
 		}
 	}    
 }

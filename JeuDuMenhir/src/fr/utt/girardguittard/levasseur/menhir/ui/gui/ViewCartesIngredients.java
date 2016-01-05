@@ -67,7 +67,7 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	/**
 	 * Le JScrollPane permettant de faire défiler la liste
 	 */
-	private JScrollPane listScroller = new JScrollPane(listeCarte);
+	private JScrollPane listScroller;
 	
 	/**
 	 * Un controlleur écoutant pour les changement de sélection dans la liste
@@ -97,18 +97,15 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		for(int i = 0; i < main.getNombreCarteIngredient(); i++){
 			listModel.addElement(main.getCarteIngredient(i).getNom());
 		}
-		listeCarte = new JList(listModel);
+		listeCarte = new JList<String>(listModel);
 		listeCarte.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listeCarte.setLayoutOrientation(JList.VERTICAL);
 
+		listScroller = new JScrollPane(listeCarte);
 		listScroller.setPreferredSize(new Dimension(250, 80)); //A voir suivant la fenêtre de jeu
-
 				
-		//Ajout d'un controlleur aux comboBox et à la liste
+		//Initialisation du controlleur
 		controllerCartesIngredients = new ControllerCartesIngredients(main, this);
-		listeCarte.addListSelectionListener(controllerCartesIngredients);
-		comboAction.addActionListener(controllerCartesIngredients);
-		comboCible.addActionListener(controllerCartesIngredients);
 		
 		//Création de comboAction
 		comboAction = new JComboBox<String>(new String[]{"Geant", "Engrais", "Farfadets"});
@@ -132,6 +129,11 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 		this.add(affichageCarte);
 		this.add(comboAction);
 		this.add(comboCible);
+		
+		//Ajout des listeners
+		listeCarte.addListSelectionListener(controllerCartesIngredients);
+		comboAction.addActionListener(controllerCartesIngredients);
+		comboCible.addActionListener(controllerCartesIngredients);
 	}
 	
 	/**
@@ -139,6 +141,7 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	 */
 	public void update(Observable obs, Object obj) {
 		if(obs == main) {
+			listModel.clear();
 			for(int i = 0; i < main.getNombreCarteIngredient(); i++){
 				listModel.addElement(main.getCarteIngredient(i).getNom());
 			}
