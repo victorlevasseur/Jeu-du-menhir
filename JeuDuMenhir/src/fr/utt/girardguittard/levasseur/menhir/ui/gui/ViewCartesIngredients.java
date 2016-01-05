@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
@@ -31,18 +32,13 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	/**
 	 * Une liste affichant le nom des cartes ingrédients contenu dans la main
 	 */
-	private JList<String> listeCarte = new JList<String>();
+	private JList<String> listeCarte;
 		
 	/**
 	 * Un label permettant d'afficher le contenu de la carte ingrédient
 	 */
 	private JLabel affichageCarte = new JLabel();
-	
-	/**
-	 * Un boutton permettant de jouer la carte ingrédient sélectionnée
-	 */
-	private JButton bouttonJouer = new JButton("Jouer");
-	
+		
 	/**
 	 * Le DefaultListModel contenant les données utilisé par la liste
 	 */
@@ -54,63 +50,68 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	private JScrollPane listScroller = new JScrollPane(listeCarte);
 	
 	/**
-	 * Un controlleur écoutant pour les utilisations du boutton jouer
-	 */
-	private ControllerJouerCartesIngredients controllerBouttonJouer;
-	
-	/**
 	 * Un controlleur écoutant pour les changement de sélection dans la liste
 	 */
-	private ControllerListCartesIngredients controllerListe;
+	private ControllerCartesIngredients controllerCartesIngredients;
 	
 	/**
 	 * Une JComboBox permettant à l'utilisateur de choisir une action
 	 */
 	private JComboBox<String> comboAction;
 	
-	
+	/**
+	 * Une JComboBox permettant à l'utilisateur de choisir sa cible
+	 */
+	private JComboBox<String> comboCible;
+		
 	/**
 	 * Le constructeur de la classe
 	 * @param m La main du joueur concerné
 	 */
-	public ViewCartesIngredients(MainJoueur m) {
+	public ViewCartesIngredients(MainJoueur m, int nbrJoueurs) {
 		//Ajout en tant qu'observateur
 		this.main = m;
 		main.addObserver(this);
 		
 		//Initialisation de la liste
+		for(int i = 0; i < main.getNombreCarteIngredient(); i++){
+			listModel.addElement(main.getCarteIngredient(i).getNom());
+		}
+		listeCarte = new JList(listModel);
 		listeCarte.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listeCarte.setLayoutOrientation(JList.VERTICAL);
 
 		listScroller.setPreferredSize(new Dimension(250, 80)); //A voir suivant la fenêtre de jeu
 
-		for(int i = 0; i < main.getNombreCarteIngredient(); i++){
-			listModel.addElement(main.getCarteIngredient(i).getNom());
-		}
-		
-		//On affiche les données de la première carte
-		listeCarte.setSelectedIndex(0);
-		affichageCarte.setText("<html><pre>" + main.getCarteIngredient(0).toString() + "</pre></html>");
-		//L'utilisation du html permet d'avoir simplement des JLabel multilignes
-		
-		//Ajout d'un controlleur au bouton
-		controllerBouttonJouer = new ControllerJouerCartesIngredients(main, this);
-		bouttonJouer.addActionListener(controllerBouttonJouer);
-		
-		//Ajout d'un controlleur à la liste
-		controllerListe = new ControllerListCartesIngredients(main, this);
-		listeCarte.addListSelectionListener(controllerListe);
+				
+		//Ajout d'un controlleur aux comboBox et à la liste
+		controllerCartesIngredients = new ControllerCartesIngredients(main, this);
+		listeCarte.addListSelectionListener(controllerCartesIngredients);
+		comboAction.addActionListener(controllerCartesIngredients);
+		comboCible.addActionListener(controllerCartesIngredients);
 		
 		//Création de comboAction
 		comboAction = new JComboBox<String>(new String[]{"Geant", "Engrais", "Farfadets"});
 		comboAction.setSelectedIndex(0);
+		
+		//Création de comboCible
+		ArrayList<String> cibles = new ArrayList<String>();
+		for (int i = 0; i < nbrJoueurs; i++) {
+			if (i != main.getJoueur().getNumero()) {
+				cibles.add(Integer.toString(i + 1));
+			}
+		}
+		
+		comboCible = new JComboBox<String>(cibles.toArray(new String[cibles.size()]));
+		comboCible.setSelectedIndex(0);
+		comboCible.setVisible(false);
 		
 		//Ajout des éléments au panel
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.add(listeCarte);
 		this.add(affichageCarte);
 		this.add(comboAction);
-		this.add(bouttonJouer);
+		this.add(comboCible);
 	}
 	
 	/**
@@ -156,4 +157,17 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 				return Action.GEANT;
 		}
 	}
+	
+	/**
+	 * Une méthode permettant de changer le statut (visible ou invisible) de comboCible
+	 * @param visible Vrai si la ComboBox doit être visible
+	 */
+	public void setComboCibleVisibility(boolean visible) {
+		comboCible.setVisible(visible);
+	}
+	
+	public int getCible() {
+		return comboCible.getSelectedIndex();
+	}
+	
 }

@@ -41,11 +41,11 @@ public class ViewMainJoueur extends JPanel implements Observer{
 	 * @param avancee Un booléen vrai s'il s'agit d'une partie avancée
 	 * @param m La main du joueur concerné
 	 */
-	public ViewMainJoueur(boolean physique, boolean avancee, MainJoueur m) {
+	public ViewMainJoueur(boolean physique, boolean avancee, MainJoueur m, int nbrJoueurs) {
 		
 		//Initialisation des variables
 		this.main = m;
-		nomJoueur.setText("Joueur " + main.getJoueur().getNumero());
+		nomJoueur.setText("Joueur " + main.getJoueur().getNumero() + 1);
 		nbrGraines.setText("Nombre de graines : " + main.getNombreGraine());
 		nbrMenhirs.setText("Nombre de menhirs : " + main.getNombreMenhir());
 		
@@ -57,7 +57,7 @@ public class ViewMainJoueur extends JPanel implements Observer{
 		
 		//Ajout des cartes ingrédients s'il s'agit d'un joueur physique
 		if (physique) {
-			ViewCartesIngredients viewCartesIngredients = new ViewCartesIngredients(main);
+			ViewCartesIngredients viewCartesIngredients = new ViewCartesIngredients(main, nbrJoueurs);
 			this.add(viewCartesIngredients);
 			
 			//Ajout de l'affichage de la carte alliés s'il s'agit d'une partie avancée
