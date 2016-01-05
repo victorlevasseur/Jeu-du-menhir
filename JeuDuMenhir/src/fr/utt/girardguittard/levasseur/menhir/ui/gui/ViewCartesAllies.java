@@ -110,7 +110,7 @@ public class ViewCartesAllies extends JPanel implements Observer {
 		}
 		
 		//Ajout des éléments au panel
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		this.add(affichageCarte);
 		this.add(comboCible);
 		this.add(bouttonJouer);
@@ -124,7 +124,7 @@ public class ViewCartesAllies extends JPanel implements Observer {
 		if(obs == main){
 			if(main.getCarteAllies() != null) {
 				affichageCarte.setText("<html><pre>" + main.getCarteAllies().toString() + "</pre></html>");
-				bouttonJouer.setVisible(false);
+				bouttonJouer.setVisible(true);
 				if (main.getCarteAllies().getNom() == "Taupes géantes") {
 					comboCible.setVisible(true);
 				}
