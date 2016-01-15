@@ -31,18 +31,39 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.ChoixCarteIngredient;
  */
 public class InfoCarteIngredientJouee {
 	
+	/**
+	 * Le numéro du joueur qui a joué la carte.
+	 */
 	private final int numeroJoueur;
 	
+	/**
+	 * La saison pendant laquelle la carte a été jouée.
+	 */
 	private final Saison saison;
 	
+	/**
+	 * La carte jouée.
+	 */
 	private final CarteIngredient carteJouee;
 	
+	/**
+	 * L'action jouée.
+	 */
 	private final Action actionJouee;
 	
+	/**
+	 * La cible de la carte (pour le farfadet).
+	 */
 	private final int joueurCible;
 	
+	/**
+	 * La force théorique de la carte.
+	 */
 	private final int forceTheorique;
 	
+	/**
+	 * La force effective de la carte quand elle a été jouée.
+	 */
 	private final int forceReelle;
 	
 	public InfoCarteIngredientJouee(int numeroJoueur, Saison saison, ChoixCarteIngredient choix, int forceReelle) {

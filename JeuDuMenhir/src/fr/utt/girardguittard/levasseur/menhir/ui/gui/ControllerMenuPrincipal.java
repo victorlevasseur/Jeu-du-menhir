@@ -25,6 +25,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import fr.utt.girardguittard.levasseur.menhir.Partie;
 
+/**
+ * Controlleur contrôlant le menu principal.
+ */
 public class ControllerMenuPrincipal implements ActionListener{
 	
 	/**

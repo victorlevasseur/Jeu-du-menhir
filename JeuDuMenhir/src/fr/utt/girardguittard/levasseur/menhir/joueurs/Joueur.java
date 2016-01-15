@@ -28,8 +28,7 @@ import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 /**
- * Représente un joueur avec son score et les différentes actions qu'il réalise au cours d'une manche
- *
+ * Représente un joueur avec son score et les différentes actions qu'il réalise au cours d'une manche.
  */
 public abstract class Joueur {
 	
@@ -62,47 +61,46 @@ public abstract class Joueur {
 	 * Effectue les opérations qui ont lieu au cours d'un tour.
 	 * Il s'agit de décider qu'elle action réaliser et de l'effectuer.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
-	 * @return 
+	 * @param saison la saison en cours
+	 * @return un objet décrivant la carte jouée
 	 * @throws CarteInvalideException 
 	 */
-	public InfoCarteIngredientJouee jouerTour(Manche manche, Saison tour) throws CarteInvalideException {
-		ChoixCarteIngredient choix = deciderChoixDuTour(manche, tour);
+	public InfoCarteIngredientJouee jouerTour(Manche manche, Saison saison) throws CarteInvalideException {
+		ChoixCarteIngredient choix = deciderChoixDuTour(manche, saison);
 		
 		//On vérifie bien que la carte est dans la main du joueur
 		if(choix == null || choix.getCarteChoisie() == null ||!this.main.contientCarteIngredient(choix.getCarteChoisie())) {
 			throw new CarteInvalideException("La carte choisie est invalide (aucune ou pas dans la main du joueur) !");
 		}
 		
-		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), tour, choix.getActionChoisie());
+		int forceReelle = choix.getCarteChoisie().agir(manche, this.main, choix.getCible(), saison, choix.getActionChoisie());
 		this.getMain().retirerCarteIngredient(choix.getCarteChoisie());
 		
-		return new InfoCarteIngredientJouee(this.numero, tour, choix, forceReelle);
+		return new InfoCarteIngredientJouee(this.numero, saison, choix, forceReelle);
 	}
 	
 	/**
-	 * Permet au joueur de jouer une carte allie s'il en a une.
+	 * Permet au joueur de jouer une carte alliés s'il en a une.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
+	 * @param saison la saison en cours
 	 * @param joueurActuel le numéro du joueur dont c'est le tour actuellement
-	 * @return 
+	 * @return un objet décrivant la carte alliés jouée ou non
 	 */
-	public InfoCarteAlliesJouee jouerCartesAllies(Manche manche, Saison tour, int joueurActuel) {
+	public InfoCarteAlliesJouee jouerCartesAllies(Manche manche, Saison saison, int joueurActuel) {
 		if(this.getMain().getCarteAllies() != null)
 		{
-			ChoixCarteAllies choix = deciderCarteAllies(manche, tour, joueurActuel);
+			ChoixCarteAllies choix = deciderCarteAllies(manche, saison, joueurActuel);
 			if(choix.isJoue())
 			{
 				CarteAllies carteAllies = this.getMain().getCarteAllies();
-				int forceReelle = carteAllies.agir(manche, this.getMain(), choix.getCible(), tour);
+				int forceReelle = carteAllies.agir(manche, this.getMain(), choix.getCible(), saison);
 				
 				this.getMain().retirerCarteAllies();
-				
-				return new InfoCarteAlliesJouee(this.numero, tour, choix, carteAllies, forceReelle);
+				return new InfoCarteAlliesJouee(this.numero, saison, choix, carteAllies, forceReelle);
 			}
 		}
 		
-		return new InfoCarteAlliesJouee(this.numero, tour, new ChoixCarteAllies(false, -1), null, 0);
+		return new InfoCarteAlliesJouee(this.numero, saison, new ChoixCarteAllies(false, -1), null, 0);
 	}
 	
 	/**
@@ -114,19 +112,19 @@ public abstract class Joueur {
 	}
 	
 	/**
-	 * Permet de décider de l'action a réaliser en fonction de la carte ingrédient tirée
+	 * Permet de décider de l'action a réaliser en fonction de la carte ingrédient tirée.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
+	 * @param saison la saison en cours
 	 */
-	protected abstract ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour);
+	protected abstract ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison saison);
 	
 	/**
-	 * Permet de choisir une carte allié
+	 * Permet de choisir une carte alliés.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
+	 * @param saison la saison en cours
 	 * @param joueurActuel le numéro du joueur
 	 */
-	protected abstract ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel);
+	protected abstract ChoixCarteAllies deciderCarteAllies(Manche manche, Saison saison, int joueurActuel);
 	
 	/**
 	 * Permet de savoir si le joueur souhaite une carte alliée ou deux graines

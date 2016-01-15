@@ -60,6 +60,12 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+/**
+ * Vue principale du jeu.
+ * <br/>
+ * Affiche une zone d'historique affichant ce qui s'est déroulé, un bouton permettant d'avancer dans le jeu et les autres vues
+ * (la vue des MainJoueur pour chaque joueur).
+ */
 public class ViewJeu extends JFrame implements Observer {
 
 	private static final long serialVersionUID = -7624969535039883844L;
@@ -250,7 +256,7 @@ public class ViewJeu extends JFrame implements Observer {
 	
 	/**
 	 * Utilisée par le constructeur pour initialiser la vue avec la partie
-	 * @param partie
+	 * @param partie la partie avec laquelle on veut initialiser la vue.
 	 */
 	private void initialiserAvecPartie(Partie partie) {
 		this.partie = partie;

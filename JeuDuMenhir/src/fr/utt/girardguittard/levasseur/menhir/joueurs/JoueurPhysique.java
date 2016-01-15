@@ -29,10 +29,19 @@ import fr.utt.girardguittard.levasseur.menhir.Saison;
  */
 public class JoueurPhysique extends Joueur {
 	
+	/**
+	 * Vaut true si le joueur physique veut prendre une carte alliés (affecté par l'interface).
+	 */
 	private boolean veutPrendreCarteAllies;
 	
+	/**
+	 * Contient le choix futur du joueur physique (affecté par l'interface).
+	 */
 	private ChoixCarteIngredient prochainChoixIngredient;
 	
+	/**
+	 * Contient le choix futur de carte alliés du joueur physique (affecté par l'interface).
+	 */
 	private ChoixCarteAllies prochainChoixAllies;
 
 	/**
@@ -47,21 +56,21 @@ public class JoueurPhysique extends Joueur {
 	}
 
 	/**
-	 * Permet de décider de l'action à réaliser en fonction de la carte ingrédient tirée
+	 * Permet de décider de l'action à réaliser en fonction de la carte ingrédient tirée.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
+	 * @param saison la saison en cours
 	 */
-	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour){
+	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison saison){
 		return this.prochainChoixIngredient;
 	}
 	
 	/**
-	 * Permet de choisir une carte allié
+	 * Permet de choisir une carte alliés.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
+	 * @param saison la saison actuelle
 	 * @param joueurActuel le numéro du joueur
 	 */
-	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
+	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison saison, int joueurActuel) {
 		return this.prochainChoixAllies;
 	}
 	

@@ -121,19 +121,19 @@ public class CarteIngredient {
 	 * @param manche la manche en cours
 	 * @param mainJoueur la main du joueur
 	 * @param joueurCible le joueur ciblé par la carte en cas de farfadet
-	 * @param tour le tour en cours
+	 * @param saison la saison en cours
 	 * @param action l'action choisie par le joueur
 	 * @return la force réelle de la carte lors de l'action (par exemple : le nombre de graines réellement volées si farfadet)
 	 */
-	public int agir(Manche manche, MainJoueur mainJoueur, int joueurCible, Saison tour, Action action) {
+	public int agir(Manche manche, MainJoueur mainJoueur, int joueurCible, Saison saison, Action action) {
 		if(action == Action.GEANT) { //Si le joueur veut voir le géant
-			mainJoueur.ajouterGraines(this.getForce(tour, action));
-			return this.getForce(tour, action);
+			mainJoueur.ajouterGraines(this.getForce(saison, action));
+			return this.getForce(saison, action);
 		} else if(action == Action.ENGRAIS) { //Si le joueur veut faire pousser des menhirs
-			return mainJoueur.fairePousserMenhir(this.getForce(tour, action));
+			return mainJoueur.fairePousserMenhir(this.getForce(saison, action));
 		} else if(action == Action.FARFADET) { //Si le joueur veut voler des graines à un adversaire
 			//On ajoute à la main du joueur le nombre de graines que l'on a pu réellement voler à l'adversaire
-			int grainesVolees = manche.getJoueur(joueurCible).getMain().volerGraines(this.getForce(tour, action));
+			int grainesVolees = manche.getJoueur(joueurCible).getMain().volerGraines(this.getForce(saison, action));
 			mainJoueur.ajouterGraines(grainesVolees);
 			return grainesVolees;
 		}

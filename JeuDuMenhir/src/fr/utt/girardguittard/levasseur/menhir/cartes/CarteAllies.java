@@ -28,10 +28,12 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
 /**
  * Représente les cartes "alliés" présente dans la version avancée du jeu.
- * Chaque carte dispose d'une action
  */
 public abstract class CarteAllies {
 	
+	/**
+	 * Stocke les forces de le carte en fonction à la saison
+	 */
 	private HashMap<Saison, Integer> forces;
 	
 	public CarteAllies(HashMap<Saison, Integer> forces) {
@@ -40,19 +42,23 @@ public abstract class CarteAllies {
 	
 	public abstract String getNom();
 	
-	public int getForce(Saison tour) {
-		return this.forces.get(tour);
+	/**
+	 * @param saison la saison à considérer pour la force
+	 * @return la force de la carte à la saison "saison"
+	 */
+	public int getForce(Saison saison) {
+		return this.forces.get(saison);
 	}
 	
 	/**
-	 * Réalise l'action de la carte
+	 * Réalise l'action de la carte.
 	 * @param manche la manche en cours
 	 * @param main la main du joueur utilisant la carte
 	 * @param joueurCible le joueur ciblé par l'action (si besoin)
-	 * @param tour le tour en cours
+	 * @param saisonActuelle le tour en cours
 	 * @return la force réelle avec laquelle la carte a agit
 	 */
-	public abstract int agir(Manche manche, MainJoueur main, int joueurCible, Saison tour);
+	public abstract int agir(Manche manche, MainJoueur main, int joueurCible, Saison saisonActuelle);
 	
 	public String toString() {
 		StringBuffer buf = new StringBuffer();

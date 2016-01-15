@@ -27,6 +27,11 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteIngredient;
 
+/**
+ * Représente la main d'un joueur qui permet de lier un joueur à une manche.
+ * Cette classe stocke le nombre de graines, de menhirs d'un joueur dans une manche.
+ * (C'est la classe d'association de Manche et Joueur).
+ */
 public class MainJoueur extends Observable {
 
 	/**

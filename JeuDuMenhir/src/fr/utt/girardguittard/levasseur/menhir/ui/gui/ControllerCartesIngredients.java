@@ -14,6 +14,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
+/**
+ * Controlleur traitant les événements liés au choix des cartes ingrédients.
+ */
 public class ControllerCartesIngredients implements ListSelectionListener, ActionListener {
 	
 	/**

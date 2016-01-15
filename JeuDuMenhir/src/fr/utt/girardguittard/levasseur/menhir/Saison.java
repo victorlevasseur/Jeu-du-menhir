@@ -20,6 +20,9 @@
 
 package fr.utt.girardguittard.levasseur.menhir;
 
+/**
+ * Enumération représentant une saison.
+ */
 public enum Saison {
 	PRINTEMPS,
 	ETE,

@@ -20,6 +20,9 @@
 
 package fr.utt.girardguittard.levasseur.menhir.cartes;
 
+/**
+ * Enumération représentant l'action d'un carte.
+ */
 public enum Action {
 	ENGRAIS,
 	GEANT,

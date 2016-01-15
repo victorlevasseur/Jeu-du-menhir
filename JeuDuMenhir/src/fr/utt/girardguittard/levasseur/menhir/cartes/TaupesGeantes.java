@@ -26,6 +26,9 @@ import fr.utt.girardguittard.levasseur.menhir.Manche;
 import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
+/**
+ * Représente une carte taupe géante.
+ */
 public class TaupesGeantes extends CarteAllies{
 	
 	public TaupesGeantes(HashMap<Saison, Integer> forces) {
@@ -62,11 +65,11 @@ public class TaupesGeantes extends CarteAllies{
 	 * @param manche la manche en cours
 	 * @param main la main du joueur utilisant la carte (inutile)
 	 * @param joueurCible le joueur ciblé par l'action
-	 * @param tour le tour en cours
+	 * @param saisonActuelle la saison actuelle
 	 */
-	public int agir(Manche manche, MainJoueur main, int joueurCible, Saison tour) {
+	public int agir(Manche manche, MainJoueur main, int joueurCible, Saison saisonActuelle) {
 		MainJoueur mainCible = manche.getJoueur(joueurCible).getMain();
-		return mainCible.detruireMenhir(this.getForce(tour));
+		return mainCible.detruireMenhir(this.getForce(saisonActuelle));
 	}
 
 }

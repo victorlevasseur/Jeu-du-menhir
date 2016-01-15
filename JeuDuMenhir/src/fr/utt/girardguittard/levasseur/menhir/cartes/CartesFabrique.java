@@ -23,6 +23,9 @@ package fr.utt.girardguittard.levasseur.menhir.cartes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui permet de créer les cartes du jeu.
+ */
 public class CartesFabrique {
 	
 	/**
@@ -171,6 +174,10 @@ public class CartesFabrique {
 		return cartes;
 	}
 	
+	/**
+	 * Retourne une liste de cartes alliés
+	 * @return une liste de cartes alliés
+	 */
 	public static List<CarteAllies> genererCartesAllies() {
 		ArrayList<CarteAllies> cartes = new ArrayList<CarteAllies>();
 		

@@ -32,6 +32,9 @@ import java.util.Random;
  */
 public class JoueurVirtuel extends Joueur{
 	
+	/**
+	 * Stratégie du joueur virtuel.
+	 */
 	private Strategie strat;
 	
 	/**
@@ -50,22 +53,22 @@ public class JoueurVirtuel extends Joueur{
 	}
 	
 	/**
-	 * Permet de décider de l'action à réaliser en fonction de la carte ingrédient tirée
+	 * Permet de décider de l'action à réaliser en fonction de la carte ingrédient tirée.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
+	 * @param saison le saison en cours
 	 */
-	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison tour){
-		return strat.deciderChoixDuTour(manche, tour, main);
+	protected ChoixCarteIngredient deciderChoixDuTour(Manche manche, Saison saison){
+		return strat.deciderChoixDuTour(manche, saison, main);
 	}
 	
 	/**
-	 * Permet de choisir une carte allié
+	 * Permet de choisir une carte alliés.
 	 * @param manche la manche en cours
-	 * @param tour le tour en cours
+	 * @param saison la saison actuelle
 	 * @param joueurActuel le numéro du joueur
 	 */
-	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison tour, int joueurActuel) {
-		return strat.deciderCarteAllies(manche, tour, joueurActuel, main);
+	protected ChoixCarteAllies deciderCarteAllies(Manche manche, Saison saison, int joueurActuel) {
+		return strat.deciderCarteAllies(manche, saison, joueurActuel, main);
 	}
 	
 	public boolean veutCarteAllies() {

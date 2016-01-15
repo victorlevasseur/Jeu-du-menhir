@@ -29,6 +29,11 @@ import javax.swing.JPanel;
 
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
+/**
+ * Vue de MainJoueur qui peut afficher le nombre de graines et de menhir d'un joueur (dans sa MainJoueur).
+ * Si le booléen physique = true dans le constructeur, la vue affiche aussi la vue des cartes ingrédients et alliés pour
+ * permettre au joueur physique de choisir les cartes à jouer.
+ */
 public class ViewMainJoueur extends JPanel implements Observer{
 	
 	/**
@@ -66,6 +71,7 @@ public class ViewMainJoueur extends JPanel implements Observer{
 	 * @param physique Un booléen vrai s'il s'agit d'un joueur physique
 	 * @param avancee Un booléen vrai s'il s'agit d'une partie avancée
 	 * @param m La main du joueur concerné
+	 * @param nbrJoueurs le nombre total de joueurs dans la partie
 	 */
 	public ViewMainJoueur(boolean physique, boolean avancee, MainJoueur m, int nbrJoueurs) {
 		

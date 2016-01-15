@@ -8,7 +8,9 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.cartes.CarteAllies;
 
-
+/**
+ * Controlleur qui reçoit les événements de l'interface liés au choix de cartes alliés.
+ */
 public class ControllerCartesAllies implements ActionListener{
 	
 	/**

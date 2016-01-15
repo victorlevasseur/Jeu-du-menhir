@@ -43,8 +43,15 @@ import fr.utt.girardguittard.levasseur.menhir.joueurs.JoueurPhysique;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 import fr.utt.girardguittard.levasseur.menhir.util.Console;
 
+/**
+ * Classe qui gère le jeu en console.
+ */
 public class JeuConsole implements Observer {
 	
+	/**
+	 * Demande le type de partie au joueur.
+	 * @return true si le joueur veut jouer une partie avancée
+	 */
 	private static boolean demanderTypePartie() {
 		String resultat;
 		do {
@@ -55,6 +62,10 @@ public class JeuConsole implements Observer {
 		return (resultat.equals("A"));
 	}
 
+	/**
+	 * Demande le nombre de joueurs.
+	 * @return le nombre de joueurs
+	 */
 	private static int demanderNombreJoueurs() {
 		System.out.println("Saisissez le nombre de joueurs (entre 2 et 6) : ");
 		String nombreJoueursStr = Console.getInstance().readln();
@@ -78,10 +89,19 @@ public class JeuConsole implements Observer {
 		jeu.lancerPartie();
 	}
 	
+	/**
+	 * La partie en cours.
+	 */
 	private Partie partie;
 	
+	/**
+	 * La manche en cours.
+	 */
 	private Manche mancheEnCours;
 	
+	/**
+	 * Permet de savoir si la classe a bien appelé jouerCarteAllies() de Manche.
+	 */
 	private boolean carteAlliesJouees;
 	
 	public JeuConsole(Partie partie) {
@@ -93,6 +113,9 @@ public class JeuConsole implements Observer {
 		this.carteAlliesJouees = false;
 	}
 	
+	/**
+	 * Lance la partie.
+	 */
 	void lancerPartie() {
 		try {
 			//Lancement de la première manche
@@ -102,6 +125,10 @@ public class JeuConsole implements Observer {
 		}
 	}
 
+	/**
+	 * Méthode du design-pattern Observer/Observable.
+	 * Méthode appelée lors d'une notification par les observables.
+	 */
 	public void update(Observable arg0, Object arg1) {
 		try {
 			if(arg0 == this.partie) {
@@ -279,10 +306,16 @@ public class JeuConsole implements Observer {
 		}
 	}
 	
+	/**
+	 * Affiche le début de la manche.
+	 */
 	private void afficherDebutManche() {
 		System.out.println("Manche #" + (this.partie.getNumeroMancheEnCours()+1) + " :");
 	}
 	
+	/**
+	 * Demande au joueur physique s'il veut prendre une carte alliés. Affecte le résultat au JoueurPhysique.
+	 */
 	private void demanderSiJoueurVeutCarteAllies() {
 		System.out.println("  Souhaitez vous prendre une carte allies ('C') ou 2 graines ('G')?");
 		String actionStr = Console.getInstance().readln().toUpperCase();
@@ -298,6 +331,10 @@ public class JeuConsole implements Observer {
 		joueur.setVeutPrendreCarteAllies(prendreCarteAllies);
 	}
 	
+	/**
+	 * Demande la carte ingrédient, l'action (voire la cible) que le joueur physique veut jouer. Affecte le résultat
+	 * au joueur physique.
+	 */
 	private void demanderCarteIngredient() {
 		JoueurPhysique joueur = (JoueurPhysique)this.mancheEnCours.getJoueur(0);
 		MainJoueur mainJoueur = joueur.getMain();
@@ -370,6 +407,10 @@ public class JeuConsole implements Observer {
 		joueur.setProchainChoixIngredient(new ChoixCarteIngredient(mainJoueur.getCarteIngredient(numeroCarte-1), joueurCible-1, actionCarte));
 	}
 	
+	/**
+	 * Demande si le joueur physique veut jouer sa carte alliés (voire sa cible). Affecte le résultat au
+	 * joueur physique.
+	 */
 	private void demanderCarteAllies() {
 		JoueurPhysique joueur = (JoueurPhysique)this.mancheEnCours.getJoueur(0);
 		MainJoueur mainJoueur = joueur.getMain();
@@ -412,6 +453,10 @@ public class JeuConsole implements Observer {
 		}
 	}
 	
+	/**
+	 * Affiche dans la console qu'un carte ingrédient a été jouée.
+	 * @param info les informations sur la carte ingrédient jouée
+	 */
 	private void notifierAgissementCarte(InfoCarteIngredientJouee info) {
 		
 		String designationJoueur1;
@@ -439,6 +484,10 @@ public class JeuConsole implements Observer {
 		}
 	}
 	
+	/**
+	 * Affiche dans la console qu'une carte alliés a été jouée.
+	 * @param info information sur la carte alliés jouée
+	 */
 	public void notifierAgissementCarte(InfoCarteAlliesJouee info) {
 		String designationJoueur1;
 		if(info.getNumeroJoueur() == 0) {

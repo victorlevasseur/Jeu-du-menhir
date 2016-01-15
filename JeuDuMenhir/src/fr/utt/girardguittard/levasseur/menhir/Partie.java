@@ -170,26 +170,44 @@ public class Partie extends Observable implements Observer {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * @return true si la partie est une partie avancée
+	 */
 	public boolean isPartieAvancee() {
 		return this.partieAvancee;
 	}
 	
+	/**
+	 * @return le nombre de joueurs
+	 */
 	public int getNombreJoueurs() {
 		return this.joueurs.size();
 	}
 	
+	/**
+	 * @return les joueurs
+	 */
 	public ArrayList<Joueur> getJoueurs() {
 		return joueurs;
 	}
 	
+	/**
+	 * @return l'état de la partie
+	 */
 	public EtatPartie getEtat() {
 		return etat;
 	}
 
+	/**
+	 * @return le numéro de la manche en cours
+	 */
 	public int getNumeroMancheEnCours() {
 		return numeroMancheEnCours;
 	}
 
+	/**
+	 * @return la manche en cours
+	 */
 	public Manche getMancheEnCours() {
 		return mancheEnCours;
 	}

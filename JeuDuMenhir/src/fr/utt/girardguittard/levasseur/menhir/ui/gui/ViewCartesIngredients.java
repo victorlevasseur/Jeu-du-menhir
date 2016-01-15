@@ -38,6 +38,9 @@ import fr.utt.girardguittard.levasseur.menhir.Saison;
 import fr.utt.girardguittard.levasseur.menhir.cartes.Action;
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
+/**
+ * Vue affichant les cartes ingrédients du joueur et des champs permettant de choisir l'action et la cible de la carte.
+ */
 public class ViewCartesIngredients extends JPanel implements Observer{
 	
 	/**
@@ -88,6 +91,7 @@ public class ViewCartesIngredients extends JPanel implements Observer{
 	/**
 	 * Le constructeur de la classe
 	 * @param m La main du joueur concerné
+	 * @param nbrJoueurs le nombre de joueurs de la partie
 	 */
 	public ViewCartesIngredients(MainJoueur m, int nbrJoueurs) {
 		//Ajout en tant qu'observateur

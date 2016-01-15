@@ -403,21 +403,33 @@ public class Manche extends Observable {
 	}
 	
 	/**
-	 * Retourne le nombre de joueur
+	 * Retourne le nombre de joueur.
 	 * @return le nombre de joueur
 	 */
 	public int getNombreJoueurs() {
 		return this.nombreJoueurs;
 	}
 	
+	/**
+	 * Retourne la saison actuelle.
+	 * @return la saison actuelle
+	 */
 	public Saison getSaisonActuelle() {
 		return saisonActuelle;
 	}
 
+	/**
+	 * Retourne le numéro du joueur qui est en train de jouer.
+	 * @return le numéro du joueur
+	 */
 	public int getJoueurTour() {
 		return joueurTour;
 	}
 
+	/**
+	 * Retourne l'état de la manche.
+	 * @return l'état de la manche
+	 */
 	public EtatManche getEtat() {
 		return etat;
 	}

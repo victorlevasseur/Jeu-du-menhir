@@ -41,6 +41,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+/**
+ * Vue du menu principal.
+ */
 public class ViewMenuPrincipal extends JFrame implements Observer{
 
 	private JPanel contentPane;

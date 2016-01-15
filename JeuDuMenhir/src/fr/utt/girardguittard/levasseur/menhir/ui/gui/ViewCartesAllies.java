@@ -38,6 +38,9 @@ import javax.swing.ListSelectionModel;
 
 import fr.utt.girardguittard.levasseur.menhir.joueurs.MainJoueur;
 
+/**
+ * Vue affichant la carte alliés (si le joueur en possède une) et un bouton permettant de choisir si on veut la jouer.
+ */
 public class ViewCartesAllies extends JPanel implements Observer {
 	
 	/**
@@ -73,6 +76,7 @@ public class ViewCartesAllies extends JPanel implements Observer {
 	/**
 	 * Le constructeur de la classe
 	 * @param m La main du joueur concernée
+	 * @param nbrJoueurs le nombre de joueurs total de la partie
 	 */
 	public ViewCartesAllies(MainJoueur m, int nbrJoueurs) {
 		//Ajout en tant qu'observateur
@@ -118,7 +122,7 @@ public class ViewCartesAllies extends JPanel implements Observer {
 	}
 
 	/**
-	 * La méhode update appelée à chaque changement sur la main
+	 * La méthode update appelée à chaque changement sur la main
 	 * Permet de mettre à jour l'affichage de la carte allié et de permettre ou non l'utilisation du boutton
 	 */
 	public void update(Observable obs, Object obj) {
@@ -142,8 +146,8 @@ public class ViewCartesAllies extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Renvoie la cible choisir par le joueur
-	 * @return
+	 * Renvoie la cible choisie par le joueur.
+	 * @return la cible choisie par le joueur
 	 */
 	public int getCible() {
 		return comboCible.getSelectedIndex();
@@ -151,7 +155,7 @@ public class ViewCartesAllies extends JPanel implements Observer {
 	
 	/**
 	 * Renvoie le statut du bouton (vrai si le joueur souhaite jouer la carte).
-	 * @return
+	 * @return true si le bouton "Jouer carte alliés" est appuyé
 	 */
 	public boolean getJouer() {
 		return bouttonJouer.isSelected();
