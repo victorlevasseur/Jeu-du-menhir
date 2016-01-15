@@ -169,6 +169,14 @@ public class Manche extends Observable {
 		this.etat = EtatManche.DEBUT_MANCHE;
 	}
 	
+	/**
+	 * Distribue les cartes ingrédients aux joueurs.
+	 * <br/>
+	 * <b>Voir la description de la classe Manche pour avoir le déroulement d'une manche et dans quel ordre appeler
+	 * les méthodes</b>
+	 * 
+	 * @throws ActionIllegaleException si la méthode est appelée quand les cartes ont déjà été distribuées
+	 */
 	public void distribuerCartesIngredients() throws ActionIllegaleException {
 		if(this.etat != EtatManche.DEBUT_MANCHE) {
 			throw new ActionIllegaleException("Ne peut pas distribuer les cartes ingrédients après le début de la partie !");
@@ -187,6 +195,14 @@ public class Manche extends Observable {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Distribue les cartes alliés ou les 2 graines de départ aux joueurs .
+	 * <br/>
+	 * <b>Voir la description de la classe Manche pour avoir le déroulement d'une manche et dans quel ordre appeler
+	 * les méthodes</b>
+	 * 
+	 * @throws ActionIllegaleException si la méthode est appelée plus d'une fois ou pendant la manche
+	 */
 	public void distribuerCartesAllies() throws ActionIllegaleException {
 		if(this.etat != EtatManche.EN_ATTENTE_CHOIX_CARTE_ALLIES) {
 			throw new ActionIllegaleException("distributerCartesAllies() doit être appelée après la distribution des cartes ingrédients !");
@@ -217,6 +233,17 @@ public class Manche extends Observable {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Démarre la saison suivante (ou la première saison si la manche a tout juste été démarrée).
+	 * <br/>
+	 * Si la dernière saison a déjà été faite (HIVER), la Manche passe à l'état EtatManche.FIN_MANCHE pour indiquer
+	 * qu'il n'y a pas de saison suivante (l'interface n'a donc pas besoin de compter les saisons).
+	 * <br/>
+	 * <b>Voir la description de la classe Manche pour avoir le déroulement d'une manche et dans quel ordre appeler
+	 * les méthodes</b>
+	 * 
+	 * @throws ActionIllegaleException si une saison est déjà en cours, si les cartes n'ont pas été distribuées, si la manche est finie
+	 */
 	public void demarrerSaison() throws ActionIllegaleException {
 		if(this.etat != EtatManche.PRET_A_DEMARRER && this.etat != EtatManche.FIN_SAISON) {
 			throw new ActionIllegaleException("demarrerSaison() doit être appelée après la distribution des cartes ou à la fin d'une saison précédente");
@@ -240,6 +267,17 @@ public class Manche extends Observable {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Démarre le tour du joueur suivant (ou du premier joueur à jouer si la saison vient de débuter).
+	 * <br/>
+	 * Si le dernier joueur à déjà joué, la Manche passe dans l'état EtatManche.FIN_SAISON automatiquement
+	 * pour indiquer la fin de la saison (donc l'interface n'a pas besoin de compter les tours des joueurs).
+	 * <br/>
+	 * <b>Voir la description de la classe Manche pour avoir le déroulement d'une manche et dans quel ordre appeler
+	 * les méthodes</b>
+	 * 
+	 * @throws ActionIllegaleException si la méthode est appelée si la saison n'a pas débuté, si le tour d'un joueur a déjà commencé, si la saison est terminée
+	 */
 	public void demarrerTour() throws ActionIllegaleException {
 		if(this.etat != EtatManche.DEBUT_SAISON && this.etat != EtatManche.FIN_TOUR_JOUEUR) {
 			throw new ActionIllegaleException("demarrerTour() doit être appelée au début d'une saison ou à la fin du tour précédent !");
@@ -267,6 +305,16 @@ public class Manche extends Observable {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Joue le tour du joueur en cours (pose et joue la carte qu'il a choisi).
+	 * A la fin de son exécution, la méthode notifie les observers en passant un InfoCarteIngredientJouee en argument
+	 * indiquant la carte jouée ainsi que la force effective.
+	 * <br/>
+	 * <b>Voir la description de la classe Manche pour avoir le déroulement d'une manche et dans quel ordre appeler
+	 * les méthodes</b>
+	 * 
+	 * @throws ActionIllegaleException si aucun tour de joueur n'a été lancé (voir demarrerTourJoueur())
+	 */
 	public void jouerTourJoueur() throws ActionIllegaleException, CarteInvalideException {
 		if(this.etat != EtatManche.DEBUT_TOUR_JOUEUR) {
 			throw new ActionIllegaleException("jouerTourJoueur() doit être appelée après demarrerTour() !");
@@ -281,6 +329,16 @@ public class Manche extends Observable {
 		this.notifyObservers(info);
 	}
 	
+	/**
+	 * Joue les cartes alliés choisies par les joueurs (pour tous les joueurs).
+	 * A la fin de son exécution, la méthode notifie les observers en passant un ArrayList<InfoCarteAlliesJouee> en argument
+	 * indiquant les cartes jouées ou non par les joueurs ainsi que leur force effective.
+	 * <br/>
+	 * <b>Voir la description de la classe Manche pour avoir le déroulement d'une manche et dans quel ordre appeler
+	 * les méthodes</b>
+	 * 
+	 * @throws ActionIllegaleException si la méthode n'est pas appelée pendant le tour d'un joueur ou si la méthode est utilisée en partie simple
+	 */
 	public void jouerCartesAllies() throws ActionIllegaleException {
 		if(this.etat != EtatManche.DEBUT_SAISON && this.etat != EtatManche.DEBUT_TOUR_JOUEUR &&
 		   this.etat != EtatManche.FIN_TOUR_JOUEUR) {
@@ -303,6 +361,11 @@ public class Manche extends Observable {
 		this.notifyObservers(infos);
 	}
 	
+	/**
+	 * Méthode appelée par demarrerSaison() si la dernière saison a déjà été faite (donc fin de la la manche)
+	 * pour signaler les fin de la manche et incrémenter le score des joueurs.
+	 * @throws ActionIllegaleException
+	 */
 	private void finManche() throws ActionIllegaleException {
 		if(this.etat != EtatManche.FIN_SAISON && this.saisonActuelle != Saison.HIVER) {
 			throw new ActionIllegaleException("finManche() doit être appelée à la fin de la saison HIVER !");
