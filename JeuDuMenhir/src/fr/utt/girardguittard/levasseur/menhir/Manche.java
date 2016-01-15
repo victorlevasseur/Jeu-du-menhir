@@ -314,6 +314,7 @@ public class Manche extends Observable {
 	 * les méthodes</b>
 	 * 
 	 * @throws ActionIllegaleException si aucun tour de joueur n'a été lancé (voir demarrerTourJoueur())
+	 * @throws CarteInvalideException si la carte que le joueur actuel tente de jouer est invalide (null ou pas dans sa main)
 	 */
 	public void jouerTourJoueur() throws ActionIllegaleException, CarteInvalideException {
 		if(this.etat != EtatManche.DEBUT_TOUR_JOUEUR) {
